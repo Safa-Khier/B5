@@ -12,6 +12,7 @@ import { webSettings } from "../atoms/webSettings";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import "./authenticatedNavBar.css";
+import { useAuth } from "../AuthContext";
 
 export default function AuthenticatedNavBar() {
   const { t } = useTranslation();
@@ -19,6 +20,7 @@ export default function AuthenticatedNavBar() {
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
   const [settings, setSettings] = useRecoilState(webSettings);
+  const { currentUser } = useAuth();
 
   // Array of button identifiers
   const buttons = [
@@ -357,13 +359,19 @@ export default function AuthenticatedNavBar() {
         </div>
       </nav>
       {isHamburgerMenuOpen && (
-        <div className="flex justify-center items-start py-10 absolute bg-gray-200 dark:bg-gray-700 md:hidden w-full h-screen opacity-90 font-bold text-black dark:text-white">
+        <div className="flex justify-center items-start py-10 absolute bg-gray-200 dark:bg-gray-700 md:hidden w-full h-screen opacity-95 font-bold text-black dark:text-white">
           <div className="w-[75%] flex flex-col justify-center items-center gap-4">
+            <div className="flex flex-col justify-center items-center gap-3">
+              <i className="material-icons" style={{ fontSize: "100px" }}>
+                account_circle
+              </i>
+              <p>{currentUser.displayName}</p>
+            </div>
             {buttons.map((button) => (
               <a
                 key={button.title}
                 href={`/home/${button.title}`}
-                className="flex h-10 gap-5 w-full px-5 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-400"
+                className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
                 onClick={() => handleButtonClick(button.title)}
               >
                 <i className="material-icons">{button.icon}</i>
@@ -432,7 +440,7 @@ export default function AuthenticatedNavBar() {
                 onClick={handleSignOut}
               >
                 <i className="material-icons">logout</i>
-                {t("logOut")}
+                {t("signOut")}
               </button>
             </div>
           </div>
