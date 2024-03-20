@@ -100,7 +100,12 @@ export default function AuthenticatedNavBar() {
             className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
             onClick={() => window.location.replace("/home")}
           >
-            <img src={Logo} alt="CryptoPulse logo" className="h-8" />
+            <img
+              src={Logo}
+              loading="lazy"
+              alt="CryptoPulse logo"
+              className="h-8"
+            />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               {t("cryptoPulse")}
             </span>
@@ -233,6 +238,7 @@ export default function AuthenticatedNavBar() {
               >
                 <img
                   src={settings.languageLogo}
+                  loading="lazy"
                   width={20}
                   height={20}
                   className="mr-2"
@@ -255,6 +261,7 @@ export default function AuthenticatedNavBar() {
                       >
                         <img
                           src={Usa}
+                          loading="lazy"
                           width={20}
                           height={20}
                           className="mr-2"
@@ -271,6 +278,7 @@ export default function AuthenticatedNavBar() {
                       >
                         <img
                           src={Germany}
+                          loading="lazy"
                           width={20}
                           height={20}
                           className="mr-2"
@@ -287,6 +295,7 @@ export default function AuthenticatedNavBar() {
                       >
                         <img
                           src={Italy}
+                          loading="lazy"
                           width={20}
                           height={20}
                           className="mr-2"
@@ -303,6 +312,7 @@ export default function AuthenticatedNavBar() {
                       >
                         <img
                           src={japan}
+                          loading="lazy"
                           width={20}
                           height={20}
                           className="mr-2"
@@ -321,7 +331,12 @@ export default function AuthenticatedNavBar() {
               data-dropdown-trigger="hover"
               className="py-2 px-3 flex items-center text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-400 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
             >
-              <img src={UserIcon} alt="User" className="h-6 rounded-full" />
+              <img
+                src={UserIcon}
+                loading="lazy"
+                alt="User"
+                className="h-6 rounded-full"
+              />
               <span id="username"> Username </span>
             </a>
 

@@ -44,6 +44,7 @@ export const Row = (prop) => {
         <div className="flex justify-start h-[100%] items-center">
           <img
             className="w-6 h-6 mr-2"
+            loading="lazy"
             src={crypto.image}
             alt={crypto.name + " Logo"}
           />

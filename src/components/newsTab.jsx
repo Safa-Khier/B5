@@ -28,6 +28,7 @@ export default function NewsTab({ news_object }) {
       <div className="flex items-center text-gray-600 dark:text-gray-100">
         <img
           className="w-6 h-6 mr-2 rounded-full"
+          loading="lazy"
           src={news_object.source_info.img}
           alt={news_object.source_info.name}
         />

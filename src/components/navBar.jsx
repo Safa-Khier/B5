@@ -76,7 +76,12 @@ function NavBar() {
           className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
           onClick={() => window.location.replace("/welcome")}
         >
-          <img src={Logo} alt="CryptoPulse logo" className="h-8" />
+          <img
+            src={Logo}
+            loading="lazy"
+            alt="CryptoPulse logo"
+            className="h-8"
+          />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             {t("cryptoPulse")}
           </span>
@@ -156,6 +161,7 @@ function NavBar() {
             >
               <img
                 src={settings.languageLogo}
+                loading="lazy"
                 width={20}
                 height={20}
                 className="mr-2"
@@ -176,7 +182,13 @@ function NavBar() {
                       className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                       style={{ width: "-webkit-fill-available" }}
                     >
-                      <img src={Usa} width={20} height={20} className="mr-2" />
+                      <img
+                        src={Usa}
+                        loading="lazy"
+                        width={20}
+                        height={20}
+                        className="mr-2"
+                      />
                       English (US)
                     </button>
                   </li>
@@ -189,6 +201,7 @@ function NavBar() {
                     >
                       <img
                         src={Germany}
+                        loading="lazy"
                         width={20}
                         height={20}
                         className="mr-2"
@@ -205,6 +218,7 @@ function NavBar() {
                     >
                       <img
                         src={Italy}
+                        loading="lazy"
                         width={20}
                         height={20}
                         className="mr-2"
@@ -221,6 +235,7 @@ function NavBar() {
                     >
                       <img
                         src={japan}
+                        loading="lazy"
                         width={20}
                         height={20}
                         className="mr-2"

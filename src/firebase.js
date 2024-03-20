@@ -27,3 +27,23 @@ const app = firebase.initializeApp(firebaseConfig);
 export const auth = app.auth();
 
 export default app;
+
+export async function fetchCryptoCurrenciesFromFirestore() {
+  const db = firebase.firestore(); // Initialize Firestore database reference
+  try {
+    const snapshot = await db.collection("cryptocurrencies").get();
+    const returnData = {};
+    const currencies = [];
+    snapshot.forEach((doc) => {
+      if (doc.id !== "updatedTimeStamp") currencies.push(doc.data());
+      else returnData.updatedTimeStamp = doc.data().timeStamp;
+    });
+
+    returnData.currencies = currencies;
+
+    console.log(returnData);
+    return returnData;
+  } catch (error) {
+    console.error("Error fetching cryptocurrency data from Firestore:", error);
+  }
+}

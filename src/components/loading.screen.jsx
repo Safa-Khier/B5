@@ -11,6 +11,7 @@ const LoadingScreen = () => {
     >
       <img
         className="flex justify-center items-center max-w-48"
+        loading="lazy"
         src={Logo}
         alt={t("cryptoPulse") + " logo"}
       />

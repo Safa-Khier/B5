@@ -108,6 +108,7 @@ export default function Login() {
         <div className="flex justify-end">
           <img
             src={Logo}
+            loading="lazy"
             alt="CryptoPulse logo"
             className="flex h-auto w-auto md:max-h-[550px] p-10 m-auto"
           />

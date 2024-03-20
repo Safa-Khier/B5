@@ -17,6 +17,7 @@ export default function Home() {
       <div className="flex justify-center items-center left-1/2 -translate-x-[20%] gap-10">
         <img
           src={Logo}
+          loading="lazy"
           alt="CryptoPulse logo"
           className="flex h-auto w-auto md:max-h-[1500px] "
         />
