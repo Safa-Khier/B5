@@ -140,48 +140,12 @@ export default function AuthenticatedNavBar() {
                   {isHamburgerMenuOpen ? "close" : "menu"}
                 </i>
               </button>
-              {false && (
-                <div className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top right-0 mt-2 w-max">
-                  <ul className="py-2 font-medium" role="none">
-                    <li>
-                      <button
-                        type="button"
-                        onClick={handleSignOut}
-                        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                        style={{ width: "-webkit-fill-available" }}
-                      >
-                        <i className="material-icons">logout</i>
-                        Log Out
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )}
             </div>
           </div>
           <div
             className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
             id="navbar-search"
           >
-            {/* <div className="relative mt-3 md:hidden">
-            <div className="absolute inset-y-0 start-0 flex items-center pl-3 pointer-events-none">
-              <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </div>
-          </div> */}
             <ul className="flex flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               {
                 // Map the buttons array to create the buttons
@@ -202,43 +166,6 @@ export default function AuthenticatedNavBar() {
                   </li>
                 ))
               }
-
-              {/* <li>
-              <ul>
-                <li>
-                  <a
-                    id="dropdownHoverButton"
-                    data-dropdown-toggle="dropdownHover"
-                    data-dropdown-trigger="hover"
-                    className="py-2 px-3 flex items-center text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-400 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                  >
-                    {t("tools")}
-                    <i className="material-icons">arrow_drop_down</i>
-                  </a>
-                </li>
-              </ul>
-
-              <div
-                id="dropdownHover"
-                className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-              >
-                <ul
-                  className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                  aria-labelledby="dropdownHoverButton"
-                >
-                  <li>
-                    <a className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                      {t("dashboard")}
-                    </a>
-                  </li>
-                  <li>
-                    <a className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                      Earnings
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li> */}
             </ul>
           </div>
 
