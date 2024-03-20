@@ -74,9 +74,9 @@ export default function News() {
   };
 
   return (
-    <div className="m-10 text-slate-950 dark:text-white">
+    <div className="m-5 text-slate-950 dark:text-white">
       <h1 className="mb-5 text-3xl font-bold">{t("latestNews")}</h1>
-      <div className="scrollable-content overflow-y-auto rounded-lg border-2 grid gap-4 border-gray-300 dark:border-gray-600 p-4 h-[calc(100vh-170px)]">
+      <div className="scrollable-content overflow-y-auto rounded-lg grid gap-4 border-gray-300 dark:border-gray-600 h-[calc(100vh-170px)]">
         {mockNews.Data.map((news) => {
           return <NewsTab news_object={news} key={news.id} />;
         })}

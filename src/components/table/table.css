@@ -1,0 +1,19 @@
+.stickyHeader::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px; /* Aligns the pseudo-element to act as a bottom border */
+  top: 1px; /* Aligns the pseudo-element to act as a bottom border */
+  right: 0;
+  width: 100%;
+  border: 1px solid #ccc; /* Example border style */
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 2; /* Ensures the header is above the pseudo-element */
+}

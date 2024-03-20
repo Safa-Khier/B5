@@ -69,7 +69,7 @@ export const Row = (prop) => {
         {createVolumeCell(
           crypto.total_volume,
           crypto.current_price,
-          crypto.symbol
+          crypto.symbol,
         )}
       </td>
       <td className="py-2 md:table-cell hidden text-center">
@@ -81,9 +81,6 @@ export const Row = (prop) => {
       <td className="py-2 md:table-cell hidden">
         <CryptoSparkline crypto={crypto} />
       </td>
-      {/* {data.map((d) => (
-        <Cell data={d} />
-      ))} */}
     </tr>
   );
 };
