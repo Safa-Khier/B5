@@ -1,8 +1,6 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 
 export default function NewsTab({ news_object }) {
-  const { t } = useTranslation();
   return (
     <div className="rounded-lg shadow-md p-4 bg-gray-100 dark:bg-gray-700">
       <div className="flex items-center">
@@ -15,9 +13,9 @@ export default function NewsTab({ news_object }) {
           <h3 className="text-xl font-bold ml-4 dark:text-gray-100">
             {news_object.title}
           </h3>
-          <h7 className="text-sm m-4 text-gray-400 dark:text-gray-400">
+          <h6 className="text-sm m-4 text-gray-400 dark:text-gray-400">
             {"tags: " + news_object.categories.replaceAll("|", ", ")}
-          </h7>
+          </h6>
         </div>
       </div>
       <div

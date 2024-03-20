@@ -186,18 +186,18 @@ export default function AuthenticatedNavBar() {
               {
                 // Map the buttons array to create the buttons
                 buttons.map((button) => (
-                  <li key={button}>
+                  <li key={button.title}>
                     <a
-                      href={`/home/${button}`}
+                      href={`/home/${button.title}`}
                       className={nonSelectedClassList}
                       // className={
                       //   settings.selectedTab === button
                       //     ? selectedClassList
                       //     : nonSelectedClassList
                       // }
-                      onClick={() => handleButtonClick(button)}
+                      onClick={() => handleButtonClick(button.title)}
                     >
-                      {t(button)}
+                      {t(button.title)}
                     </a>
                   </li>
                 ))
@@ -434,6 +434,7 @@ export default function AuthenticatedNavBar() {
           <div className="w-[75%] flex flex-col justify-center items-center gap-4">
             {buttons.map((button) => (
               <a
+                key={button.title}
                 href={`/home/${button.title}`}
                 className="flex h-10 gap-5 w-full px-5 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-400"
                 onClick={() => handleButtonClick(button.title)}
