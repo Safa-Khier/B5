@@ -426,7 +426,7 @@ export default function AuthenticatedNavBar() {
                 <span className="switch" />
               </label>
             </div>
-            <div className="w-full p-5 h-12 flex justify-center items-center bg-gray-300 dark:bg-gray-800 rounded-lg">
+            <div className="w-full p-5 h-12 flex justify-start items-center bg-gray-300 dark:bg-gray-800 rounded-lg">
               <button
                 className="flex justify-center items-center gap-2"
                 onClick={handleSignOut}
