@@ -86,7 +86,7 @@ exports.fetchAndStoreCryptoNews = functions.pubsub
       const batch = admin.firestore().batch(); //Create a firestore batch
 
       // Loop through the data and add it to the batch
-      cryptoNews.forEach((news) => {
+      cryptoNews.Data.forEach((news) => {
         const docRef = admin.firestore().collection("cryptonews").doc(news.id);
         batch.set(docRef, news);
       });

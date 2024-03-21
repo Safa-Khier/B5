@@ -224,18 +224,18 @@ export default function AuthenticatedNavBar() {
                   setIsLanguageMenuOpen(!isLanguageMenuOpen);
                 }}
                 type="button"
-                className="inline-flex items-center font-medium justify-center p-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white mr-4"
+                className="inline-flex items-center font-medium justify-center p-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white mr-2"
               >
-                {/* <img
-                  src={settings.languageLogo}
+                <img
+                  src={logo}
                   loading="lazy"
                   width={20}
                   height={20}
                   className="mr-2"
-                /> */}
-                <i className="material-icons mr-2">translate</i>
+                />
+                {/* <i className="material-icons mr-2">translate</i> */}
                 {t("languageName")}
-                <span className="dropdown-arrow">▾</span>
+                <i className="material-icons">arrow_drop_down</i>
               </button>
               {isLanguageMenuOpen && (
                 <div

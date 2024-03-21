@@ -3,6 +3,7 @@ import "./userMenu.css"; // Import your stylesheet
 import { useAuth } from "../../AuthContext";
 import { signOut } from "firebase/auth";
 import { useTranslation } from "react-i18next";
+import { auth } from "../../firebase";
 
 const UserMenu = ({ isUserMenuOpen }) => {
   const [showMenu, setShowMenu] = useState(isUserMenuOpen);
