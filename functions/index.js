@@ -16,11 +16,13 @@ const { DateTime } = require("luxon");
 
 admin.initializeApp();
 
-// Schedule this function to run every hour
+// Schedule this function to run every hour to fetch and store crypto data
 exports.fetchAndStoreCryptoData = functions.pubsub
   .schedule("every 60 minutes")
   .onRun(async (context) => {
-    const url = "https://api.coingecko.com/api/v3/coins/markets";
+    const url = "https://api.coingecko.com/api/v3/coins/markets"; //API Crypto Data URL
+
+    // Set the parameters for the API request
     const parameters = {
       vs_currency: "usd",
       order: "market_cap_desc",
@@ -28,17 +30,19 @@ exports.fetchAndStoreCryptoData = functions.pubsub
       sparkline: true,
       price_change_percentage: "1h,24h,7d",
     };
-    const queryString = new URLSearchParams(parameters).toString();
-    const fetchUrl = `${url}?${queryString}`;
+    const queryString = new URLSearchParams(parameters).toString(); //Convert the parameters to a query string
+    const fetchUrl = `${url}?${queryString}`; //Combine the URL and the query string
 
     try {
-      const response = await fetch(fetchUrl);
+      const response = await fetch(fetchUrl); //Fetch Crypto Data
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      const data = await response.json();
-      // Assuming you have a 'cryptocurrencies' collection in Firestore
-      const batch = admin.firestore().batch();
+      const data = await response.json(); //Convert the response to JSON
+
+      const batch = admin.firestore().batch(); //Create a firestore batch
+
+      // Loop through the data and add it to the batch
       data.forEach((coin) => {
         const docRef = admin
           .firestore()
@@ -46,6 +50,8 @@ exports.fetchAndStoreCryptoData = functions.pubsub
           .doc(coin.id);
         batch.set(docRef, coin);
       });
+
+      // Add a timestamp to the batch
       const docRef = admin
         .firestore()
         .collection("cryptocurrencies")
@@ -61,6 +67,46 @@ exports.fetchAndStoreCryptoData = functions.pubsub
       console.log("Successfully updated cryptocurrencies data");
     } catch (error) {
       console.error("Error fetching cryptocurrencies data:", error);
+    }
+  });
+
+// Schedule this function to run every hour to fetch and store crypto news
+exports.fetchAndStoreCryptoNews = functions.pubsub
+  .schedule("every 60 minutes")
+  .onRun(async (context) => {
+    const url = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN"; //API Crypto News Data URL
+
+    try {
+      const response = await fetch(url); //Fetch Crypto news Data
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const cryptoNews = await response.json(); //Convert the response to JSON
+
+      const batch = admin.firestore().batch(); //Create a firestore batch
+
+      // Loop through the data and add it to the batch
+      cryptoNews.forEach((news) => {
+        const docRef = admin.firestore().collection("cryptonews").doc(news.id);
+        batch.set(docRef, news);
+      });
+
+      const docRef = admin
+        .firestore()
+        .collection("cryptonews")
+        .doc("updatedTimeStamp");
+
+      // Get the current time in Israel's time zone
+      const timeInIsrael = DateTime.now().setZone("Asia/Jerusalem");
+
+      // Format the time as you need it
+      const formattedTime = timeInIsrael.toFormat("dd/MM/yyyy HH:mm:ss");
+      batch.set(docRef, { timeStamp: formattedTime });
+
+      await batch.commit(); // Commit the batch
+      console.log("Successfully updated crypto news data");
+    } catch (error) {
+      console.error("Error fetching crypto news data:", error);
     }
   });
 

@@ -14,39 +14,39 @@ function NavBar() {
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [settings, setSettings] = useRecoilState(webSettings);
+  const [logo, setLogo] = useState(Usa);
 
   useEffect(() => {
     switch (localStorage.language) {
       case "en":
         setSettings({ ...settings, language: "en" });
-        setSettings({ ...settings, languageLogo: Usa });
+        setLogo(Usa);
         i18n.changeLanguage("en");
         break;
       case "de":
         setSettings({ ...settings, language: "de" });
-        setSettings({ ...settings, languageLogo: Germany });
+        setLogo(Germany);
         i18n.changeLanguage("de");
         break;
       case "it":
         setSettings({ ...settings, language: "it" });
-        setSettings({ ...settings, languageLogo: Italy });
+        setLogo(Italy);
         i18n.changeLanguage("it");
         break;
       case "zh":
         setSettings({ ...settings, language: "zh" });
-        setSettings({ ...settings, languageLogo: japan });
+        setLogo(japan);
         i18n.changeLanguage("zh");
         break;
       default:
         setSettings({ ...settings, language: "en" });
-        setSettings({ ...settings, languageLogo: Usa });
+        setLogo(Usa);
         i18n.changeLanguage("en");
     }
   }, [settings.language]);
 
   function handleThemeChange(theme) {
     setIsThemeMenuOpen(false);
-
     if (theme === "light") {
       document.documentElement.classList.remove("dark");
       localStorage.theme = "light";
@@ -62,8 +62,8 @@ function NavBar() {
     setIsLanguageMenuOpen(false);
     localStorage.language = language;
     i18n.changeLanguage(language);
+    setLogo(logo);
     setSettings({ ...settings, language: language });
-    setSettings({ ...settings, languageLogo: logo });
   }
 
   return (
@@ -160,7 +160,7 @@ function NavBar() {
               className="inline-flex items-center font-medium justify-center p-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white mr-4"
             >
               <img
-                src={settings.languageLogo}
+                src={logo}
                 loading="lazy"
                 width={20}
                 height={20}
