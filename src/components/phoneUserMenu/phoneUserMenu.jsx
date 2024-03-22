@@ -34,7 +34,6 @@ const PhoneUserMenu = ({ isUserMenuOpen }) => {
             key={button.title}
             href={`/home/${button.title}`}
             className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
-            onClick={() => handleButtonClick(button.title)}
           >
             <i className="material-icons">{button.icon}</i>
             {t(button.title)}

@@ -37,7 +37,7 @@ export default function AuthenticatedNavBar() {
     { title: "compare", icon: "compare_arrows" },
   ];
 
-  const selectedButtonClass = "text-white text-blue-700 dark:text-blue-500";
+  const selectedButtonClass = "text-blue-700 dark:text-blue-500";
   const unselectedButtonClass =
     "text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-300 dark:border-gray-700";
 
