@@ -9,7 +9,6 @@ const LoadingScreen = () => {
       <div className=" flex flex-col justify-center items-center bg-white">
         <img
           className="flex justify-center items-center max-w-48"
-          loading="lazy"
           src={Logo}
           alt={t("cryptoPulse") + " logo"}
         />
