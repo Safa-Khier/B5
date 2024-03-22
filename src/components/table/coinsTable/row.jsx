@@ -20,11 +20,12 @@ export const Row = (prop) => {
     change = changeNegative ? change * -1 : change;
 
     const change_icon = changeNegative ? "expand_more" : "expand_less";
-    const className = changeNegative ? "text-red-500" : "text-green-500";
 
     //stat_minus_1
     return (
-      <div className={className + " flex items-center"}>
+      <div
+        className={`flex justify-center items-center ${changeNegative ? "text-red-500" : "text-green-500"}`}
+      >
         <i className="material-icons w-4 h-4">{change_icon}</i>
         <div className="mr-3 ml-3 mt-2 ">{format_number(change)}</div>
       </div>
