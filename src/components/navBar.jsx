@@ -3,7 +3,7 @@ import Logo from "../assets/icons/logo.png";
 import Usa from "../assets/icons/usa.png";
 import Germany from "../assets/icons/germany.webp";
 import Italy from "../assets/icons/italy.webp";
-import japan from "../assets/icons/japan.png";
+import china from "../assets/icons/china.png";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { useRecoilState } from "recoil";
@@ -35,7 +35,7 @@ function NavBar() {
         break;
       case "zh":
         setSettings({ ...settings, language: "zh" });
-        setLogo(japan);
+        setLogo(china);
         i18n.changeLanguage("zh");
         break;
       default:
@@ -65,6 +65,40 @@ function NavBar() {
     setLogo(logo);
     setSettings({ ...settings, language: language });
   }
+
+  const languageMenuRow = (language, logo) => {
+    let languageName = "English (US)";
+    switch (language) {
+      case "de":
+        languageName = "Deutsch";
+        break;
+      case "it":
+        languageName = "Italiano";
+        break;
+      case "zh":
+        languageName = "中文 (繁體)";
+        break;
+      default:
+        languageName = "English (US)";
+    }
+    return (
+      <button
+        type="button"
+        onClick={() => handleLanguageChange(language, logo)}
+        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
+        style={{ width: "-webkit-fill-available" }}
+      >
+        <img
+          src={logo}
+          loading="lazy"
+          width={20}
+          height={20}
+          className="mr-2"
+        />
+        {languageName}
+      </button>
+    );
+  };
 
   return (
     <nav
@@ -120,33 +154,27 @@ function NavBar() {
             </button>
             {isThemeMenuOpen && (
               <div
-                className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2"
+                className="z-50 my-4 text-base py-2 font-medium list-none bg-white divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2"
                 style={{ width: "max-content" }}
               >
-                <ul className="py-2 font-medium" role="none">
-                  <li>
-                    <button
-                      onClick={() => handleThemeChange("light")}
-                      type="button"
-                      className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
-                      style={{ width: "-webkit-fill-available" }}
-                    >
-                      <i className="material-icons mr-2">light_mode</i>
-                      {t("lightMode")}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => handleThemeChange("dark")}
-                      type="button"
-                      className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
-                      style={{ width: "-webkit-fill-available" }}
-                    >
-                      <i className="material-icons mr-2">dark_mode</i>
-                      {t("darkMode")}
-                    </button>
-                  </li>
-                </ul>
+                <button
+                  onClick={() => handleThemeChange("light")}
+                  type="button"
+                  className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
+                  style={{ width: "-webkit-fill-available" }}
+                >
+                  <i className="material-icons mr-2">light_mode</i>
+                  {t("lightMode")}
+                </button>
+                <button
+                  onClick={() => handleThemeChange("dark")}
+                  type="button"
+                  className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
+                  style={{ width: "-webkit-fill-available" }}
+                >
+                  <i className="material-icons mr-2">dark_mode</i>
+                  {t("darkMode")}
+                </button>
               </div>
             )}
           </div>
@@ -157,7 +185,7 @@ function NavBar() {
                 setIsLanguageMenuOpen(!isLanguageMenuOpen);
               }}
               type="button"
-              className="inline-flex items-center font-medium justify-center p-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white mr-4"
+              className="inline-flex items-center font-medium justify-center p-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white mr-2"
             >
               <img
                 src={logo}
@@ -166,84 +194,16 @@ function NavBar() {
                 height={20}
                 className="mr-2"
               />
+              {/* <i className="material-icons mr-2">translate</i> */}
               {t("languageName")}
-              <span className="dropdown-arrow">▾</span>
+              <i className="material-icons">arrow_drop_down</i>
             </button>
             {isLanguageMenuOpen && (
-              <div
-                className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2"
-                style={{ width: "max-content" }}
-              >
-                <ul className="py-2 font-medium" role="none">
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => handleLanguageChange("en", Usa)}
-                      className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                      style={{ width: "-webkit-fill-available" }}
-                    >
-                      <img
-                        src={Usa}
-                        loading="lazy"
-                        width={20}
-                        height={20}
-                        className="mr-2"
-                      />
-                      English (US)
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => handleLanguageChange("de", Germany)}
-                      className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                      style={{ width: "-webkit-fill-available" }}
-                    >
-                      <img
-                        src={Germany}
-                        loading="lazy"
-                        width={20}
-                        height={20}
-                        className="mr-2"
-                      />
-                      Deutsch
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => handleLanguageChange("it", Italy)}
-                      className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                      style={{ width: "-webkit-fill-available" }}
-                    >
-                      <img
-                        src={Italy}
-                        loading="lazy"
-                        width={20}
-                        height={20}
-                        className="mr-2"
-                      />
-                      Italiano
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => handleLanguageChange("zh", japan)}
-                      className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                      style={{ width: "-webkit-fill-available" }}
-                    >
-                      <img
-                        src={japan}
-                        loading="lazy"
-                        width={20}
-                        height={20}
-                        className="mr-2"
-                      />
-                      中文 (繁體)
-                    </button>
-                  </li>
-                </ul>
+              <div className="z-50 my-4 py-2 font-medium text-base list-none bg-white divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2 w-max">
+                {languageMenuRow("en", Usa)}
+                {languageMenuRow("de", Germany)}
+                {languageMenuRow("it", Italy)}
+                {languageMenuRow("zh", china)}
               </div>
             )}
           </div>

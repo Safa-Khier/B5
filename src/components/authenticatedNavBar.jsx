@@ -3,7 +3,7 @@ import Logo from "../assets/icons/logo.png";
 import Usa from "../assets/icons/usa.png";
 import Germany from "../assets/icons/germany.webp";
 import Italy from "../assets/icons/italy.webp";
-import japan from "../assets/icons/japan.png";
+import china from "../assets/icons/china.png";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { useRecoilState } from "recoil";
@@ -13,8 +13,8 @@ import { signOut } from "firebase/auth";
 import "./authenticatedNavBar.css";
 import { useAuth } from "../AuthContext";
 import UserMenu from "./userMenu/userMenu";
-import { cryptoData } from "../atoms/cryptoData";
 import SearchBar from "./searchBar/searchBar";
+import { useLocation } from "react-router-dom";
 
 export default function AuthenticatedNavBar() {
   const { t } = useTranslation();
@@ -27,6 +27,8 @@ export default function AuthenticatedNavBar() {
   const [settings, setSettings] = useRecoilState(webSettings);
   const { currentUser } = useAuth();
   const [logo, setLogo] = useState(Usa);
+  const [location, setLocation] = useState("");
+  const locationPath = useLocation();
 
   // Array of button identifiers
   const buttons = [
@@ -35,10 +37,9 @@ export default function AuthenticatedNavBar() {
     { title: "compare", icon: "compare_arrows" },
   ];
 
-  // Event handler to update the selected button
-  const handleButtonClick = (button) => {
-    setSettings({ ...settings, selectedTab: button });
-  };
+  const selectedButtonClass = "text-white text-blue-700 dark:text-blue-500";
+  const unselectedButtonClass =
+    "text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-300 dark:border-gray-700";
 
   const handleSignOut = async () => {
     try {
@@ -49,6 +50,8 @@ export default function AuthenticatedNavBar() {
   };
 
   useEffect(() => {
+    const splitedPath = locationPath.pathname.split("/");
+    setLocation(splitedPath[splitedPath.length - 1]);
     switch (localStorage.language) {
       case "en":
         setSettings({ ...settings, language: "en" });
@@ -67,7 +70,7 @@ export default function AuthenticatedNavBar() {
         break;
       case "zh":
         setSettings({ ...settings, language: "zh" });
-        setLogo(japan);
+        setLogo(china);
         i18n.changeLanguage("zh");
         break;
       default:
@@ -99,6 +102,40 @@ export default function AuthenticatedNavBar() {
     setSettings({ ...settings, language: language });
   }
 
+  const languageMenuRow = (language, logo) => {
+    let languageName = "English (US)";
+    switch (language) {
+      case "de":
+        languageName = "Deutsch";
+        break;
+      case "it":
+        languageName = "Italiano";
+        break;
+      case "zh":
+        languageName = "中文 (繁體)";
+        break;
+      default:
+        languageName = "English (US)";
+    }
+    return (
+      <button
+        type="button"
+        onClick={() => handleLanguageChange(language, logo)}
+        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
+        style={{ width: "-webkit-fill-available" }}
+      >
+        <img
+          src={logo}
+          loading="lazy"
+          width={20}
+          height={20}
+          className="mr-2"
+        />
+        {languageName}
+      </button>
+    );
+  };
+
   return (
     <div className="sticky top-0 z-[1000]">
       <nav className="bg-gray-100 border-gray-200 dark:bg-gray-900">
@@ -118,11 +155,11 @@ export default function AuthenticatedNavBar() {
             </span>
           </div>
           <div className="flex md:order-2">
-            {!isHamburgerMenuOpen && (
+            {!isHamburgerMenuOpen && location !== "home" && (
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="inline-flex items-center p-2 mr-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className={`inline-flex items-center p-2 mr-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
               >
                 <span className="sr-only">Search</span>
                 <i className="material-icons">search</i>
@@ -159,9 +196,10 @@ export default function AuthenticatedNavBar() {
                     <a
                       href={`/home/${button.title}`}
                       className={
-                        "block py-2 px-3 text-gray-900 dark:text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                        location === button.title
+                          ? selectedButtonClass
+                          : unselectedButtonClass
                       }
-                      onClick={() => handleButtonClick(button.title)}
                     >
                       {t(button.title)}
                     </a>
@@ -186,36 +224,31 @@ export default function AuthenticatedNavBar() {
               </button>
               {isThemeMenuOpen && (
                 <div
-                  className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2"
+                  className="z-50 my-4 text-base py-2 font-medium list-none bg-white divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2"
                   style={{ width: "max-content" }}
                 >
-                  <ul className="py-2 font-medium" role="none">
-                    <li>
-                      <button
-                        onClick={() => handleThemeChange("light")}
-                        type="button"
-                        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
-                        style={{ width: "-webkit-fill-available" }}
-                      >
-                        <i className="material-icons mr-2">light_mode</i>
-                        {t("lightMode")}
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => handleThemeChange("dark")}
-                        type="button"
-                        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
-                        style={{ width: "-webkit-fill-available" }}
-                      >
-                        <i className="material-icons mr-2">dark_mode</i>
-                        {t("darkMode")}
-                      </button>
-                    </li>
-                  </ul>
+                  <button
+                    onClick={() => handleThemeChange("light")}
+                    type="button"
+                    className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
+                    style={{ width: "-webkit-fill-available" }}
+                  >
+                    <i className="material-icons mr-2">light_mode</i>
+                    {t("lightMode")}
+                  </button>
+                  <button
+                    onClick={() => handleThemeChange("dark")}
+                    type="button"
+                    className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
+                    style={{ width: "-webkit-fill-available" }}
+                  >
+                    <i className="material-icons mr-2">dark_mode</i>
+                    {t("darkMode")}
+                  </button>
                 </div>
               )}
             </div>
+
             <div className="dropdown">
               <button
                 onClick={() => {
@@ -238,80 +271,11 @@ export default function AuthenticatedNavBar() {
                 <i className="material-icons">arrow_drop_down</i>
               </button>
               {isLanguageMenuOpen && (
-                <div
-                  className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2"
-                  style={{ width: "max-content" }}
-                >
-                  <ul className="py-2 font-medium" role="none">
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => handleLanguageChange("en", Usa)}
-                        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                        style={{ width: "-webkit-fill-available" }}
-                      >
-                        <img
-                          src={Usa}
-                          loading="lazy"
-                          width={20}
-                          height={20}
-                          className="mr-2"
-                        />
-                        English (US)
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => handleLanguageChange("de", Germany)}
-                        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                        style={{ width: "-webkit-fill-available" }}
-                      >
-                        <img
-                          src={Germany}
-                          loading="lazy"
-                          width={20}
-                          height={20}
-                          className="mr-2"
-                        />
-                        Deutsch
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => handleLanguageChange("it", Italy)}
-                        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                        style={{ width: "-webkit-fill-available" }}
-                      >
-                        <img
-                          src={Italy}
-                          loading="lazy"
-                          width={20}
-                          height={20}
-                          className="mr-2"
-                        />
-                        Italiano
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => handleLanguageChange("zh", japan)}
-                        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                        style={{ width: "-webkit-fill-available" }}
-                      >
-                        <img
-                          src={japan}
-                          loading="lazy"
-                          width={20}
-                          height={20}
-                          className="mr-2"
-                        />
-                        中文 (繁體)
-                      </button>
-                    </li>
-                  </ul>
+                <div className="z-50 my-4 py-2 font-medium text-base list-none bg-white divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2 w-max">
+                  {languageMenuRow("en", Usa)}
+                  {languageMenuRow("de", Germany)}
+                  {languageMenuRow("it", Italy)}
+                  {languageMenuRow("zh", china)}
                 </div>
               )}
             </div>
@@ -347,7 +311,7 @@ export default function AuthenticatedNavBar() {
                 key={button.title}
                 href={`/home/${button.title}`}
                 className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
-                onClick={() => handleButtonClick(button.title)}
+                onClick={() => setLocation(button.title)}
               >
                 <i className="material-icons">{button.icon}</i>
                 {t(button.title)}
@@ -386,10 +350,10 @@ export default function AuthenticatedNavBar() {
                     Italiano
                   </button>
                   <button
-                    onClick={() => handleLanguageChange("zh", japan)}
+                    onClick={() => handleLanguageChange("zh", china)}
                     className="flex justify-between items-center gap-1"
                   >
-                    {/* <img src={japan} width={20} height={20} /> */}
+                    {/* <img src={china} width={20} height={20} /> */}
                     中文 (繁體)
                   </button>
                 </div>

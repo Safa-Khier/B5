@@ -73,10 +73,10 @@ const PhoneUserMenu = ({ isUserMenuOpen }) => {
                 Italiano
               </button>
               <button
-                onClick={() => handleLanguageChange("zh", japan)}
+                onClick={() => handleLanguageChange("zh", china)}
                 className="flex justify-between items-center gap-1"
               >
-                {/* <img src={japan} width={20} height={20} /> */}
+                {/* <img src={china} width={20} height={20} /> */}
                 中文 (繁體)
               </button>
             </div>
