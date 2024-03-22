@@ -51,5 +51,6 @@
   "accountCreated": "Konto erstellt!",
 
   "ok": "OK",
-  "forgotPassword": "Passwort vergessen? Klicken Sie hier"
+  "forgotPassword": "Passwort vergessen? Klicken Sie hier",
+  "publishedAt": "Veröffentlicht am"
 }

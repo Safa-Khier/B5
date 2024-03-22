@@ -52,5 +52,6 @@
 
   "ok": "Ok",
 
-  "forgotPassword": "Password dimenticata? Clicca qui"
+  "forgotPassword": "Password dimenticata? Clicca qui",
+  "publishedAt": "Pubblicato alle"
 }

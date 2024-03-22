@@ -51,5 +51,6 @@
   "accountCreated": "Account created successfully!",
 
   "ok": "OK",
-  "forgotPassword": "Forgot Password? Click Here"
+  "forgotPassword": "Forgot Password? Click Here",
+  "publishedAt": "Published At"
 }

@@ -52,5 +52,6 @@
 
   "ok": "好的",
 
-  "forgotPassword": "パスワードをお忘れですか？ここをクリック"
+  "forgotPassword": "パスワードをお忘れですか？ここをクリック",
+  "publishedAt": "公開日"
 }
