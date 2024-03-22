@@ -321,30 +321,26 @@ export default function AuthenticatedNavBar() {
                 <div className="flex flex-col justify-center items-start gap-3 py-2 px-7">
                   <button
                     onClick={() => handleLanguageChange("en", Usa)}
-                    className="flex justify-between items-center gap-1"
+                    className="flex justify-between items-center"
                   >
-                    {/* <img src={Usa} width={20} height={20} /> */}
                     English (US)
                   </button>
                   <button
                     onClick={() => handleLanguageChange("de", Germany)}
-                    className="flex justify-between items-center gap-1"
+                    className="flex justify-between items-center"
                   >
-                    {/* <img src={Germany} width={20} height={20} /> */}
                     Deutsch
                   </button>
                   <button
                     onClick={() => handleLanguageChange("it", Italy)}
-                    className="flex justify-between items-center gap-1"
+                    className="flex justify-between items-center"
                   >
-                    {/* <img src={Italy} width={20} height={20} /> */}
                     Italiano
                   </button>
                   <button
                     onClick={() => handleLanguageChange("zh", china)}
-                    className="flex justify-between items-center gap-1"
+                    className="flex justify-between items-center"
                   >
-                    {/* <img src={china} width={20} height={20} /> */}
                     中文 (繁體)
                   </button>
                 </div>
