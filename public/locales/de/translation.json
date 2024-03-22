@@ -3,20 +3,29 @@
   "welcomeBack": "Willkommen zurück",
   "languageName": "Deutsch",
   "cryptoPulse": "Krypto-Puls",
+  "loading": "Wird geladen...",
+
   "logIn": "Melden Sie sich an",
   "signUp": "Anmeldung",
+
   "darkMode": "Dunkel",
   "lightMode": "Licht",
   "defaultDevice": "Standardgerät",
+
   "coins": "Münzen",
   "news": "Nachricht",
   "compare": "vergleichen",
+
   "name": "Name",
   "price": "Preis",
+  "1h%": "1h%",
+  "24h%": "24h%",
+  "7d%": "7d%",
   "marketCap": "Marktkapitalisierung",
   "volume": "Volumen",
   "last7Days": "Letzten 7 Tage",
   "circulatingSupply": "Umlaufversorgung",
+
   "tools": "Werkzeuge",
   "dashBoard": "Armaturenbrett",
   "settings": "Einstellungen",
@@ -52,5 +61,8 @@
 
   "ok": "OK",
   "forgotPassword": "Passwort vergessen? Klicken Sie hier",
-  "publishedAt": "Veröffentlicht am"
+  "publishedAt": "Veröffentlicht am",
+
+  "tags": "SCHLAGWORTE",
+  "Categories": "Kategorien"
 }

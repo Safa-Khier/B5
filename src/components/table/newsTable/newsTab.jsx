@@ -28,15 +28,31 @@ export default function NewsTab({ news_object }) {
         <img
           src={news_object.imageurl}
           alt={news_object.title}
-          className="w-16 h-16 rounded-full object-cover bg-white p-2"
+          className="w-16 h-16 rounded-full object-cover bg-white p-1"
         />
-        <div>
-          <h3 className="text-xl font-bold ml-4 dark:text-gray-100">
+        <div className="flex flex-col justify-center items-start m-4 gap-3">
+          <h3 className="text-xl font-bold dark:text-gray-100">
             {news_object.title}
           </h3>
-          <h6 className="text-sm m-4 text-gray-400 dark:text-gray-400">
-            {"tags: " + news_object.categories.replaceAll("|", ", ")}
-          </h6>
+          <div>
+            {news_object.tags === "" ? null : (
+              <h6 className="text-sm text-gray-400 dark:text-gray-400">
+                {t("tags") +
+                  ": " +
+                  news_object.tags.replaceAll("|", ", ") +
+                  "."}
+              </h6>
+            )}
+
+            {news_object.categories === "" ? null : (
+              <h6 className="text-sm text-gray-400 dark:text-gray-400">
+                {t("Categories") +
+                  ": " +
+                  news_object.categories.replaceAll("|", ", ") +
+                  "."}
+              </h6>
+            )}
+          </div>
         </div>
       </div>
       <div className="w-full bg-gray-3 bg-gray-300 dark:bg-gray-600 h-px mx-3" />

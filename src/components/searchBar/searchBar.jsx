@@ -3,19 +3,49 @@ import "./searchBar.css"; // Import your stylesheet
 import { useTranslation } from "react-i18next";
 import { useRecoilState } from "recoil";
 import { cryptoData } from "../../atoms/cryptoData";
+import { cryptoNews } from "../../atoms/cryptoNews";
 
-const SearchBar = ({ isSearchOpen }) => {
+const SearchBar = ({ isSearchOpen, searchData }) => {
   const [showMenu, setShowMenu] = useState(isSearchOpen);
   const [animateOut, setAnimateOut] = useState(false);
   const [cryptoCurrenciesData, setCryptoCurrenciesData] =
     useRecoilState(cryptoData);
+  const [cryptoCurrenciesNews, setCryptoCurrenciesNews] =
+    useRecoilState(cryptoNews);
   const { t } = useTranslation();
 
   const filterData = (e) => {
     const value = e.target.value.toLowerCase();
+    if (searchData === "coins") {
+      filterCoinsData(value);
+    } else if (searchData === "news") {
+      filterNewsData(value);
+    }
+  };
+
+  const filterNewsData = (value) => {
+    const data = [...cryptoCurrenciesNews.data];
+    const filteredData = data.filter((news) => {
+      return (
+        news.title.toLowerCase().includes(value) ||
+        news.body.toLowerCase().includes(value) ||
+        news.tags.toLowerCase().includes(value) ||
+        news.categories.toLowerCase().includes(value)
+      );
+    });
+    setCryptoCurrenciesNews({
+      ...cryptoCurrenciesNews,
+      filterdData: filteredData,
+    });
+  };
+
+  const filterCoinsData = (value) => {
     const data = [...cryptoCurrenciesData.data];
     const filteredData = data.filter((crypto) => {
-      return crypto.name.toLowerCase().includes(value);
+      return (
+        crypto.name.toLowerCase().includes(value) ||
+        crypto.symbol.toLowerCase().includes(value)
+      );
     });
     setCryptoCurrenciesData({
       ...cryptoCurrenciesData,

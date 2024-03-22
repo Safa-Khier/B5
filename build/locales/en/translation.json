@@ -3,20 +3,29 @@
   "welcomeBack": "Welcome Back",
   "languageName": "English (US)",
   "cryptoPulse": "Crypto Pulse",
+  "loading": "Loading...",
+
   "logIn": "Log In",
   "signUp": "Sign Up",
+
   "darkMode": "Dark Mode",
   "lightMode": "Light Mode",
   "defaultDevice": "Default Device",
+
   "coins": "Coins",
   "news": "News",
   "compare": "Compare",
+
   "name": "Name",
   "price": "Price",
+  "1h%": "1h%",
+  "24h%": "24h%",
+  "7d%": "7d%",
   "marketCap": "Market Cap",
   "volume": "Volume",
   "last7Days": "Last 7 days",
   "circulatingSupply": "Circulating Supply",
+
   "tools": "Tools",
   "dashBoard": "Dashboard",
   "settings": "Settings",
@@ -52,5 +61,8 @@
 
   "ok": "OK",
   "forgotPassword": "Forgot Password? Click Here",
-  "publishedAt": "Published At"
+  "publishedAt": "Published At",
+
+  "tags": "tags",
+  "Categories": "Categories"
 }

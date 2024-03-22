@@ -295,7 +295,7 @@ export default function AuthenticatedNavBar() {
           </div>
         </div>
       </nav>
-      <SearchBar isSearchOpen={isSearchOpen} />
+      <SearchBar isSearchOpen={isSearchOpen} searchData={location} />
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
       {isHamburgerMenuOpen && (
         <div className="flex justify-center items-start py-10 absolute bg-gray-200 dark:bg-gray-700 md:hidden w-full h-screen opacity-95 font-bold text-black dark:text-white">

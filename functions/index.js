@@ -110,6 +110,34 @@ exports.fetchAndStoreCryptoNews = functions.pubsub
     }
   });
 
+// Schedule this function to run every 24 hours to delete old news
+exports.deleteOldNews = functions.pubsub
+  .schedule("every 24 hours")
+
+  .onRun(async (context) => {
+    const db = admin.firestore();
+    const cryptonewsRef = db.collection("cryptonews");
+    const oneMonthAgo = Math.floor(Date.now() / 1000) - 30 * 24 * 60 * 60; // Current time in seconds - one month (approximated to 30 days)
+
+    // Query for news older than one month
+    const oldNewsQuery = cryptonewsRef.where("published_on", "<", oneMonthAgo);
+
+    const snapshot = await oldNewsQuery.get();
+    if (snapshot.empty) {
+      console.log("No matching documents.");
+      return;
+    }
+
+    // Batch delete
+    const batch = db.batch();
+    snapshot.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+
+    await batch.commit(); // Commit the batch
+    console.log("Old news documents deleted.");
+  });
+
 // Create and deploy your first functions
 // https://firebase.google.com/docs/functions/get-started
 

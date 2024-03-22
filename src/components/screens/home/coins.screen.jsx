@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Table from "../../table/table";
+import Table from "../../table/coinsTable/table";
 import { cryptoData } from "../../../atoms/cryptoData.js";
 import { useRecoilState } from "recoil";
 

@@ -3,7 +3,7 @@ import Row from "./row";
 import { useTranslation } from "react-i18next";
 import "./table.css";
 import { useRecoilState } from "recoil";
-import { cryptoData } from "../../atoms/cryptoData";
+import { cryptoData } from "../../../atoms/cryptoData";
 
 export const Table = (prop) => {
   const [cryptoCurrenciesData, setCryptoCurrenciesData] =
