@@ -10310,3 +10310,24 @@ export const mockNews = [
     source: "cryptonews",
   },
 ];
+
+export const mockWallet = [
+  {
+    id: "bitcoin",
+    symbol: "btc",
+    name: "Bitcoin",
+    image:
+      "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+    amount: 0.00000001,
+    current_price: 61455,
+  },
+  {
+    id: "ethereum",
+    symbol: "eth",
+    name: "Ethereum",
+    image:
+      "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628",
+    amount: 0.0001,
+    current_price: 3354.28,
+  },
+];

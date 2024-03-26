@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Logo from "../../../assets/icons/logo.png";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signOut,
+  sendEmailVerification,
+} from "firebase/auth";
 import Alert from "../../alert/alert.jsx";
 import { auth } from "../../../firebase";
+import { createNewUser } from "../../../firebase.js";
 
 export default function Signup() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -35,13 +41,21 @@ export default function Signup() {
         auth,
         formData.email,
         formData.password,
-      );
-      const user = userCredential.user;
-      // Update the user's profile
-      await updateProfile(user, {
-        displayName: formData.firstName + " " + formData.lastName,
-        // You can also set the photoURL here if you have one
+      ).then(async (userCredential) => {
+        const user = userCredential.user;
+        // Update the user's profile
+        await updateProfile(user, {
+          displayName: formData.firstName + " " + formData.lastName,
+          // You can also set the photoURL here if you have one
+        });
+
+        // Send email verification
+        // sendEmailVerification(user);
+
+        // create a new user document in Firestore
+        await createNewUser(user);
       });
+
       setAlertData({
         ...alertData,
         title: "success",
@@ -64,7 +78,6 @@ export default function Signup() {
     const password = formData.password;
     const confirmPassword = formData.confirmPassword;
 
-    console.log(formData);
     if (
       email === "" ||
       firstName === "" ||
@@ -210,6 +223,7 @@ export default function Signup() {
       <Alert
         title={alertData.title}
         message={alertData.message}
+        action={alertData.action}
         isVisible={alertVisible}
         onClose={hideAlert}
       />

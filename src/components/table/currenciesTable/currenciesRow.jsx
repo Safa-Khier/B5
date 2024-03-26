@@ -1,7 +1,7 @@
 import React from "react";
-import CryptoSparkline from "./cryptoSparkline";
+import DataSparkline from "./dataSparkline";
 
-export const Row = (prop) => {
+export const CurrenciesRow = (prop) => {
   const crypto = prop.data;
 
   function createVolumeCell(volume, price, symbol) {
@@ -24,10 +24,10 @@ export const Row = (prop) => {
     //stat_minus_1
     return (
       <div
-        className={`flex justify-center items-center ${changeNegative ? "text-red-500" : "text-green-500"}`}
+        className={`flex justify-end items-center ${changeNegative ? "text-red-500" : "text-green-500"}`}
       >
         <i className="material-icons w-4 h-4">{change_icon}</i>
-        <div className="mr-3 ml-3 mt-2 ">{format_number(change)}</div>
+        <div className="ml-3 mt-2 ">{format_number(change)}</div>
       </div>
     );
   }
@@ -36,6 +36,18 @@ export const Row = (prop) => {
     let formattedNumber = number.toFixed(10);
     let numberAsNumber = parseFloat(formattedNumber);
     return numberAsNumber.toLocaleString();
+  }
+
+  function getLastUpdateDate() {
+    // Create a date object
+    const date = new Date(crypto.last_updated);
+
+    // Convert to Israel Standard Time (IST)
+    const israelDate = date.toLocaleString("en-US", {
+      timeZone: "Asia/Jerusalem",
+    });
+
+    return israelDate;
   }
 
   return (
@@ -49,22 +61,27 @@ export const Row = (prop) => {
             src={crypto.image}
             alt={crypto.name + " Logo"}
           />
-          {crypto.name}
+          <div className="flex flex-col justify-center items-start">
+            {crypto.symbol.toUpperCase()}
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {crypto.name}
+            </span>
+          </div>
         </div>
       </td>
-      <td className="py-2 text-center">
+      <td className="py-2 text-end">
         {"$" + format_number(crypto.current_price)}
       </td>
-      <td className="py-2 md:table-cell hidden text-center">
+      <td className="py-2 md:table-cell hidden text-end">
         {createChangeElement(crypto.price_change_percentage_1h_in_currency)}
       </td>
-      <td className="py-2 md:table-cell hidden text-center">
+      <td className="py-2 md:table-cell hidden text-end">
         {createChangeElement(crypto.price_change_percentage_24h_in_currency)}
       </td>
-      <td className="py-2 text-center">
+      <td className="py-2 text-end">
         {createChangeElement(crypto.price_change_percentage_7d_in_currency)}
       </td>
-      <td className="py-2 md:table-cell hidden text-center">
+      <td className="py-2 md:table-cell hidden text-end">
         {"$" + format_number(crypto.market_cap)}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
@@ -74,17 +91,22 @@ export const Row = (prop) => {
           crypto.symbol,
         )}
       </td>
-      <td className="py-2 md:table-cell hidden text-center">
+      <td className="py-2 md:table-cell hidden text-end">
         {format_number(crypto.circulating_supply) +
           " " +
           crypto.symbol.toUpperCase()}
       </td>
 
       <td className="py-2 md:table-cell hidden">
-        <CryptoSparkline crypto={crypto} />
+        <DataSparkline
+          data={crypto.sparkline_in_7d.price}
+          width={100}
+          height={50}
+          updateTime={getLastUpdateDate()}
+        />
       </td>
     </tr>
   );
 };
 
-export default Row;
+export default CurrenciesRow;

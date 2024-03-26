@@ -47,3 +47,26 @@ export async function fetchCryptoCurrenciesFromFirestore() {
     console.error("Error fetching cryptocurrency data from Firestore:", error);
   }
 }
+
+export async function createNewUser(user) {
+  const db = firebase.firestore(); // Initialize Firestore database reference
+  try {
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .set({
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        wallet: {
+          balance: 0,
+          transactions: [],
+          currencies: [],
+        },
+      });
+  } catch (error) {
+    console.error("Error creating new user in Firestore:", error);
+  }
+}

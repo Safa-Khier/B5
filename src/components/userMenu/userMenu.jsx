@@ -4,6 +4,7 @@ import { useAuth } from "../../AuthContext";
 import { signOut } from "firebase/auth";
 import { useTranslation } from "react-i18next";
 import { auth } from "../../firebase";
+import { setPathLocation } from "../../App";
 
 const UserMenu = ({ isUserMenuOpen }) => {
   const [showMenu, setShowMenu] = useState(isUserMenuOpen);
@@ -49,14 +50,21 @@ const UserMenu = ({ isUserMenuOpen }) => {
         </div>
 
         <div className="flex flex-col justify-start items-start w-full h-full py-10 gap-3">
-          <div className="flex justify-start items-start w-full h-10 gap-3 border-b border-gray-400">
+          <div className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md">
             <i className="material-icons">mail</i>
             <p>{currentUser.email}</p>
           </div>
 
-          <div className="flex justify-start items-start w-full h-10 gap-3 border-b border-gray-400">
+          <div className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md">
             <i className="material-icons">schedule</i>
-            <p>{currentUser.metadata.creationTime}</p>
+            <p>{currentUser.displayName}</p>
+          </div>
+          <div
+            onClick={() => setPathLocation("/home/dashboard")}
+            className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
+          >
+            <i className="material-icons">dashboard</i>
+            <p>{t("dashboard")}</p>
           </div>
         </div>
 

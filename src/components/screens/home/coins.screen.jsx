@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Table from "../../table/coinsTable/table";
+import CurrenciesTable from "../../table/currenciesTable/currenciesTable.jsx";
 import { cryptoData } from "../../../atoms/cryptoData.js";
 import { useRecoilState } from "recoil";
 import { mcokCurrencies } from "../../../../public/mockData.jsx";
@@ -30,13 +30,7 @@ export default function Coin() {
   };
 
   return (
-    <div
-      className="m-5 text-slate-950 dark:text-white"
-      style={{
-        padding:
-          "env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)",
-      }}
-    >
+    <div className="m-5 text-slate-950 dark:text-white">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-5">
         <h1 className="mb-5 text-3xl font-bold md: m-0">
           {t("cryptocurrencyPrices")}
@@ -54,7 +48,7 @@ export default function Coin() {
         </div>
       </div>
       <div className="scrollable-content overflow-y-auto h-[calc(100vh-170px)]">
-        <Table data={cryptoCurrenciesData} />
+        <CurrenciesTable data={cryptoCurrenciesData} />
       </div>
     </div>
   );

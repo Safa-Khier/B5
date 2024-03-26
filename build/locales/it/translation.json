@@ -60,7 +60,8 @@
   "accountCreated": "Account creato con successo!",
 
   "ok": "Ok",
-
+  "confirm": "Confermare",
+  "cancel": "Annulla",
   "forgotPassword": "Password dimenticata? Clicca qui",
   "publishedAt": "Pubblicato alle",
 

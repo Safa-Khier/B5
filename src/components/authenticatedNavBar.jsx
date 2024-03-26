@@ -15,6 +15,8 @@ import { useAuth } from "../AuthContext";
 import UserMenu from "./userMenu/userMenu";
 import SearchBar from "./searchBar/searchBar";
 import { useLocation } from "react-router-dom";
+import { setPathLocation } from "../App";
+import Dashboard from "./screens/home/dashboard";
 
 export default function AuthenticatedNavBar() {
   const { t } = useTranslation();
@@ -141,7 +143,7 @@ export default function AuthenticatedNavBar() {
       <nav className="flex flex-wrap items-center justify-between mx-auto p-4 bg-gray-100 border-gray-200 dark:bg-gray-900">
         <div
           className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
-          onClick={() => window.location.replace("/home")}
+          onClick={() => setPathLocation("/home")}
         >
           <img
             src={Logo}
@@ -154,15 +156,17 @@ export default function AuthenticatedNavBar() {
           </span>
         </div>
         <div className="flex md:order-2">
-          {!isHamburgerMenuOpen && location !== "home" && (
-            <button
-              type="button"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className={`inline-flex items-center p-2 mr-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
-            >
-              <i className="material-icons">search</i>
-            </button>
-          )}
+          {!isHamburgerMenuOpen &&
+            location !== "home" &&
+            location !== "dashboard" && (
+              <button
+                type="button"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                className={`inline-flex items-center p-2 mr-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
+              >
+                <i className="material-icons">search</i>
+              </button>
+            )}
 
           <div className="dropdown">
             <button
@@ -308,6 +312,15 @@ export default function AuthenticatedNavBar() {
                 {t(button.title)}
               </a>
             ))}
+            <a
+              key="Dashboard"
+              href={`/home/dashboard`}
+              className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
+              onClick={() => setLocation("dashboard")}
+            >
+              <i className="material-icons">dashboard</i>
+              {t("dashboard")}
+            </a>
             <div className="w-full py-2">
               <button
                 onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}

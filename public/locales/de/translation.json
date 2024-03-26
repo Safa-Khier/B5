@@ -60,6 +60,8 @@
   "accountCreated": "Konto erstellt!",
 
   "ok": "OK",
+  "confirm": "Bestätigen",
+  "cancel": "Stornieren",
   "forgotPassword": "Passwort vergessen? Klicken Sie hier",
   "publishedAt": "Veröffentlicht am",
 

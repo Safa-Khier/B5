@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import {
   BrowserRouter as Router,
@@ -20,6 +20,7 @@ import News from "./components/screens/home/news.screen.jsx";
 import Compare from "./components/screens/home/compare.screen.jsx";
 import Welcome from "./components/screens/welcome/welcome.jsx";
 import { useAuth } from "./AuthContext.js";
+import Dashboard from "./components/screens/home/dashboard.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
@@ -69,6 +70,7 @@ function App() {
           <Route path="coins" element={<Coin />} />
           <Route path="news" element={<News />} />
           <Route path="compare" element={<Compare />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="*" element={<Navigate replace to="" />} />
         </Route>
 
@@ -86,3 +88,7 @@ function App() {
 }
 
 export default App;
+
+export function setPathLocation(path) {
+  window.location.replace(path);
+}

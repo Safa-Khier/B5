@@ -60,6 +60,8 @@
   "accountCreated": "賬號已創建！",
 
   "ok": "好的",
+  "confirm": "確認",
+  "cancel": "取消",
 
   "forgotPassword": "忘記密碼？點擊這裡",
   "publishedAt": "發布於",
