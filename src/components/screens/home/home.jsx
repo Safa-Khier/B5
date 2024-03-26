@@ -10,8 +10,17 @@ export default function Home() {
   const [userName, setUserName] = useState(currentUser.displayName);
 
   useEffect(() => {
+    // Set the document title when the component mounts
+    document.title = "Home - Crypto Pulse";
+
+    // Optional: Clean up function to set the document title back when the component unmounts
+    return () => {
+      document.title = "Crypto Pulse";
+    };
+  }, []);
+
+  useEffect(() => {
     setUserName(currentUser.displayName);
-    console.log(currentUser.displayName);
   }, [currentUser]);
 
   return (

@@ -11,10 +11,17 @@ export default function Coin() {
     useRecoilState(cryptoData);
 
   useEffect(() => {
+    // Set the document title when the component mounts
+    document.title = "Coins - Crypto Pulse";
+
     setCryptoCurrenciesData({
       data: mcokCurrencies,
       filterdData: mcokCurrencies,
     });
+    // Optional: Clean up function to set the document title back when the component unmounts
+    return () => {
+      document.title = "Crypto Pulse";
+    };
   }, []);
 
   const filterData = (e) => {

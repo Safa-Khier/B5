@@ -9,6 +9,25 @@ export const HoldingCoinsRow = (prop) => {
     return numberAsNumber.toLocaleString();
   }
 
+  function removeTrailingZeros(number) {
+    // Convert to string and use a regex to remove trailing zeros
+    return number.toString().replace(/(\.\d*?[1-9])0+$|\.0*$/, "$1");
+  }
+
+  const amount = () => {
+    return (
+      <div className="flex flex-col text-md font-semibold">
+        {removeTrailingZeros(crypto.amount.toFixed(10))}
+        <span className="text-sm text-gray-500 dark:text-gray-400">
+          {"$ " +
+            removeTrailingZeros(
+              (crypto.amount * crypto.current_price).toFixed(10),
+            )}
+        </span>
+      </div>
+    );
+  };
+
   return (
     <tr className="border-b">
       <td className="py-2 text-start">
@@ -27,7 +46,7 @@ export const HoldingCoinsRow = (prop) => {
           </div>
         </div>
       </td>
-      <td className="py-2 text-end">{"$" + format_number(crypto.amount)}</td>
+      <td className="py-2 text-end">{amount()}</td>
       <td className="py-2 md:table-cell hidden text-end">{crypto.amount}</td>
       <td className="py-2 md:table-cell hidden text-end">{crypto.amount}</td>
       <td className="py-2 md:table-cell hidden text-end">{crypto.amount}</td>

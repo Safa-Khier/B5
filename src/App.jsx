@@ -20,7 +20,7 @@ import News from "./components/screens/home/news.screen.jsx";
 import Compare from "./components/screens/home/compare.screen.jsx";
 import Welcome from "./components/screens/welcome/welcome.jsx";
 import { useAuth } from "./AuthContext.js";
-import Dashboard from "./components/screens/home/dashboard.jsx";
+import Dashboard from "./components/screens/home/dashboard/dashboard.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;

@@ -133,7 +133,7 @@ const DataSparkline = ({ data, updateTime, width, height }) => {
   }, [data]); // Depend on data prop
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center w-full">
       <canvas ref={canvasRef} width={width} height={height} />
     </div>
   );

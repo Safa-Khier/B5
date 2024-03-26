@@ -16,7 +16,7 @@ import UserMenu from "./userMenu/userMenu";
 import SearchBar from "./searchBar/searchBar";
 import { useLocation } from "react-router-dom";
 import { setPathLocation } from "../App";
-import Dashboard from "./screens/home/dashboard";
+import Dashboard from "./screens/home/dashboard/dashboard";
 
 export default function AuthenticatedNavBar() {
   const { t } = useTranslation();

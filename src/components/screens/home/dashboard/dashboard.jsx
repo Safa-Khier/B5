@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import DataSparkline from "../../table/currenciesTable/dataSparkline.jsx";
-import HoldingCoinTable from "../../table/holdingCoinsTable/holdingCoinsTable.jsx";
-import { useAuth } from "../../../AuthContext";
-import { mockWallet } from "../../../../public/mockData.jsx";
+import DataSparkline from "../../../table/currenciesTable/dataSparkline.jsx";
+import HoldingCoinTable from "../../../table/holdingCoinsTable/holdingCoinsTable.jsx";
+import { useAuth } from "../../../../AuthContext.js";
+import { mockWallet } from "../../../../../public/mockData.jsx";
+import "./dashboard.css";
 
 export default function Dashboard() {
   const { t } = useTranslation();
@@ -21,6 +22,24 @@ export default function Dashboard() {
       document.title = "Crypto Pulse";
     };
   }, []);
+
+  function copyUserId() {
+    navigator.clipboard
+      .writeText(currentUser.uid)
+      .then(() => {
+        // Show the tooltip
+        const tooltip = document.getElementById("tooltip");
+        tooltip.style.visibility = "visible";
+
+        // Hide the tooltip after 2 seconds
+        setTimeout(() => {
+          tooltip.style.visibility = "hidden";
+        }, 1500);
+      })
+      .catch((err) => {
+        console.error("Error in copying text: ", err);
+      });
+  }
 
   const balance = [
     1.226274489530142, 1.2357057443527313, 1.2267307602508846,
@@ -89,10 +108,26 @@ export default function Dashboard() {
           </i>
           <h1 className="text-3xl font-bold ml-2">{currentUser.displayName}</h1>
         </div>
+
         <div className="hidden md:flex justify-center items-center pl-5 gap-5">
           <div className="w-full">
             <h5 className="font-semibold text-gray-400">User ID</h5>
-            <p>{currentUser.uid}</p>
+            <div className="flex justify-center items-center gap-2">
+              {currentUser.uid}
+              <button
+                id="copyButton"
+                onClick={copyUserId}
+                className="material-icons text-sm text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400"
+              >
+                content_copy
+              </button>
+            </div>
+            <div
+              id="tooltip"
+              className="tooltip bg-gray-200 dark:bg-gray-600 font-medium text-sm"
+            >
+              UserID Copied!
+            </div>
           </div>
           <div className="w-full">
             <h5 className="font-semibold text-gray-400">Email</h5>
@@ -115,18 +150,18 @@ export default function Dashboard() {
           <h2 className="mb-5 text-md">≈ $13.93</h2>
         </div>
         <div className="flex flex-col">
-          <div className="flex justify-between font-semibold mb-2">
-            <button className="bg-gray-200 dark:bg-gray-700 py-2 px-4 rounded-lg">
+          <div className="flex justify-between font-semibold mb-2 gap-3">
+            <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
               Deposit
             </button>
-            <button className="bg-gray-200 dark:bg-gray-700 py-2 px-4 rounded-lg">
+            <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
               Withdraw
             </button>
-            <button className="bg-gray-200 dark:bg-gray-700 py-2 px-4 rounded-lg">
+            <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
               Cash In
             </button>
           </div>
-          <DataSparkline data={balance} height={100} />
+          <DataSparkline data={balance} width={400} height={100} />
         </div>
       </div>
       <div className="flex flex-col justify-between items-start w-full md:w-[70%] md:border dark:border-gray-500 md:rounded-lg p-2 md:p-5">
