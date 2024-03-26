@@ -29,7 +29,7 @@ export const HoldingCoinsRow = (prop) => {
   };
 
   return (
-    <tr className="border-b">
+    <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900">
       <td className="py-2 text-start">
         <div className="flex justify-start h-[100%] items-center">
           <img

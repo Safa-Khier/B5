@@ -26,8 +26,8 @@ export const CurrenciesRow = (prop) => {
       <div
         className={`flex justify-end items-center ${changeNegative ? "text-red-500" : "text-green-500"}`}
       >
-        <i className="material-icons w-4 h-4">{change_icon}</i>
-        <div className="ml-3 mt-2 ">{format_number(change)}</div>
+        <i className="material-icons w-3">{change_icon}</i>
+        <div className="ml-3">{format_number(change)}</div>
       </div>
     );
   }
