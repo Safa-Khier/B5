@@ -2,7 +2,11 @@ module.exports = {
   content: ["./src/**/*.{js,jsx}"],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "custom-teal": "#4bc0c0", // This is your color in hex format
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),

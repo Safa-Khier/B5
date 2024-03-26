@@ -12,7 +12,7 @@ export default function News() {
 
   useEffect(() => {
     // Set the document title when the component mounts
-    document.title = "News - Crypto Pulse";
+    document.title = t("news") + " | " + t("cryptoPulse");
 
     setCryptoCurrenciesNews({
       data: mockNews,
@@ -21,7 +21,7 @@ export default function News() {
 
     // Optional: Clean up function to set the document title back when the component unmounts
     return () => {
-      document.title = "Crypto Pulse";
+      document.title = t("cryptoPulse");
     };
   }, []);
 

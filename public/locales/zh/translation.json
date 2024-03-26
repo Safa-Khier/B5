@@ -12,9 +12,11 @@
   "lightMode": "光模式",
   "defaultDevice": "預設裝置",
 
+  "home": "家",
   "coins": "硬幣",
   "news": "新聞",
   "compare": "比較",
+  "dashboard": "儀表板",
 
   "name": "名稱",
   "price": "價格",
@@ -65,6 +67,18 @@
 
   "forgotPassword": "忘記密碼？點擊這裡",
   "publishedAt": "發布於",
+
+  "userID": "用戶ID",
+  "estimatedBalance": "估計餘額",
+  "deposit": "存款",
+  "withdraw": "提款",
+  "cashIn": "存入",
+  "holding": "持有",
+  "coin": "硬幣",
+  "amount": "數量",
+  "coinPrice": "硬幣價格",
+  "today'sPnL": "今天的盈虧",
+  "trade": "貿易",
 
   "tags": "標籤",
   "Categories": "分類"

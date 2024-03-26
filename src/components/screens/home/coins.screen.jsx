@@ -12,7 +12,7 @@ export default function Coin() {
 
   useEffect(() => {
     // Set the document title when the component mounts
-    document.title = "Coins - Crypto Pulse";
+    document.title = t("coins") + " | " + t("cryptoPulse");
 
     setCryptoCurrenciesData({
       data: mcokCurrencies,
@@ -20,7 +20,7 @@ export default function Coin() {
     });
     // Optional: Clean up function to set the document title back when the component unmounts
     return () => {
-      document.title = "Crypto Pulse";
+      document.title = t("cryptoPulse");
     };
   }, []);
 

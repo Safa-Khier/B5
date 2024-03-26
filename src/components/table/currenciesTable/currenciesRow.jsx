@@ -51,7 +51,7 @@ export const CurrenciesRow = (prop) => {
   }
 
   return (
-    <tr className="border-b">
+    <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900">
       <td className="py-2 text-center">{prop.index}</td>
       <td className="py-2">
         <div className="flex justify-start h-[100%] items-center">

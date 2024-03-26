@@ -12,9 +12,11 @@
   "lightMode": "Light Mode",
   "defaultDevice": "Default Device",
 
+  "home": "Home",
   "coins": "Coins",
   "news": "News",
   "compare": "Compare",
+  "dashboard": "Dashboard",
 
   "name": "Name",
   "price": "Price",
@@ -39,7 +41,7 @@
   "password": "Password",
   "confirmPassword": "Confirm Password",
   "showPassword": "Show Password",
-  "mail": "Mail",
+  "mail": "Email",
   "firstName": "First Name",
   "lastName": "Last Name",
 
@@ -64,6 +66,18 @@
   "cancel": "Cancel",
   "forgotPassword": "Forgot Password? Click Here",
   "publishedAt": "Published At",
+
+  "userID": "User ID",
+  "estimatedBalance": "Estimated Balance",
+  "deposit": "Deposit",
+  "withdraw": "Withdraw",
+  "cashIn": "Cash In",
+  "holding": "Holding",
+  "coin": "Coin",
+  "amount": "Amount",
+  "coinPrice": "Coin Price",
+  "today'sPnL": "Today's PnL",
+  "trade": "Trade",
 
   "tags": "tags",
   "Categories": "Categories"

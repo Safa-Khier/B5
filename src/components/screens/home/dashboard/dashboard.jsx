@@ -10,16 +10,18 @@ export default function Dashboard() {
   const { t } = useTranslation();
   const { currentUser } = useAuth();
   const [walletData, setWalletData] = useState([]);
+  const [displayedCoin, setDisplayedCoin] = useState(false);
+  const [selectedCoin, setSelectedCoin] = useState("BTC");
 
   useEffect(() => {
     // Set the document title when the component mounts
-    document.title = "Dashboard - Crypto Pulse";
+    document.title = t("dashboard") + " | " + t("cryptoPulse");
 
     setWalletData(mockWallet);
 
     // Optional: Clean up function to set the document title back when the component unmounts
     return () => {
-      document.title = "Crypto Pulse";
+      document.title = t("cryptoPulse");
     };
   }, []);
 
@@ -111,7 +113,7 @@ export default function Dashboard() {
 
         <div className="hidden md:flex justify-center items-center pl-5 gap-5">
           <div className="w-full">
-            <h5 className="font-semibold text-gray-400">User ID</h5>
+            <h5 className="font-semibold text-gray-400">{t("userID")}</h5>
             <div className="flex justify-center items-center gap-2">
               {currentUser.uid}
               <button
@@ -130,21 +132,63 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="w-full">
-            <h5 className="font-semibold text-gray-400">Email</h5>
+            <h5 className="font-semibold text-gray-400">{t("mail")}</h5>
             <p>{currentUser.email}</p>
           </div>
         </div>
       </div>
       <div className="flex flex-col md:flex-row justify-between items-center md:items-start md:border w-full md:w-[70%] dark:border-gray-500 md:rounded-lg p-2 md:p-5">
         <div className="flex flex-col w-full">
-          <h2 className="mb-5 text-xl font-bold">Estimated Balance</h2>
+          <h2 className="mb-5 text-xl font-bold">{t("estimatedBalance")}</h2>
           <div className="mb-5 flex items-end">
             <h2 className="text-3xl font-bold me-3">0.00019735</h2>
-            <div className="flex items-center">
-              BTC
-              <i className="material-icons text-sm text-gray-500 dark:text-gray-300">
-                expand_more
-              </i>
+            <div className="relative inline-block">
+              <button
+                onClick={() => setDisplayedCoin(!displayedCoin)}
+                className="flex items-center"
+              >
+                {selectedCoin}
+                <i className="material-icons text-sm text-gray-500 dark:text-gray-300">
+                  expand_more
+                </i>
+              </button>
+              {displayedCoin && (
+                <div className="z-50 w-32 my-4 py-2 font-medium text-base list-none bg-white rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedCoin("BTC");
+                      setDisplayedCoin(false);
+                    }}
+                    className={`p-2 flex justify-start items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "BTC" ? "text-custom-teal dark:text-custom-teal" : ""}`}
+                    style={{ width: "-webkit-fill-available" }}
+                  >
+                    BTC
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedCoin("ETH");
+                      setDisplayedCoin(false);
+                    }}
+                    className={`p-2 flex justify-start items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "ETH" ? "text-custom-teal dark:text-custom-teal" : ""}`}
+                    style={{ width: "-webkit-fill-available" }}
+                  >
+                    ETH
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedCoin("USD");
+                      setDisplayedCoin(false);
+                    }}
+                    className={`p-2 flex justify-start items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "USD" ? "text-custom-teal dark:text-custom-teal" : ""}`}
+                    style={{ width: "-webkit-fill-available" }}
+                  >
+                    USD
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           <h2 className="mb-5 text-md">≈ $13.93</h2>
@@ -152,20 +196,20 @@ export default function Dashboard() {
         <div className="flex flex-col">
           <div className="flex justify-between font-semibold mb-2 gap-3">
             <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
-              Deposit
+              {t("deposit")}
             </button>
             <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
-              Withdraw
+              {t("withdraw")}
             </button>
             <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
-              Cash In
+              {t("cashIn")}
             </button>
           </div>
           <DataSparkline data={balance} width={400} height={100} />
         </div>
       </div>
       <div className="flex flex-col justify-between items-start w-full md:w-[70%] md:border dark:border-gray-500 md:rounded-lg p-2 md:p-5">
-        <h2 className="mb-5 text-xl font-bold">Holding</h2>
+        <h2 className="mb-5 text-xl font-bold">{t("holding")}</h2>
         <HoldingCoinTable data={walletData} />
       </div>
     </div>

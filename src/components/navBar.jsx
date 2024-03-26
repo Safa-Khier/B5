@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { useRecoilState } from "recoil";
 import { webSettings } from "../atoms/webSettings";
+import { setPathLocation } from "../App";
 
 function NavBar() {
   const { t } = useTranslation();
@@ -108,7 +109,7 @@ function NavBar() {
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
         <div
           className="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer"
-          onClick={() => window.location.replace("/welcome")}
+          onClick={() => setPathLocation("/welcome")}
         >
           <img
             src={Logo}
@@ -123,14 +124,14 @@ function NavBar() {
 
         <div className="flex md:hidden flex-row items-center">
           <button
-            onClick={() => window.location.replace("/welcome/signup")}
+            onClick={() => setPathLocation("/welcome/signup")}
             type="button"
             className="material-icons text-black dark:text-white hover:bg-gray-100 p-2 mx-2 hover:rounded-full dark:hover:bg-gray-700"
           >
             edit
           </button>
           <button
-            onClick={() => window.location.replace("/welcome/login")}
+            onClick={() => setPathLocation("/welcome/login")}
             type="button"
             className="material-icons text-black dark:text-white hover:bg-gray-100 p-2 mx-2 hover:rounded-full dark:hover:bg-gray-700"
           >
@@ -209,13 +210,13 @@ function NavBar() {
           </div>
           <div className="space-x-4">
             <button
-              onClick={() => window.location.replace("/welcome/signup")}
+              onClick={() => setPathLocation("/welcome/signup")}
               className="text-gray-800 px-2 py-2 rounded-xl dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               {t("signUp")}
             </button>
             <button
-              onClick={() => window.location.replace("/welcome/login")}
+              onClick={() => setPathLocation("/welcome/login")}
               className="text-gray-800 px-2 py-2 rounded-xl dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
             >
               {t("logIn")}

@@ -12,9 +12,11 @@
   "lightMode": "Licht",
   "defaultDevice": "Standardgerät",
 
+  "home": "Zuhause",
   "coins": "Münzen",
   "news": "Nachricht",
   "compare": "vergleichen",
+  "dashboard": "Armaturenbrett",
 
   "name": "Name",
   "price": "Preis",
@@ -64,6 +66,18 @@
   "cancel": "Stornieren",
   "forgotPassword": "Passwort vergessen? Klicken Sie hier",
   "publishedAt": "Veröffentlicht am",
+
+  "userID": "Benutzeridentifikation",
+  "estimatedBalance": "Geschätztes Gleichgewicht",
+  "deposit": "Einzahlung",
+  "withdraw": "Abheben",
+  "cashIn": "Bargeld ein",
+  "holding": "Holding",
+  "coin": "Münze",
+  "amount": "Menge",
+  "coinPrice": "Münzpreis",
+  "today'sPnL": "Heutiger P&L",
+  "trade": "Handel",
 
   "tags": "SCHLAGWORTE",
   "Categories": "Kategorien"

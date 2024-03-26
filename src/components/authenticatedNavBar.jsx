@@ -16,7 +16,6 @@ import UserMenu from "./userMenu/userMenu";
 import SearchBar from "./searchBar/searchBar";
 import { useLocation } from "react-router-dom";
 import { setPathLocation } from "../App";
-import Dashboard from "./screens/home/dashboard/dashboard";
 
 export default function AuthenticatedNavBar() {
   const { t } = useTranslation();
@@ -39,9 +38,9 @@ export default function AuthenticatedNavBar() {
     { title: "compare", icon: "compare_arrows" },
   ];
 
-  const selectedButtonClass = "text-blue-700 dark:text-blue-500";
+  const selectedButtonClass = "text-custom-teal dark:text-custom-teal";
   const unselectedButtonClass =
-    "text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-300 dark:border-gray-700";
+    "text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-200 dark:border-gray-700";
 
   const handleSignOut = async () => {
     try {

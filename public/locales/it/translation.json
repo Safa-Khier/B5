@@ -12,9 +12,11 @@
   "lightMode": "Luce",
   "defaultDevice": "Dispositivo predefinito",
 
+  "home": "Casa",
   "coins": "Monete",
   "news": "Notizia",
   "compare": "Confrontare",
+  "dashboard": "Cruscotto",
 
   "name": "Nome",
   "price": "Prezzo",
@@ -64,6 +66,18 @@
   "cancel": "Annulla",
   "forgotPassword": "Password dimenticata? Clicca qui",
   "publishedAt": "Pubblicato alle",
+
+  "userID": "ID utente",
+  "estimatedBalance": "Saldo stimato",
+  "deposit": "Deposito",
+  "withdraw": "Prelievo",
+  "cashIn": "Incassare",
+  "holding": "Tenuta",
+  "coin": "Moneta",
+  "amount": "Quantità",
+  "coinPrice": "Prezzo della moneta",
+  "today'sPnL": "PnL di oggi",
+  "trade": "Commercio",
 
   "tags": "TAG",
   "Categories": "Categorie"
