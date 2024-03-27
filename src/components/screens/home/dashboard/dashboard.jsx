@@ -256,7 +256,7 @@ export default function Dashboard() {
               {t("cashIn")}
             </button>
           </div>
-          <DataSparkline data={transactionsData} width={400} height={100} />
+          <DataSparkline data={balance} width={400} height={100} />
         </div>
       </div>
       <div className="flex flex-col justify-between items-start w-full md:w-[70%] md:border dark:border-gray-500 md:rounded-lg p-2 md:p-5">
