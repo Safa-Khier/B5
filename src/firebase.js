@@ -48,7 +48,7 @@ export async function fetchCryptoCurrenciesFromFirestore() {
   }
 }
 
-export async function createNewUser(user) {
+export async function createNewUser(user, formData) {
   const db = firebase.firestore(); // Initialize Firestore database reference
   try {
     await db
@@ -57,16 +57,27 @@ export async function createNewUser(user) {
       .set({
         uid: user.uid,
         email: user.email,
+        phone: formData.phone,
         displayName: user.displayName,
         photoURL: user.photoURL,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         wallet: {
-          balance: 0,
           transactions: [],
           currencies: [],
         },
       });
   } catch (error) {
     console.error("Error creating new user in Firestore:", error);
+  }
+}
+
+// Fetch user data from Firestore
+export async function fetchUserDataFromFirestore(user) {
+  const db = firebase.firestore(); // Initialize Firestore database reference
+  try {
+    const snapshot = await db.collection("users").doc(user.uid).get();
+    return snapshot.data();
+  } catch (error) {
+    console.error("Error fetching user data from Firestore:", error);
   }
 }

@@ -44,6 +44,7 @@
   "mail": "郵件",
   "firstName": "名字",
   "lastName": "姓氏",
+  "phone": "電話",
 
   "error": "錯誤",
   "errorFillAllFields": "請填寫所有欄位",

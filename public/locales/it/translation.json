@@ -44,6 +44,7 @@
   "mail": "Posta",
   "firstName": "Nome di battesimo",
   "lastName": "Cognome",
+  "phone": "Telefono",
 
   "error": "Errore",
   "errorFillAllFields": "Si prega di compilare tutti i campi!",

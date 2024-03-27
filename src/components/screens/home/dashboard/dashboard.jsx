@@ -160,7 +160,7 @@ export default function Dashboard() {
                       setSelectedCoin("BTC");
                       setDisplayedCoin(false);
                     }}
-                    className={`p-2 flex justify-start items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "BTC" ? "text-custom-teal dark:text-custom-teal" : ""}`}
+                    className={`p-2 flex justify-start items-center hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "BTC" ? "text-teal-500 dark:text-custom-teal" : "text-black dark:text-white"}`}
                     style={{ width: "-webkit-fill-available" }}
                   >
                     BTC
@@ -171,7 +171,7 @@ export default function Dashboard() {
                       setSelectedCoin("ETH");
                       setDisplayedCoin(false);
                     }}
-                    className={`p-2 flex justify-start items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "ETH" ? "text-custom-teal dark:text-custom-teal" : ""}`}
+                    className={`p-2 flex justify-start items-center hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "ETH" ? "text-custom-teal dark:text-custom-teal" : "text-black dark:text-white"}`}
                     style={{ width: "-webkit-fill-available" }}
                   >
                     ETH
@@ -182,7 +182,7 @@ export default function Dashboard() {
                       setSelectedCoin("USD");
                       setDisplayedCoin(false);
                     }}
-                    className={`p-2 flex justify-start items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "USD" ? "text-custom-teal dark:text-custom-teal" : ""}`}
+                    className={`p-2 flex justify-start items-center hover:bg-gray-100 dark:hover:bg-gray-600 ${selectedCoin === "USD" ? "text-custom-teal dark:text-custom-teal" : "text-black dark:text-white"}`}
                     style={{ width: "-webkit-fill-available" }}
                   >
                     USD

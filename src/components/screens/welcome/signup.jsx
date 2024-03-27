@@ -26,6 +26,7 @@ export default function Signup() {
     email: "",
     firstName: "",
     lastName: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
@@ -37,7 +38,7 @@ export default function Signup() {
     setLoading(true);
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password,
@@ -46,14 +47,13 @@ export default function Signup() {
         // Update the user's profile
         await updateProfile(user, {
           displayName: formData.firstName + " " + formData.lastName,
-          // You can also set the photoURL here if you have one
         });
 
         // Send email verification
         // sendEmailVerification(user);
 
         // create a new user document in Firestore
-        await createNewUser(user);
+        await createNewUser(user, formData);
       });
 
       setAlertData({
@@ -75,6 +75,7 @@ export default function Signup() {
     const email = formData.email;
     const firstName = formData.firstName;
     const lastName = formData.lastName;
+    const phone = formData.phone;
     const password = formData.password;
     const confirmPassword = formData.confirmPassword;
 
@@ -82,6 +83,7 @@ export default function Signup() {
       email === "" ||
       firstName === "" ||
       lastName === "" ||
+      phone === "" ||
       password === "" ||
       confirmPassword === ""
     ) {
@@ -159,7 +161,7 @@ export default function Signup() {
               setFormData({ ...formData, email: e.target.value })
             }
             className="mx-10 mt-10 h-10 pl-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder={t("email")}
+            placeholder={t("mail")}
           />
           <div className="flex flex-row w-full">
             <input
@@ -179,6 +181,14 @@ export default function Signup() {
               placeholder={t("lastName")}
             />
           </div>
+          <input
+            type="text"
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+            className="mx-10 mt-5 h-10 pl-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder={t("phone")}
+          />
           <div className="flex flex-row w-full">
             <input
               type={showPassword ? "text" : "password"}

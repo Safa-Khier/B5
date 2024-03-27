@@ -35,7 +35,9 @@ export default function Home() {
         />
         <div className="flex flex-col w-full text-center md:text-start gap-1 md:gap-5">
           <h1 className="text-4xl md:text-6xl font-thin">{t("welcomeBack")}</h1>
-          <h1 className=" text-6xl md:text-8xl font-bold">{userName}</h1>
+          <h1 className=" text-6xl md:text-8xl font-bold">
+            {currentUser.displayName}
+          </h1>
         </div>
       </div>
     </div>

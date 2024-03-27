@@ -26,10 +26,14 @@ export default function AuthenticatedNavBar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   const [settings, setSettings] = useRecoilState(webSettings);
-  const { currentUser } = useAuth();
+  const { currentUser, currentUserData } = useAuth();
   const [logo, setLogo] = useState(Usa);
   const [location, setLocation] = useState("");
   const locationPath = useLocation();
+
+  useEffect(() => {
+    console.log(currentUserData);
+  }, [currentUserData]);
 
   // Array of button identifiers
   const buttons = [
