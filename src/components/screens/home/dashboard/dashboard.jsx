@@ -3,13 +3,16 @@ import { useTranslation } from "react-i18next";
 import DataSparkline from "../../../table/currenciesTable/dataSparkline.jsx";
 import HoldingCoinTable from "../../../table/holdingCoinsTable/holdingCoinsTable.jsx";
 import { useAuth } from "../../../../AuthContext.js";
-import { mockWallet } from "../../../../../public/mockData.jsx";
+import { mockWallet, mcokCurrencies } from "../../../../../public/mockData.jsx";
 import "./dashboard.css";
+import { removeTrailingZeros } from "../../../../../public/publicFunctions.jsx";
 
 export default function Dashboard() {
   const { t } = useTranslation();
-  const { currentUser } = useAuth();
+  const { currentUser, currentUserData } = useAuth();
   const [walletData, setWalletData] = useState([]);
+  const [currenciesData, setCurrenciesData] = useState([]);
+  const [transactionsData, setTransactionsData] = useState([]);
   const [displayedCoin, setDisplayedCoin] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState("BTC");
 
@@ -18,12 +21,26 @@ export default function Dashboard() {
     document.title = t("dashboard") + " | " + t("cryptoPulse");
 
     setWalletData(mockWallet);
+    setCurrenciesData(mcokCurrencies);
 
     // Optional: Clean up function to set the document title back when the component unmounts
     return () => {
       document.title = t("cryptoPulse");
     };
   }, []);
+
+  useEffect(() => {
+    // Update the wallet data when the user data changes
+    if (!currentUserData) {
+      return;
+    }
+    const accountBalance = currentUserData.wallet.transactions.map(
+      (transaction) => {
+        return transaction.balance;
+      },
+    );
+    setTransactionsData(accountBalance);
+  }, [currentUserData]);
 
   function copyUserId() {
     navigator.clipboard
@@ -41,6 +58,34 @@ export default function Dashboard() {
       .catch((err) => {
         console.error("Error in copying text: ", err);
       });
+  }
+
+  function calculateBalance() {
+    // Calculate the balance based on the wallet data
+    let balance = 0;
+    walletData.forEach((coin) => {
+      balance += coin.amount * coin.current_price;
+    });
+    if (selectedCoin.toLowerCase() === "usd") {
+      return removeTrailingZeros(balance.toFixed(10));
+    }
+    const selectedCoinData = currenciesData.find(
+      (coin) => coin.symbol.toLowerCase() === selectedCoin.toLowerCase(),
+    );
+    if (!selectedCoinData) {
+      return removeTrailingZeros(balance.toFixed(10));
+    }
+    balance = balance / selectedCoinData.current_price;
+    return removeTrailingZeros(balance.toFixed(10));
+  }
+
+  function calculateEstimatedValue() {
+    // Calculate the estimated value based on the wallet data
+    let estimatedValue = 0;
+    walletData.forEach((coin) => {
+      estimatedValue += coin.amount * coin.current_price;
+    });
+    return removeTrailingZeros(estimatedValue.toFixed(2));
   }
 
   const balance = [
@@ -108,14 +153,16 @@ export default function Dashboard() {
           <i className="material-icons" style={{ fontSize: "100px" }}>
             account_circle
           </i>
-          <h1 className="text-3xl font-bold ml-2">{currentUser.displayName}</h1>
+          <h1 className="text-3xl font-bold ml-2">
+            {currentUserData.displayName}
+          </h1>
         </div>
 
-        <div className="hidden md:flex justify-center items-center pl-5 gap-5">
+        <div className="hidden md:flex justify-center items-center pl-5 gap-10">
           <div className="w-full">
             <h5 className="font-semibold text-gray-400">{t("userID")}</h5>
             <div className="flex justify-center items-center gap-2">
-              {currentUser.uid}
+              {currentUserData.uid}
               <button
                 id="copyButton"
                 onClick={copyUserId}
@@ -133,7 +180,11 @@ export default function Dashboard() {
           </div>
           <div className="w-full">
             <h5 className="font-semibold text-gray-400">{t("mail")}</h5>
-            <p>{currentUser.email}</p>
+            <p>{currentUserData.email}</p>
+          </div>
+          <div className="w-full">
+            <h5 className="font-semibold text-gray-400">{t("phone")}</h5>
+            <p>{currentUserData.phone}</p>
           </div>
         </div>
       </div>
@@ -141,7 +192,7 @@ export default function Dashboard() {
         <div className="flex flex-col w-full">
           <h2 className="mb-5 text-xl font-bold">{t("estimatedBalance")}</h2>
           <div className="mb-5 flex items-end">
-            <h2 className="text-3xl font-bold me-3">0.00019735</h2>
+            <h2 className="text-3xl font-bold me-3">{calculateBalance()}</h2>
             <div className="relative inline-block">
               <button
                 onClick={() => setDisplayedCoin(!displayedCoin)}
@@ -191,7 +242,7 @@ export default function Dashboard() {
               )}
             </div>
           </div>
-          <h2 className="mb-5 text-md">≈ $13.93</h2>
+          <h2 className="mb-5 text-md">{"≈ $" + calculateEstimatedValue()}</h2>
         </div>
         <div className="flex flex-col">
           <div className="flex justify-between font-semibold mb-2 gap-3">
@@ -205,13 +256,52 @@ export default function Dashboard() {
               {t("cashIn")}
             </button>
           </div>
-          <DataSparkline data={balance} width={400} height={100} />
+          <DataSparkline data={transactionsData} width={400} height={100} />
         </div>
       </div>
       <div className="flex flex-col justify-between items-start w-full md:w-[70%] md:border dark:border-gray-500 md:rounded-lg p-2 md:p-5">
         <h2 className="mb-5 text-xl font-bold">{t("holding")}</h2>
-        <HoldingCoinTable data={walletData} />
+        <HoldingCoinTable data={walletData} currenciesData={currenciesData} />
       </div>
     </div>
   );
 }
+
+const transaction = [
+  {
+    id: 1,
+    balance: 0.0001,
+    type: "buy",
+    coin: "BTC",
+    amount: 0.0001,
+    price: 50000,
+    date: "2021-10-01",
+  },
+  {
+    id: 2,
+    balance: 0.0001,
+    type: "sell",
+    coin: "BTC",
+    amount: 0.0001,
+    price: 50000,
+    date: "2021-10-02",
+  },
+  {
+    id: 3,
+    balance: 0.0001,
+    type: "deposit",
+    coin: "BTC",
+    amount: 0.0001,
+    price: 50000,
+    date: "2021-10-02",
+  },
+  {
+    id: 4,
+    balance: 0.0001,
+    type: "withdraw",
+    coin: "BTC",
+    amount: 0.0001,
+    price: 50000,
+    date: "2021-10-02",
+  },
+];

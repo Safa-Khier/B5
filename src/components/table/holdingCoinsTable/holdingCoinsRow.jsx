@@ -1,18 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { removeTrailingZeros } from "../../../../public/publicFunctions";
 
 export const HoldingCoinsRow = (prop) => {
   const crypto = prop.data;
-
-  function format_number(number) {
-    let formattedNumber = number.toFixed(10);
-    let numberAsNumber = parseFloat(formattedNumber);
-    return numberAsNumber.toLocaleString();
-  }
-
-  function removeTrailingZeros(number) {
-    // Convert to string and use a regex to remove trailing zeros
-    return number.toString().replace(/(\.\d*?[1-9])0+$|\.0*$/, "$1");
-  }
+  const currency = prop.currency;
+  const { t } = useTranslation();
 
   const amount = () => {
     return (
@@ -28,8 +21,25 @@ export const HoldingCoinsRow = (prop) => {
     );
   };
 
+  function createChangeElement(change) {
+    const changeNegative = change < 0;
+    change = changeNegative ? change * -1 : change;
+
+    //stat_minus_1
+    return (
+      <div
+        className={`flex justify-end items-center ${changeNegative ? "text-red-500" : "text-green-500"}`}
+      >
+        <i className="material-icons w-3">
+          {changeNegative ? "expand_more" : "expand_less"}
+        </i>
+        <div className="ml-3">{change.toFixed(2)}</div>
+      </div>
+    );
+  }
+
   return (
-    <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900">
+    <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900 font-semibold">
       <td className="py-2 text-start">
         <div className="flex justify-start h-[100%] items-center">
           <img
@@ -47,9 +57,23 @@ export const HoldingCoinsRow = (prop) => {
         </div>
       </td>
       <td className="py-2 text-end">{amount()}</td>
-      <td className="py-2 md:table-cell hidden text-end">{crypto.amount}</td>
-      <td className="py-2 md:table-cell hidden text-end">{crypto.amount}</td>
-      <td className="py-2 md:table-cell hidden text-end">{crypto.amount}</td>
+      <td className="py-2 md:table-cell hidden text-end">
+        {"$ " + crypto.current_price.toLocaleString()}
+      </td>
+      <td className="py-2 md:table-cell hidden text-end">
+        {createChangeElement(currency.price_change_percentage_24h_in_currency)}
+      </td>
+      <td className="py-2 md:table-cell hidden text-end">
+        <button
+          onClick={() => console.log("Trade")}
+          className="underline text-custom-teal"
+        >
+          {t("trade")}
+        </button>
+      </td>
+      <td className="py-2 md:hidden table-cell text-end">
+        <button className="material-icons">more_vert</button>
+      </td>
     </tr>
   );
 };

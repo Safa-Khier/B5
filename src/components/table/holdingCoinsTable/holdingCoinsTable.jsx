@@ -97,6 +97,7 @@ export const holdingCoinTable = (prop) => {
             key={d.id}
             index={index + 1}
             header={false}
+            currency={prop.currenciesData.find((coin) => coin.id === d.id)}
           />
         ))}
       </tbody>
