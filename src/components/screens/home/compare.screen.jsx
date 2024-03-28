@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import Footer from "../../footer";
 
 export default function Compare() {
   const { t } = useTranslation();
@@ -15,8 +16,11 @@ export default function Compare() {
   }, []);
 
   return (
-    <div className="m-5 text-slate-950 dark:text-white">
-      <h1 className="mb-5 text-3xl font-bold">{t("compareCurrencies")}</h1>
+    <div className="scrollable-content overflow-y-auto w-full h-screen">
+      <div className="m-5 text-slate-950 dark:text-white h-full">
+        <h1 className="mb-5 text-3xl font-bold">{t("compareCurrencies")}</h1>
+      </div>
+      <Footer />
     </div>
   );
 }

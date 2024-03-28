@@ -69,6 +69,7 @@
   "publishedAt": "Published At",
 
   "userID": "User ID",
+  "userIDcopied": "User ID copied!",
   "estimatedBalance": "Estimated Balance",
   "deposit": "Deposit",
   "withdraw": "Withdraw",

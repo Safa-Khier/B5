@@ -70,6 +70,7 @@
   "publishedAt": "發布於",
 
   "userID": "用戶ID",
+  "userIDcopied": "用戶ID已複製!",
   "estimatedBalance": "估計餘額",
   "deposit": "存款",
   "withdraw": "提款",

@@ -10330,4 +10330,13 @@ export const mockWallet = [
     amount: 0.0001,
     current_price: 3354.28,
   },
+  {
+    id: "tether",
+    symbol: "usdt",
+    name: "Tether",
+    image:
+      "https://assets.coingecko.com/coins/images/325/large/Tether.png?1696501661",
+    current_price: 1.002,
+    amount: 320,
+  },
 ];

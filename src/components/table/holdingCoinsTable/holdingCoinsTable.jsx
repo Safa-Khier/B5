@@ -65,43 +65,68 @@ export const holdingCoinTable = (prop) => {
   }
 
   return (
-    <table className="table-hover w-full">
-      <thead className="w-full">
-        <tr className="bg-white dark:bg-gray-800 border-b">
-          <th className="text-start">{t("coin")}</th>
-          <th onClick={() => sortData("amount")} className="text-end ">
-            {headerCell("amount", "amount")}
-          </th>
-          <th
-            onClick={() => sortData("current_price")}
-            className="md:table-cell hidden text-end"
-          >
-            {headerCell("current_price", "coinPrice")}
-          </th>
-          <th
-            onClick={() => sortData("price_change_percentage_24h_in_currency")}
-            className="md:table-cell hidden text-end"
-          >
-            {headerCell(
-              "price_change_percentage_24h_in_currency",
-              "today'sPnL",
-            )}
-          </th>
-          <th className="md:table-cell hidden text-end">{t("trade")}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {prop.data.map((d, index) => (
-          <HoldingCoinsRow
-            data={d}
-            key={d.id}
-            index={index + 1}
-            header={false}
-            currency={prop.currenciesData.find((coin) => coin.id === d.id)}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className="w-full">
+      <table className="table-hover w-full">
+        <thead className="w-full">
+          <tr className="bg-white dark:bg-gray-800 border-b">
+            <th className="text-start">{t("coin")}</th>
+            <th onClick={() => sortData("amount")} className="text-end ">
+              {headerCell("amount", "amount")}
+            </th>
+            <th
+              onClick={() => sortData("current_price")}
+              className="md:table-cell hidden text-end"
+            >
+              {headerCell("current_price", "coinPrice")}
+            </th>
+            <th
+              onClick={() =>
+                sortData("price_change_percentage_24h_in_currency")
+              }
+              className="md:table-cell hidden text-end"
+            >
+              {headerCell(
+                "price_change_percentage_24h_in_currency",
+                "today'sPnL",
+              )}
+            </th>
+            <th className="md:table-cell hidden text-end">{t("trade")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {prop.data.map((d, index) => (
+            <HoldingCoinsRow
+              data={d}
+              key={d.id}
+              index={index + 1}
+              header={false}
+              currency={prop.currenciesData.find((coin) => coin.id === d.id)}
+            />
+          ))}
+        </tbody>
+      </table>
+      <div className="flex justify-end items-center mt-2">
+        <button className="material-icons w-10 h-10 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+          navigate_before
+        </button>
+        <button className="w-10 h-10 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+          1
+        </button>
+        <button className="w-10 h-10 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+          2
+        </button>
+        <button className="w-10 h-10 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+          3
+        </button>
+        <p className="w-10 h-10 grid text-center items-center">...</p>
+        <button className="w-10 h-10 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+          13
+        </button>
+        <button className="material-icons w-10 h-10 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+          navigate_next
+        </button>
+      </div>
+    </div>
   );
 };
 

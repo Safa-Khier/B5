@@ -4,6 +4,7 @@ import Usa from "../assets/icons/usa.png";
 import Germany from "../assets/icons/germany.webp";
 import Italy from "../assets/icons/italy.webp";
 import china from "../assets/icons/china.png";
+import Russia from "../assets/icons/russia.png";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { useRecoilState } from "recoil";
@@ -78,6 +79,11 @@ export default function AuthenticatedNavBar() {
         setLogo(china);
         i18n.changeLanguage("zh");
         break;
+      case "ru":
+        setSettings({ ...settings, language: "ru" });
+        setLogo(Russia);
+        i18n.changeLanguage("ru");
+        break;
       default:
         setSettings({ ...settings, language: "en" });
         setLogo(Usa);
@@ -118,6 +124,9 @@ export default function AuthenticatedNavBar() {
         break;
       case "zh":
         languageName = "中文 (繁體)";
+        break;
+      case "ru":
+        languageName = "Русский";
         break;
       default:
         languageName = "English (US)";
@@ -272,6 +281,7 @@ export default function AuthenticatedNavBar() {
             {isLanguageMenuOpen && (
               <div className="z-50 my-4 py-2 font-medium text-base list-none bg-white divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2 w-max">
                 {languageMenuRow("en", Usa)}
+                {languageMenuRow("ru", Russia)}
                 {languageMenuRow("de", Germany)}
                 {languageMenuRow("it", Italy)}
                 {languageMenuRow("zh", china)}
@@ -340,6 +350,12 @@ export default function AuthenticatedNavBar() {
                     className="flex justify-between items-center"
                   >
                     English (US)
+                  </button>
+                  <button
+                    onClick={() => handleLanguageChange("ru", Russia)}
+                    className="flex justify-between items-center"
+                  >
+                    Русский
                   </button>
                   <button
                     onClick={() => handleLanguageChange("de", Germany)}
