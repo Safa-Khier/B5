@@ -45,7 +45,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App h-screen">
+    <div className="App">
       <Routes>
         <Route
           path="welcome"

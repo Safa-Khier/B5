@@ -2,8 +2,9 @@
   "welcomeTo": "Willkommen zu",
   "welcomeBack": "Willkommen zurück",
   "languageName": "Deutsch",
-  "cryptoPulse": "Krypto-Puls",
+  "cryptoPulse": "Crypto Pulse",
   "loading": "Wird geladen...",
+  "rights": "Crypto Pulse. Alle Rechte vorbehalten.",
 
   "logIn": "Melden Sie sich an",
   "signUp": "Anmeldung",
@@ -69,7 +70,6 @@
   "publishedAt": "Veröffentlicht am",
 
   "userID": "Benutzeridentifikation",
-  "userIDcopied": "Benutzer-ID kopiert",
   "estimatedBalance": "Geschätztes Gleichgewicht",
   "deposit": "Einzahlung",
   "withdraw": "Abheben",

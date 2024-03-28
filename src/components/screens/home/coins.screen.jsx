@@ -56,7 +56,7 @@ export default function Coin() {
             />
           </div>
         </div>
-        <div className="scrollable-content overflow-y-auto h-[calc(100vh)]">
+        <div className="">
           <CurrenciesTable data={cryptoCurrenciesData} />
         </div>
       </div>

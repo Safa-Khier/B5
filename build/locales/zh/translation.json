@@ -2,8 +2,9 @@
   "welcomeTo": "歡迎來到",
   "welcomeBack": "歡迎回家",
   "languageName": "中文 (繁體)",
-  "cryptoPulse": "加密脈衝",
+  "cryptoPulse": "Crypto Pulse",
   "loading": "加載中...",
+  "rights": "Crypto Pulse. 版權所有.",
 
   "logIn": "登入",
   "signUp": "報名",
@@ -70,7 +71,6 @@
   "publishedAt": "發布於",
 
   "userID": "用戶ID",
-  "userIDcopied": "用戶ID已複製!",
   "estimatedBalance": "估計餘額",
   "deposit": "存款",
   "withdraw": "提款",

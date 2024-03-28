@@ -10330,4 +10330,58 @@ export const mockWallet = [
     amount: 0.0001,
     current_price: 3354.28,
   },
+  {
+    id: "tether",
+    symbol: "usdt",
+    name: "Tether",
+    image:
+      "https://assets.coingecko.com/coins/images/325/large/Tether.png?1696501661",
+    current_price: 1.002,
+    amount: 320,
+  },
+  {
+    id: "immutable-x",
+    symbol: "imx",
+    name: "Immutable",
+    image:
+      "https://assets.coingecko.com/coins/images/17233/large/immutableX-symbol-BLK-RGB.png?1696516787",
+    current_price: 3.21,
+    amount: 0.0001,
+  },
+  {
+    id: "cosmos",
+    symbol: "atom",
+    name: "Cosmos Hub",
+    image:
+      "https://assets.coingecko.com/coins/images/1481/large/cosmos_hub.png?1696502525",
+    current_price: 11.33,
+    amount: 0.0001,
+  },
+  {
+    id: "leo-token",
+    symbol: "leo",
+    name: "LEO Token",
+    image:
+      "https://assets.coingecko.com/coins/images/8418/large/leo-token.png?1696508607",
+    current_price: 4.74,
+    amount: 0.0001,
+  },
+  {
+    id: "aptos",
+    symbol: "apt",
+    name: "Aptos",
+    image:
+      "https://assets.coingecko.com/coins/images/26455/large/aptos_round.png?1696525528",
+    current_price: 11.75,
+    amount: 0.0001,
+  },
+  {
+    id: "filecoin",
+    symbol: "fil",
+    name: "Filecoin",
+    image:
+      "https://assets.coingecko.com/coins/images/12817/large/filecoin.png?1696512609",
+    current_price: 8.24,
+    amount: 13,
+  },
 ];

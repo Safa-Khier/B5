@@ -4,6 +4,7 @@
   "languageName": "English (US)",
   "cryptoPulse": "Crypto Pulse",
   "loading": "Loading...",
+  "rights": "Crypto Pulse. All rights reserved.",
 
   "logIn": "Log In",
   "signUp": "Sign Up",
@@ -69,7 +70,6 @@
   "publishedAt": "Published At",
 
   "userID": "User ID",
-  "userIDcopied": "User ID copied!",
   "estimatedBalance": "Estimated Balance",
   "deposit": "Deposit",
   "withdraw": "Withdraw",

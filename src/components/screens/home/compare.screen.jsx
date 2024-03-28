@@ -16,7 +16,7 @@ export default function Compare() {
   }, []);
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full h-screen">
+    <div className="flex flex-col justify-between scrollable-content overflow-y-auto w-full h-screen">
       <div className="m-5 text-slate-950 dark:text-white h-full">
         <h1 className="mb-5 text-3xl font-bold">{t("compareCurrencies")}</h1>
       </div>
