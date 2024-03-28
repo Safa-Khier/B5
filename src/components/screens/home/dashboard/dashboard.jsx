@@ -166,19 +166,21 @@ export default function Dashboard() {
               <h5 className="font-semibold text-gray-400">{t("userID")}</h5>
               <div className="flex justify-center items-center gap-2">
                 {currentUserData.uid}
-                <button
-                  id="copyButton"
-                  onClick={copyUserId}
-                  className="material-icons text-sm text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400"
-                >
-                  content_copy
-                </button>
-              </div>
-              <div
-                id="tooltip"
-                className="tooltip bg-gray-200 dark:bg-gray-600 font-medium text-sm"
-              >
-                {t("userIDcopied")}
+                <div className="relative inline-block">
+                  <button
+                    id="copyButton"
+                    onClick={copyUserId}
+                    className="material-icons text-sm text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400"
+                  >
+                    content_copy
+                  </button>
+                  <div
+                    id="tooltip"
+                    className="tooltip bg-gray-200 dark:bg-gray-600 font-medium text-sm"
+                  >
+                    {t("userIDcopied")}
+                  </div>
+                </div>
               </div>
             </div>
             <div className="w-full">

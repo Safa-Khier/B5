@@ -71,6 +71,7 @@
   "publishedAt": "Pubblicato alle",
 
   "userID": "ID utente",
+  "userIDcopied": "ID utente copiato!",
   "estimatedBalance": "Saldo stimato",
   "deposit": "Deposito",
   "withdraw": "Prelievo",

@@ -25,15 +25,13 @@ export const HoldingCoinsRow = (prop) => {
     const changeNegative = change < 0;
     change = changeNegative ? change * -1 : change;
 
-    //stat_minus_1
+    const change_icon = changeNegative ? "-" : "+";
+
     return (
       <div
-        className={`flex justify-end items-center ${changeNegative ? "text-red-500" : "text-green-500"}`}
+        className={`flex justify-end items-center font-semibold ${changeNegative ? "text-red" : "text-green"}`}
       >
-        <i className="material-icons w-3">
-          {changeNegative ? "expand_more" : "expand_less"}
-        </i>
-        <div className="ml-3">{change.toFixed(2)}</div>
+        <div className="ml-3">{change_icon + change.toFixed(3) + "%"}</div>
       </div>
     );
   }

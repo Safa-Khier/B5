@@ -70,6 +70,7 @@
   "publishedAt": "Veröffentlicht am",
 
   "userID": "Benutzeridentifikation",
+  "userIDcopied": "Benutzeridentifikation kopiert",
   "estimatedBalance": "Geschätztes Gleichgewicht",
   "deposit": "Einzahlung",
   "withdraw": "Abheben",

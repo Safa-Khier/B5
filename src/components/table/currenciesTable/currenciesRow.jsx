@@ -1,5 +1,6 @@
 import React from "react";
 import DataSparkline from "./dataSparkline";
+import { removeTrailingZeros } from "../../../../public/publicFunctions";
 
 export const CurrenciesRow = (prop) => {
   const crypto = prop.data;
@@ -19,15 +20,13 @@ export const CurrenciesRow = (prop) => {
     const changeNegative = change < 0;
     change = changeNegative ? change * -1 : change;
 
-    const change_icon = changeNegative ? "expand_more" : "expand_less";
+    const change_icon = changeNegative ? "-" : "+";
 
-    //stat_minus_1
     return (
       <div
-        className={`flex justify-end items-center ${changeNegative ? "text-red-500" : "text-green-500"}`}
+        className={`flex justify-end items-center font-semibold ${changeNegative ? "text-red" : "text-green"}`}
       >
-        <i className="material-icons w-3">{change_icon}</i>
-        <div className="ml-3">{format_number(change)}</div>
+        <div className="ml-3">{change_icon + format_number(change) + "%"}</div>
       </div>
     );
   }
@@ -70,7 +69,7 @@ export const CurrenciesRow = (prop) => {
         </div>
       </td>
       <td className="py-2 text-end">
-        {"$" + format_number(crypto.current_price)}
+        {"$" + removeTrailingZeros(crypto.current_price.toFixed(10))}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
         {createChangeElement(crypto.price_change_percentage_1h_in_currency)}
