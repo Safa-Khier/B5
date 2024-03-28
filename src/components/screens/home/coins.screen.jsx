@@ -56,9 +56,7 @@ export default function Coin() {
             />
           </div>
         </div>
-        <div className="">
-          <CurrenciesTable data={cryptoCurrenciesData} />
-        </div>
+        <CurrenciesTable data={cryptoCurrenciesData} />
       </div>
       <Footer />
     </div>

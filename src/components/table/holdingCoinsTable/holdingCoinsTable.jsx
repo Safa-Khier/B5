@@ -105,7 +105,7 @@ export const holdingCoinTable = (prop) => {
 
   return (
     <div className="w-full">
-      <table className="table-hover w-full">
+      <table className="w-full">
         <thead className="w-full">
           <tr className="bg-white dark:bg-gray-800 border-b">
             <th className="text-start">{t("coin")}</th>

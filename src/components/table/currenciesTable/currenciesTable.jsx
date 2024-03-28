@@ -141,7 +141,7 @@ export const CurrenciesTable = (prop) => {
 
   return (
     <div>
-      <table className="table-hover w-full h-full">
+      <table className="w-full h-full">
         <thead>
           <tr className="stickyHeader">
             <th className="stickyth bg-white dark:bg-gray-800 ">#</th>
