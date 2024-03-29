@@ -83,15 +83,6 @@
   }
 }
 
-.mdl {
-  height: auto;
-  /* width: 420px; */
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-60%, -60%);
-}
-
 .title {
   white-space: pre-line;
   font-family: "Poppins", sans-serif;

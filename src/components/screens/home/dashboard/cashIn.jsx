@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import CreditCardForm from "./creditCard/creditCardForm";
+import CreditCardForm from "../../../creditCard/creditCardForm";
 export default function CashIn() {
   const { t } = useTranslation();
 
@@ -43,7 +43,7 @@ export default function CashIn() {
   return (
     <div className="scrollable-content overflow-y-auto w-full h-screen m-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
       {/* Tab buttons */}
-      <div className="w-[60%] flex justify-center items-center border-b">
+      <div className="w-[70%] flex justify-center items-center border-b">
         <div className="flex w-full gap-5">
           {renderTabButton("buy", "Buy")}
           {renderTabButton("sell", "Sell")}
@@ -55,7 +55,7 @@ export default function CashIn() {
       </div>
 
       {/* Tab content */}
-      <div className="m-5 w-[60%]">{renderTabContent()}</div>
+      <div className="m-5 h-full w-[70%]">{renderTabContent()}</div>
     </div>
   );
 }

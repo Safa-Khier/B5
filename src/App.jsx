@@ -22,7 +22,7 @@ import Welcome from "./components/screens/welcome/welcome.jsx";
 import { useAuth } from "./AuthContext.js";
 import Dashboard from "./components/screens/home/dashboard/dashboard.jsx";
 import CreditCardForm from "./components/creditCard/creditCardForm.jsx";
-import CashIn from "./components/cashIn.jsx";
+import CashIn from "./components/screens/home/dashboard/cashIn.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
