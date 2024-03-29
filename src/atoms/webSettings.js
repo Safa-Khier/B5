@@ -5,8 +5,6 @@ export const webSettings = atom({
   key: "webSettings",
   default: {
     theme: "light",
-    language: "en",
-    languageLogo: Usa,
     selectedTab: "coins",
   },
 });

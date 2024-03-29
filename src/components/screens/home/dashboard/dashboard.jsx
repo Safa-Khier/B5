@@ -7,6 +7,7 @@ import { mockWallet, mcokCurrencies } from "../../../../../public/mockData.jsx";
 import "./dashboard.css";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions.jsx";
 import Footer from "../../../footer.jsx";
+import { setPathLocation } from "../../../../App.jsx";
 
 export default function Dashboard() {
   const { t } = useTranslation();
@@ -259,7 +260,10 @@ export default function Dashboard() {
               <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
                 {t("withdraw")}
               </button>
-              <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
+              <button
+                onClick={() => setPathLocation("/home/dashboard/cashin")}
+                className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg"
+              >
                 {t("cashIn")}
               </button>
             </div>

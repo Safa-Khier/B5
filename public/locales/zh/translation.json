@@ -2,6 +2,11 @@
   "welcomeTo": "歡迎來到",
   "welcomeBack": "歡迎回家",
   "languageName": "中文 (繁體)",
+  "en": "English (US)",
+  "de": "Deutsch",
+  "it": "Italiano",
+  "zh": "中文 (繁體)",
+  "ru": "Русский",
   "cryptoPulse": "Crypto Pulse",
   "loading": "加載中...",
   "rights": "Crypto Pulse. 版權所有.",
@@ -66,7 +71,8 @@
   "ok": "好的",
   "confirm": "確認",
   "cancel": "取消",
-
+  "signOutTitle": "退出確認",
+  "signOutMessage": "您已登出您的帳戶。 感謝您使用加密脈衝。 我們希望很快就能見到您！",
   "forgotPassword": "忘記密碼？點擊這裡",
   "publishedAt": "發布於",
 
@@ -82,6 +88,12 @@
   "coinPrice": "硬幣價格",
   "today'sPnL": "今天的盈虧",
   "trade": "貿易",
+
+  "creditCardTitle": "請在下面輸入您的信用卡詳細信息",
+  "cardNumber": "卡號",
+  "cardHolder": "持卡人",
+  "expDate": "到期日",
+  "cvv": "CVV",
 
   "tags": "標籤",
   "Categories": "分類"

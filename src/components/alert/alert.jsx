@@ -27,13 +27,13 @@ export default function Alert({
       return (
         <div className="flex justify-around items-center w-full">
           <button
-            className={`text-black dark:text-white bg-gray-300 dark:bg-gray-500 p-1.5 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-lg`}
+            className={`w-full max-w-32 mx-1 text-black dark:text-white bg-gray-300 dark:bg-gray-500 p-1.5 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-lg`}
             onClick={onClose}
           >
             {t("cancel")}
           </button>
           <button
-            className={`text-black dark:text-white ${messageType === "confirm-warnning" ? "bg-red-300 dark:bg-red-500 hover:bg-red-400 dark:hover:bg-red-400" : "bg-green-300 dark:bg-green-500 hover:bg-green-400 dark:hover:bg-green-400"} p-1.5 rounded-lg`}
+            className={`w-full max-w-32 mx-1 text-black dark:text-white ${messageType === "confirm-warnning" ? "bg-red-300 dark:bg-red-500 hover:bg-red-400 dark:hover:bg-red-400" : "bg-green-300 dark:bg-green-500 hover:bg-green-400 dark:hover:bg-green-400"} p-1.5 rounded-lg`}
             onClick={action}
           >
             {t("confirm")}
@@ -49,7 +49,7 @@ export default function Alert({
         {t(title)}
       </div>
 
-      <div className="text-lg my-5 h-full w-full font-semibold text-black dark:text-white">
+      <div className="text-lg my-5 h-full w-full font-semibold text-black dark:text-white whitespace-pre-line">
         {t(message)}
       </div>
 

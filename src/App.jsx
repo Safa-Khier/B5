@@ -12,7 +12,7 @@ import { webSettings } from "./atoms/webSettings";
 import ProtectedRoute from "./protectedRoute.jsx";
 
 import Home from "./components/screens/home/home.jsx";
-import NavBar from "./components/navBar.jsx";
+import NavBar from "./components/navigationBar/navBar.jsx";
 import Login from "./components/screens/welcome/login.jsx";
 import Signup from "./components/screens/welcome/signup.jsx";
 import Coin from "./components/screens/home/coins.screen.jsx";
@@ -21,6 +21,8 @@ import Compare from "./components/screens/home/compare.screen.jsx";
 import Welcome from "./components/screens/welcome/welcome.jsx";
 import { useAuth } from "./AuthContext.js";
 import Dashboard from "./components/screens/home/dashboard/dashboard.jsx";
+import CreditCardForm from "./components/creditCard/creditCardForm.jsx";
+import CashIn from "./components/cashIn.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
@@ -69,8 +71,14 @@ function App() {
           <Route index element={<Home />} />
           <Route path="coins" element={<Coin />} />
           <Route path="news" element={<News />} />
-          <Route path="compare" element={<Compare />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="compare" element={<CreditCardForm />} />
+          <Route path="dashboard" element={<Outlet />}>
+            <Route path="" element={<Dashboard />} />
+            <Route path="cashin" element={<CashIn />} />
+            <Route path="withdraw" element={<div>Withdraw</div>} />
+            <Route path="deposit" element={<div>Deposit</div>} />
+            <Route path="*" element={<Navigate replace to="" />} />
+          </Route>
           <Route path="*" element={<Navigate replace to="" />} />
         </Route>
 

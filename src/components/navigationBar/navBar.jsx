@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../assets/icons/logo.png";
-import Usa from "../assets/icons/usa.png";
-import Germany from "../assets/icons/germany.webp";
-import Italy from "../assets/icons/italy.webp";
-import china from "../assets/icons/china.png";
-import Russia from "../assets/icons/russia.png";
+import Logo from "../../assets/icons/logo.png";
+import Usa from "../../assets/icons/usa.png";
+import Germany from "../../assets/icons/germany.webp";
+import Italy from "../../assets/icons/italy.webp";
+import china from "../../assets/icons/china.png";
+import Russia from "../../assets/icons/russia.png";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import { useRecoilState } from "recoil";
-import { webSettings } from "../atoms/webSettings";
-import { setPathLocation } from "../App";
+import { webSettings } from "../../atoms/webSettings";
+import { setPathLocation } from "../../App";
 
 function NavBar() {
   const { t } = useTranslation();
@@ -19,38 +19,26 @@ function NavBar() {
   const [logo, setLogo] = useState(Usa);
 
   useEffect(() => {
-    switch (localStorage.language) {
+    switch (i18n.language) {
       case "en":
-        setSettings({ ...settings, language: "en" });
         setLogo(Usa);
-        i18n.changeLanguage("en");
         break;
       case "de":
-        setSettings({ ...settings, language: "de" });
         setLogo(Germany);
-        i18n.changeLanguage("de");
         break;
       case "it":
-        setSettings({ ...settings, language: "it" });
         setLogo(Italy);
-        i18n.changeLanguage("it");
         break;
       case "zh":
-        setSettings({ ...settings, language: "zh" });
         setLogo(china);
-        i18n.changeLanguage("zh");
         break;
       case "ru":
-        setSettings({ ...settings, language: "ru" });
         setLogo(Russia);
-        i18n.changeLanguage("ru");
         break;
       default:
-        setSettings({ ...settings, language: "en" });
         setLogo(Usa);
-        i18n.changeLanguage("en");
     }
-  }, [settings.language]);
+  }, [i18n.language]);
 
   function handleThemeChange(theme) {
     setIsThemeMenuOpen(false);
@@ -67,45 +55,19 @@ function NavBar() {
 
   function handleLanguageChange(language, logo) {
     setIsLanguageMenuOpen(false);
-    localStorage.language = language;
     i18n.changeLanguage(language);
     setLogo(logo);
-    setSettings({ ...settings, language: language });
   }
 
   const languageMenuRow = (language, logo) => {
-    let languageName = "English (US)";
-    switch (language) {
-      case "de":
-        languageName = "Deutsch";
-        break;
-      case "it":
-        languageName = "Italiano";
-        break;
-      case "zh":
-        languageName = "中文 (繁體)";
-        break;
-      case "ru":
-        languageName = "Русский";
-        break;
-      default:
-        languageName = "English (US)";
-    }
     return (
       <button
         type="button"
         onClick={() => handleLanguageChange(language, logo)}
-        className="h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
-        style={{ width: "-webkit-fill-available" }}
+        className="w-full h-10 px-5 flex items-center text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 gap-2"
       >
-        <img
-          src={logo}
-          loading="lazy"
-          width={20}
-          height={20}
-          className="mr-2"
-        />
-        {languageName}
+        <img src={logo} loading="lazy" width={20} height={20} />
+        {t(language)}
       </button>
     );
   };

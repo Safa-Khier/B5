@@ -166,6 +166,7 @@ export const holdingCoinTable = (prop) => {
               if (number > 1 && number < totalPageNumber()) {
                 return (
                   <button
+                    key={`pageButton-${number}`}
                     onClick={() => goToPage(number)}
                     className={`w-8 h-8 m-px hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md ${currentPage === number ? "bg-gray-200 dark:bg-gray-700" : ""}`}
                   >

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import AnimatedBackground from "../../AnimatedBackground";
+import AnimatedBackground from "../../animatedBackground";
 import Logo from "../../../assets/icons/logoB.png";
 import { useAuth } from "../../../AuthContext";
 

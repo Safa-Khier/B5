@@ -19,7 +19,7 @@ export default function Coin() {
       data: mcokCurrencies,
       filterdData: mcokCurrencies,
     });
-    // Optional: Clean up function to set the document title back when the component unmounts
+    // Clean up function to set the document title back when the component unmounts
     return () => {
       document.title = t("cryptoPulse");
     };

@@ -13,14 +13,14 @@ import { createNewUser } from "../../../firebase.js";
 
 export default function Signup() {
   const [alertVisible, setAlertVisible] = useState(false);
+  const showAlert = () => setAlertVisible(true);
+  const hideAlert = () => setAlertVisible(false);
   const [alertData, setAlertData] = useState({
     title: "",
     message: "",
     type: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const showAlert = () => setAlertVisible(true);
-  const hideAlert = () => setAlertVisible(false);
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     email: "",

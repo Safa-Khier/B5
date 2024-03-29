@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import AuthenticatedNavBar from "./components/authenticatedNavBar.jsx";
+import AuthenticatedNavBar from "./components/navigationBar/authenticatedNavBar.jsx";
 
 const ProtectedRoute = ({ isAuthenticated }) => {
   return isAuthenticated ? (
