@@ -86,8 +86,8 @@ const UserMenu = ({ isUserMenuOpen }) => {
       <div className="absolute">
         <Alert
           title={"signOutTitle"}
-          messageType={"confirm-warnning"}
           message={"signOutMessage"}
+          messageType={"confirm-warnning"}
           action={handleSignOut}
           isVisible={alertVisible}
           onClose={hideAlert}

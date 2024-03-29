@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CurrenciesRow from "./currenciesRow";
 import { useTranslation } from "react-i18next";
-import "./currenciesTable.css";
 import { useRecoilState } from "recoil";
 import { cryptoData } from "../../../atoms/cryptoData";
 
@@ -143,23 +142,23 @@ export const CurrenciesTable = (prop) => {
     <div>
       <table className="w-full h-full">
         <thead>
-          <tr className="stickyHeader">
-            <th className="stickyth bg-white dark:bg-gray-800 ">#</th>
+          <tr className="border-b">
+            <th className="cursor-pointer bg-white dark:bg-gray-800 ">#</th>
             <th
               onClick={() => sortData("name")}
-              className="stickyth bg-white dark:bg-gray-800 "
+              className="cursor-pointer bg-white dark:bg-gray-800 "
             >
               {headerCell("name", "name")}
             </th>
             <th
               onClick={() => sortData("current_price")}
-              className="stickyth bg-white dark:bg-gray-800"
+              className="cursor-pointer bg-white dark:bg-gray-800"
             >
               {headerCell("current_price", "price")}
             </th>
             <th
               onClick={() => sortData("price_change_percentage_1h_in_currency")}
-              className="stickyth bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
             >
               {headerCell("price_change_percentage_1h_in_currency", "1h%")}
             </th>
@@ -167,35 +166,35 @@ export const CurrenciesTable = (prop) => {
               onClick={() =>
                 sortData("price_change_percentage_24h_in_currency")
               }
-              className="stickyth bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
             >
               {headerCell("price_change_percentage_24h_in_currency", "24h%")}
             </th>
             <th
               onClick={() => sortData("price_change_percentage_7d_in_currency")}
-              className="stickyth bg-white dark:bg-gray-800 "
+              className="cursor-pointer bg-white dark:bg-gray-800 "
             >
               {headerCell("price_change_percentage_7d_in_currency", "7d%")}
             </th>
             <th
               onClick={() => sortData("market_cap")}
-              className="stickyth bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
             >
               {headerCell("market_cap", "marketCap")}
             </th>
             <th
               onClick={() => sortData("total_volume")}
-              className="stickyth bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
             >
               {headerCell("total_volume", "volume")}
             </th>
             <th
               onClick={() => sortData("circulating_supply")}
-              className="stickyth bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
             >
               {headerCell("circulating_supply", "circulatingSupply")}
             </th>
-            <th className="stickyth bg-white dark:bg-gray-800 md:table-cell hidden">
+            <th className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden">
               {t("last7Days")}
             </th>
           </tr>

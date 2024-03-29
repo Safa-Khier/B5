@@ -23,6 +23,17 @@ const CreditCardForm = () => {
   const handleExpDateChange = (e) => {
     let value = e.target.value.replace(/[^0-9]+/g, ""); // Keep only digits
 
+    if (value.length === 1 && parseInt(value) > 1) {
+      // Automatically add a leading zero
+      value = "0" + value;
+    }
+
+    if (value.length === 2 && parseInt(value) > 12) {
+      // Prevent month from being greater than 12
+      value = value.substring(0, 1);
+      console.log("value", value);
+    }
+
     // Automatically add a slash after the month (first two digits)
     if (value.length > 2) {
       value = value.substring(0, 2) + "/" + value.substring(2);
@@ -46,19 +57,24 @@ const CreditCardForm = () => {
             <div className="circle circle-1"></div>
             <div className="circle circle-2"></div>
           </div>
-          <h1 className="title">{t("creditCardTitle")}</h1>
+          <h1 className="title text-black dark:text-white">
+            {t("creditCardTitle")}
+          </h1>
 
           <div className="card">
             <form>
-              <div className="logo">
+              <div className="logo text-black dark:text-white">
                 <i className="material-icons" style={{ fontSize: "50px" }}>
                   toll
                 </i>
               </div>
               <div className="card-number">
-                <label className="label">{t("cardNumber")}</label>
+                <label className="label text-black dark:text-white">
+                  {t("cardNumber")}
+                </label>
                 <input
                   id="card-number"
+                  className="text-black dark:text-white placeholder-black dark:placeholder-gray-300"
                   value={cardNumber}
                   onChange={handleCardNumberChange}
                   placeholder="1234 1234 1234 1234"
@@ -66,26 +82,32 @@ const CreditCardForm = () => {
                   maxLength="19"
                   required
                 />
-                <span className="card-underline"></span>
+                <span className="card-underline bg-gray-600 dark:bg-white"></span>
               </div>
               <br />
               <div className="group">
                 <div className="card-name">
-                  <label className="label">{t("cardHolder")}</label>
+                  <label className="label text-black dark:text-white">
+                    {t("cardHolder")}
+                  </label>
                   <input
                     id="card-name"
+                    className="text-black dark:text-white placeholder-black dark:placeholder-gray-300"
                     value={cardName}
                     onChange={(e) => setCardName(e.target.value.toUpperCase())}
                     placeholder="Safa Khier"
                     type="text"
                     required
                   />
-                  <span className="card-underline"></span>
+                  <span className="card-underline bg-gray-600 dark:bg-white"></span>
                 </div>
                 <div className="expiration-date">
-                  <label className="label">{t("expDate")}</label>
+                  <label className="label text-black dark:text-white">
+                    {t("expDate")}
+                  </label>
                   <input
                     id="card-exp"
+                    className="text-black dark:text-white placeholder-black dark:placeholder-gray-300"
                     value={expDate}
                     onChange={handleExpDateChange}
                     placeholder="10/25"
@@ -93,12 +115,15 @@ const CreditCardForm = () => {
                     maxLength="5"
                     required
                   />
-                  <span className="card-underline"></span>
+                  <span className="card-underline bg-gray-600 dark:bg-white"></span>
                 </div>
                 <div className="ccv">
-                  <label className="label">{t("cvv")}</label>
+                  <label className="label text-black dark:text-white">
+                    {t("cvv")}
+                  </label>
                   <input
                     id="card-ccv"
+                    className="text-black dark:text-white placeholder-black dark:placeholder-gray-300"
                     value={ccv}
                     onChange={(e) =>
                       setCcv(e.target.value.replace(/[^0-9]+/g, ""))
@@ -108,7 +133,7 @@ const CreditCardForm = () => {
                     maxLength="3"
                     required
                   />
-                  <span className="card-underline"></span>
+                  <span className="card-underline bg-gray-600 dark:bg-white"></span>
                 </div>
               </div>
             </form>
