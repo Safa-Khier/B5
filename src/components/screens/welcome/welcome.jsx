@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import AnimatedBackground from "../../animatedBackground";
+import AnimatedBackground from "../../AnimatedBackground.jsx";
 
 export default function Welcome() {
   const { t } = useTranslation();
