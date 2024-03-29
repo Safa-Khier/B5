@@ -2,9 +2,13 @@
   "welcomeTo": "Benvenuto a",
   "welcomeBack": "Bentornato a",
   "languageName": "Italiano",
+  "en": "English (US)",
+  "de": "Deutsch",
+  "it": "Italiano",
+  "zh": "中文 (繁體)",
+  "ru": "Русский",
   "cryptoPulse": "Crypto Pulse",
   "loading": "Caricamento...",
-
   "rights": "Crypto Pulse. Tutti i diritti riservati.",
 
   "logIn": "Login",
@@ -67,6 +71,8 @@
   "ok": "Ok",
   "confirm": "Confermare",
   "cancel": "Annulla",
+  "signOutTitle": "Conferma di disconnessione",
+  "signOutMessage": "Sei stato disconnesso dal tuo account. Grazie per aver utilizzato Crypto Pulse. Speriamo di rivederti presto!",
   "forgotPassword": "Password dimenticata? Clicca qui",
   "publishedAt": "Pubblicato alle",
 
@@ -82,6 +88,12 @@
   "coinPrice": "Prezzo della moneta",
   "today'sPnL": "PnL di oggi",
   "trade": "Commercio",
+
+  "creditCardTitle": "Inserisci i dettagli della tua carta di credito \nqui sotto",
+  "cardNumber": "Numero di carta",
+  "cardHolder": "Titolare della carta",
+  "expDate": "Data di scadenza",
+  "cvv": "CVV",
 
   "tags": "TAG",
   "Categories": "Categorie"

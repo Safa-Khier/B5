@@ -2,9 +2,13 @@
   "welcomeTo": "Добро пожаловать в",
   "welcomeBack": "С возвращением",
   "languageName": "Русский",
+  "en": "English (US)",
+  "de": "Deutsch",
+  "it": "Italiano",
+  "zh": "中文 (繁體)",
+  "ru": "Русский",
   "cryptoPulse": "Crypto Pulse",
   "loading": "Загрузка...",
-
   "rights": "Crypto Pulse. Все права защищены.",
 
   "logIn": "Войти",
@@ -67,6 +71,8 @@
   "ok": "ОК",
   "confirm": "Подтвердить",
   "cancel": "Отмена",
+  "signOutTitle": "Подтверждение выхода из системы",
+  "signOutMessage": "Вы вышли из своей учетной записи. Благодарим вас за использование Crypto Pulse. Мы надеемся вскоре увидеть вас снова!",
   "forgotPassword": "Забыли пароль? Нажмите сюда",
   "publishedAt": "Опубликовано",
 
@@ -82,6 +88,12 @@
   "coinPrice": "Цена монеты",
   "today'sPnL": "Прибыль/убыток за день",
   "trade": "Торговля",
+
+  "creditCardTitle": "Пожалуйста, введите данные вашей кредитной карты ниже",
+  "cardNumber": "Номер карты",
+  "cardHolder": "Держатель карты",
+  "expDate": "Срок действия",
+  "cvv": "CVV",
 
   "tags": "Теги",
   "Categories": "Категории"

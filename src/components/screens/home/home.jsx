@@ -34,8 +34,10 @@ export default function Home() {
           className="flex h-auto w-auto max-h-80 md:max-h-[1500px]"
         />
         <div className="flex flex-col w-full text-center md:text-start gap-1 md:gap-5">
-          <h1 className="text-4xl md:text-6xl font-thin">{t("welcomeBack")}</h1>
-          <h1 className=" text-6xl md:text-8xl font-bold">
+          <h1 className="text-4xl md:text-6xl font-thin whitespace-nowrap">
+            {t("welcomeBack")}
+          </h1>
+          <h1 className=" text-6xl md:text-8xl font-bold whitespace-nowrap">
             {currentUser.displayName}
           </h1>
         </div>

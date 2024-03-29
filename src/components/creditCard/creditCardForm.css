@@ -8,9 +8,6 @@
   position: absolute;
   height: 270px;
   width: 450px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   z-index: -1;
 }
 .circle-1 {
