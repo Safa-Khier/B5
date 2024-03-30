@@ -2,7 +2,7 @@
 .circle {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(120deg, #1d976c, #2c3e50);
+  background: linear-gradient(120deg, #4bc0c0, #2c3e50);
 }
 .circles {
   position: absolute;
