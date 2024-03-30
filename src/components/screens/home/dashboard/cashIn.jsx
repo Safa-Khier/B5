@@ -138,7 +138,7 @@ export default function CashIn() {
                 </div>
               </div>
 
-              <button className="w-full font-bold bg-custom-teal hover:bg-teal-300 p-3 rounded">
+              <button className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded">
                 Buy
               </button>
             </div>

@@ -41,7 +41,10 @@ const UserMenu = ({ isUserMenuOpen }) => {
   return (
     <div className="overflow-hidden">
       <div
-        className={`h-[calc(100vh-86px)] flex flex-col justify-start right-0 items-center m-2 py-5 rounded-2xl absolute bg-gray-200 dark:bg-gray-700 min-w-96 opacity-95 font-bold text-black dark:text-white ${animateOut ? "slide-out-right" : "slide-in-right"}`}
+        className={`h-[calc(100vh-86px)] flex flex-col justify-start right-0 items-center m-2 py-5 rounded-2xl absolute bg-white bg-opacity-5 border border-gray-200 dark:border-gray-600 min-w-96 font-bold text-black dark:text-white ${animateOut ? "slide-out-right" : "slide-in-right"}`}
+        style={{
+          backdropFilter: "blur(10px)",
+        }}
       >
         <button className="flex justify-end items-end w-full pr-5 gap-3 material-icons">
           settings

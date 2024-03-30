@@ -184,7 +184,17 @@ export default function AuthenticatedNavBar() {
           </ul>
         </div>
 
-        <div className="text-white hidden justify-start items-center lg:order-2 rtl:space-x-reverse lg:flex">
+        <div className="text-black dark:text-white hidden justify-start items-center lg:order-2 rtl:space-x-reverse lg:flex">
+          {/* <i className="material-icons text-white dark:text-black bg-black dark:bg-white rounded-full mr-2">
+            currency_bitcoin
+          </i> */}
+          <img
+            className="mr-2"
+            src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+            loading="lazy"
+            width={20}
+            height={20}
+          />
           <Halving />
         </div>
 
@@ -278,7 +288,12 @@ export default function AuthenticatedNavBar() {
       <SearchBar isSearchOpen={isSearchOpen} searchData={location} />
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
       {isHamburgerMenuOpen && (
-        <div className="flex justify-center items-start py-10 absolute bg-gray-200 dark:bg-gray-700 md:hidden w-full h-screen opacity-95 font-bold text-black dark:text-white">
+        <div
+          className="flex justify-center items-start py-10 absolute bg-white bg-opacity-5 md:hidden w-full h-screen font-bold text-black dark:text-white"
+          style={{
+            backdropFilter: "blur(10px)",
+          }}
+        >
           <div className="w-[75%] flex flex-col justify-center items-center gap-4">
             <div className="flex flex-col justify-center items-center gap-3">
               <i className="material-icons" style={{ fontSize: "100px" }}>

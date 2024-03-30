@@ -21,7 +21,12 @@ const PhoneUserMenu = ({ isUserMenuOpen }) => {
   if (!showMenu) return null;
 
   return (
-    <div className="flex justify-center items-start py-10 absolute bg-gray-200 dark:bg-gray-700 md:hidden w-full h-screen opacity-95 font-bold text-black dark:text-white">
+    <div
+      className="flex justify-center items-start py-10 absolute bg-white bg-opacity-5 md:hidden w-full h-screen font-bold text-black dark:text-white"
+      style={{
+        backdropFilter: "blur(10px)",
+      }}
+    >
       <div className="w-[75%] flex flex-col justify-center items-center gap-4">
         <div className="flex flex-col justify-center items-center gap-3">
           <i className="material-icons" style={{ fontSize: "100px" }}>
