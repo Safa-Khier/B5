@@ -21,9 +21,7 @@ import Compare from "./components/screens/home/compare.screen.jsx";
 import Welcome from "./components/screens/welcome/welcome.jsx";
 import { useAuth } from "./AuthContext.js";
 import Dashboard from "./components/screens/home/dashboard/dashboard.jsx";
-import CreditCardForm from "./components/creditCard/creditCardForm.jsx";
 import CashIn from "./components/screens/home/dashboard/cashIn.jsx";
-import Footer from "./components/footer.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
@@ -66,6 +64,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="*" element={<Navigate replace to="" />} />
         </Route>
+        {/* welcome route  */}
 
         <Route
           path="home"

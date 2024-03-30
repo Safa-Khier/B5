@@ -9,7 +9,7 @@ export default function Welcome() {
     <div className="text-slate-950 dark:text-white flex justify-center items-center content">
       {/* <AnimatedBackground /> */}
       <ParticlesBackground />
-      <div className="text-center">
+      <div className="text-center absolute">
         <h1 className="mb-5 text-6xl font-thin">{t("welcomeTo")}</h1>
         <h1 className="mb-5 text-8xl font-bold">{t("cryptoPulse")}</h1>
       </div>

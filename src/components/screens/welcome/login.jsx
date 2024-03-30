@@ -7,7 +7,6 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../../../firebase";
-import Footer from "../../footer.jsx";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -63,6 +62,16 @@ export default function Login() {
         ...alertData,
         title: "error",
         message: "errorFillAllFields",
+        type: "error",
+      });
+      showAlert();
+      return false;
+    }
+    if (!checkMial(email)) {
+      setAlertData({
+        ...alertData,
+        title: "error",
+        message: "errorInvalidEmail",
         type: "error",
       });
       showAlert();

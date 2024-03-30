@@ -2,7 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, fetchUserDataFromFirestore } from "./firebase.js"; // Ensure this points to your Firebase setup file
 import { onAuthStateChanged } from "firebase/auth";
 import LoadingScreen from "./components/loading.screen.jsx";
-import { useRecoilState } from "recoil";
 import { userData } from "./atoms/userData";
 
 const AuthContext = createContext();

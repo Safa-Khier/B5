@@ -65,12 +65,12 @@ const ParticlesBackground = () => {
               enable: true,
             },
             move: {
-              direction: "none",
+              direction: "bounce",
               enable: true,
-              outMode: "bounce",
+              outMode: "out",
               random: false,
               speed: 2,
-              straight: false,
+              straight: true,
             },
             number: {
               density: {
