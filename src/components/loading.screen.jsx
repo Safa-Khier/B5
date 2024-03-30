@@ -16,7 +16,7 @@ const LoadingScreen = () => {
     <div
       className={`w-screen h-screen flex flex-col justify-center items-center ${isDarkMode ? "bg-gray-800" : "bg-white"}`}
     >
-      <div className=" flex flex-col justify-center items-center bg-white bg-transparent">
+      <div className=" flex flex-col justify-center items-center">
         <img
           className="flex justify-center items-center max-w-48 bg-transparent"
           loading="lazy"
