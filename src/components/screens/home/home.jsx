@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import AnimatedBackground from "../../AnimatedBackground.jsx";
+import ParticlesBackground from "../../particlesBackground.jsx";
 import Logo from "../../../assets/icons/logoB.png";
 import { useAuth } from "../../../AuthContext";
 
@@ -25,7 +26,7 @@ export default function Home() {
 
   return (
     <div className="text-slate-950 dark:text-white scrollable-content overflow-hidden content">
-      <AnimatedBackground />
+      <ParticlesBackground />
       <div className="h-full flex flex-col md:flex-row justify-start md:justify-center items-center mt-24 md:m-0 md:left-1/2 md:-translate-x-[20%] gap-10">
         <img
           src={Logo}

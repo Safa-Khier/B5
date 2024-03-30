@@ -13,8 +13,8 @@ b5
 │  ├─ 📁assets
 │  │  ├─ 📄china-BJC3NXIF.png
 │  │  ├─ 📄germany-RcDfzgS0.webp
-│  │  ├─ 📄index-BmKyE6rd.css
-│  │  ├─ 📄index-DH6UEyea.js
+│  │  ├─ 📄index-7r8mnWkT.js
+│  │  ├─ 📄index-BieqCWuh.css
 │  │  ├─ 📄italy-k4diam-A.webp
 │  │  ├─ 📄logo-DRWUd7yX.png
 │  │  ├─ 📄logoB-BNS7NqN4.png
@@ -78,6 +78,9 @@ b5
 │  │  ├─ 📁alert
 │  │  │  ├─ 📄alert.css
 │  │  │  └─ 📄alert.jsx
+│  │  ├─ 📁creditCard
+│  │  │  ├─ 📄creditCardForm.css
+│  │  │  └─ 📄creditCardForm.jsx
 │  │  ├─ 📁navigationBar
 │  │  │  ├─ 📄authenticatedNavBar.css
 │  │  │  ├─ 📄authenticatedNavBar.jsx
@@ -88,6 +91,7 @@ b5
 │  │  ├─ 📁screens
 │  │  │  ├─ 📁home
 │  │  │  │  ├─ 📁dashboard
+│  │  │  │  │  ├─ 📄cashIn.jsx
 │  │  │  │  │  ├─ 📄dashboard.css
 │  │  │  │  │  └─ 📄dashboard.jsx
 │  │  │  │  ├─ 📄coins.screen.jsx
@@ -104,7 +108,6 @@ b5
 │  │  ├─ 📁table
 │  │  │  ├─ 📁currenciesTable
 │  │  │  │  ├─ 📄currenciesRow.jsx
-│  │  │  │  ├─ 📄currenciesTable.css
 │  │  │  │  ├─ 📄currenciesTable.jsx
 │  │  │  │  └─ 📄dataSparkline.jsx
 │  │  │  ├─ 📁holdingCoinsTable
@@ -116,7 +119,7 @@ b5
 │  │  ├─ 📁userMenu
 │  │  │  ├─ 📄userMenu.css
 │  │  │  └─ 📄userMenu.jsx
-│  │  ├─ 📄animatedBackground.jsx
+│  │  ├─ 📄AnimatedBackground.jsx
 │  │  ├─ 📄footer.jsx
 │  │  └─ 📄loading.screen.jsx
 │  ├─ 📄App.jsx

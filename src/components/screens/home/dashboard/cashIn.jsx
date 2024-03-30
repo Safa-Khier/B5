@@ -4,6 +4,7 @@ import Select from "react-select";
 import CreditCardForm from "../../../creditCard/creditCardForm";
 import { mcokCurrencies } from "../../../../../public/mockData.jsx";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions.jsx";
+import Footer from "../../../footer.jsx";
 
 export default function CashIn() {
   const { t } = useTranslation();
@@ -11,7 +12,7 @@ export default function CashIn() {
   // State to track the active tab
   const [activeTab, setActiveTab] = useState("buy");
   const [currencies, setCurrencied] = useState();
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState();
 
   useEffect(() => {
@@ -22,7 +23,6 @@ export default function CashIn() {
         image: currency.image,
         symbol: currency.symbol,
       })),
-      setSelectedCurrency(mcokCurrencies[0].value),
     );
   }, []);
 
@@ -30,7 +30,7 @@ export default function CashIn() {
   const CustomOption = ({ innerProps, isFocused, isSelected, data }) => (
     <div
       {...innerProps}
-      className={`flex justify-between items-center p-2 ${isFocused && "bg-gray-300 dark:bg-gray-600"} ${isSelected && "font-bold text-custom-teal"}`}
+      className={`text-sm flex justify-between items-center p-2 ${isFocused && "bg-gray-300 dark:bg-gray-600"} ${isSelected && "font-bold text-custom-teal"}`}
     >
       <div className="flex justify-start h-[100%] items-center">
         <img
@@ -58,9 +58,35 @@ export default function CashIn() {
   );
 
   const currencyAmount = () => {
-    if (!selectedCurrency || !price) return 0;
-    let amount = price / selectedCurrency.value.current_price;
+    if (!selectedCurrency) return 0;
+    const value = price.replace(/[^0-9.]/g, "");
+    let amount =
+      (parseFloat(value) || 0) / selectedCurrency.value.current_price;
     return removeTrailingZeros(amount.toFixed(10));
+  };
+
+  // Handle change in input
+  const handlePriceChange = (e) => {
+    if (e.target.value === "$") {
+      setPrice("");
+      return;
+    }
+    // Remove non-numeric chars (except for decimal point)
+    const value = e.target.value.replace(/[^0-9.]/g, "");
+
+    if (value === "") {
+      setPrice("");
+      return;
+    }
+
+    if (parseFloat(value) > 20000) {
+      return;
+    }
+
+    const formattedNumber = parseFloat(value).toLocaleString("en-US");
+
+    // Update the numeric state (convert string to float)
+    setPrice("$" + (formattedNumber || 0));
   };
 
   // Function to render the tab content based on the active tab
@@ -68,23 +94,24 @@ export default function CashIn() {
     switch (activeTab) {
       case "buy":
         return (
-          <div className="grid grid-cols-2 h-full w-full p-10 border rounded-xl ">
+          <div className="grid grid-cols-2 h-min w-full p-10 border rounded-xl dark:border-gray-600">
             <div className="w-full h-full p-5 flex flex-col justify-between items-start text-xl">
-              <div className="w-full h-full flex flex-col gap-10">
+              <div className="text-lg w-full h-full flex flex-col gap-10">
                 <div className="flex flex-col w-full">
-                  <label className="text-lg font-bold mb-1">Spend</label>
+                  <label className="font-bold mb-1">Spend</label>
                   <input
+                    type="text"
                     value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    className="react-input w-full rounded focus:ring-transparent"
-                    placeholder="$10 - $2,000"
+                    className="react-input w-full rounded focus:ring-transparent text-lg"
+                    onChange={handlePriceChange}
+                    placeholder="$10 - $20,000"
                   />
                 </div>
                 <div className="flex flex-col w-full">
-                  <label className="text-lg font-bold">Receive</label>
+                  <label className="font-bold">Receive</label>
                   <Select
                     value={selectedCurrency}
-                    className="react-select-container w-full "
+                    className="react-select-container w-full"
                     classNamePrefix="react-select"
                     placeholder={t("search") + "..."}
                     onChange={(selectedOption) =>
@@ -99,9 +126,13 @@ export default function CashIn() {
                 </div>
               </div>
 
-              <button className="w-full bg-custom-teal p-3 rounded">Buy</button>
+              <button className="w-full font-bold bg-custom-teal hover:bg-teal-300 p-3 rounded">
+                Buy
+              </button>
             </div>
-            <CreditCardForm />
+            <div className="p-14">
+              <CreditCardForm />
+            </div>
           </div>
         );
       case "sell":
@@ -132,7 +163,7 @@ export default function CashIn() {
   const renderTabButton = (tab, title) => {
     return (
       <div
-        className={`flex flex-col justify-start items-center text-xl font-semibold ${activeTab === tab && "text-custom-teal"}`}
+        className={`flex flex-col justify-start items-center -m-0.5 text-xl font-semibold ${activeTab === tab && "text-custom-teal"}`}
       >
         <button
           className="flex justify-center items-center gap-2 p-2 hover:text-gray-500 dark:hover:text-gray-300"
@@ -164,6 +195,7 @@ export default function CashIn() {
 
       {/* Tab content */}
       <div className="p-5 h-full w-[70%]">{renderTabContent()}</div>
+      <Footer />
     </div>
   );
 }

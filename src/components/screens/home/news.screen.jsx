@@ -60,7 +60,7 @@ export default function News() {
             />
           </div>
         </div>
-        <div className="scrollable-content overflow-y-auto rounded-lg grid gap-4 border-gray-300 dark:border-gray-600 h-[calc(100vh-170px)]">
+        <div className="rounded-lg grid gap-4 border-gray-300 dark:border-gray-600">
           <NewsTable news={cryptoCurrenciesNews.filterdData} />
         </div>
       </div>
