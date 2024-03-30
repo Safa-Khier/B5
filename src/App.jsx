@@ -23,6 +23,7 @@ import { useAuth } from "./AuthContext.js";
 import Dashboard from "./components/screens/home/dashboard/dashboard.jsx";
 import CreditCardForm from "./components/creditCard/creditCardForm.jsx";
 import CashIn from "./components/screens/home/dashboard/cashIn.jsx";
+import Footer from "./components/footer.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
@@ -53,8 +54,10 @@ function App() {
           path="welcome"
           element={
             <RedirectToHomeIfAuth isAuthenticated={currentUser}>
-              <NavBar />
-              <Outlet />
+              <div className="flex flex-col">
+                <NavBar />
+                <Outlet />
+              </div>
             </RedirectToHomeIfAuth>
           }
         >
@@ -71,7 +74,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="coins" element={<Coin />} />
           <Route path="news" element={<News />} />
-          <Route path="compare" element={<CreditCardForm />} />
+          <Route path="compare" element={<Compare />} />
           <Route path="dashboard" element={<Outlet />}>
             <Route path="" element={<Dashboard />} />
             <Route path="cashin" element={<CashIn />} />

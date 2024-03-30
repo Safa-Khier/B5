@@ -38,14 +38,14 @@ export default function Coin() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full h-screen">
+    <div className="scrollable-content overflow-y-auto h-[calc(100vh-72px)]">
       <div className="m-5 text-slate-950 dark:text-white">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-5">
           <h1 className="mb-5 text-3xl font-bold md: m-0">
             {t("cryptocurrencyPrices")}
           </h1>
           <div className="relative hidden md:block">
-            <div className="absolute inset-y-0 start-0 flex items-center pl-2 pointer-events-none material-icons text-gray-500 dark:text-gray-400">
+            <div className="material-icons absolute inset-y-0 start-0 flex items-center pl-2 pointer-events-none text-gray-500 dark:text-gray-400">
               search
             </div>
             <input

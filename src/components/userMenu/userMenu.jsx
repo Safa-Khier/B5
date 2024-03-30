@@ -39,9 +39,9 @@ const UserMenu = ({ isUserMenuOpen }) => {
   if (!showMenu) return null;
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <div
-        className={`flex flex-col justify-start right-0 items-center m-2 pt-5 pb-28 rounded-2xl absolute bg-gray-200 dark:bg-gray-700 min-w-96 h-screen opacity-95 font-bold text-black dark:text-white ${animateOut ? "slide-out-right" : "slide-in-right"}`}
+        className={`h-[calc(100vh-86px)] flex flex-col justify-start right-0 items-center m-2 py-5 rounded-2xl absolute bg-gray-200 dark:bg-gray-700 min-w-96 opacity-95 font-bold text-black dark:text-white ${animateOut ? "slide-out-right" : "slide-in-right"}`}
       >
         <button className="flex justify-end items-end w-full pr-5 gap-3 material-icons">
           settings

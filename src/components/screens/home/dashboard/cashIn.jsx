@@ -68,8 +68,8 @@ export default function CashIn() {
     switch (activeTab) {
       case "buy":
         return (
-          <div className="flex flex-col md:flex-row justify-center md:justify-around md:gap-20 items-center h-[600px] p-10 my-10 border rounded-xl">
-            <div className="w-[400px] h-full p-5 flex flex-col justify-between items-start border rounded-xl gap-5">
+          <div className="grid grid-cols-2 h-full w-full p-10 border rounded-xl ">
+            <div className="w-full h-full p-5 flex flex-col justify-between items-start text-xl">
               <div className="w-full h-full flex flex-col gap-10">
                 <div className="flex flex-col w-full">
                   <label className="text-lg font-bold mb-1">Spend</label>
@@ -84,7 +84,7 @@ export default function CashIn() {
                   <label className="text-lg font-bold">Receive</label>
                   <Select
                     value={selectedCurrency}
-                    className="react-select-container w-full  "
+                    className="react-select-container w-full "
                     classNamePrefix="react-select"
                     placeholder={t("search") + "..."}
                     onChange={(selectedOption) =>
@@ -152,7 +152,7 @@ export default function CashIn() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full h-screen m-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
+    <div className="scrollable-content overflow-y-auto w-full content p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
       {/* Tab buttons */}
       <div className="w-[70%] flex justify-center items-center border-b">
         <div className="flex w-full gap-5">
@@ -163,7 +163,7 @@ export default function CashIn() {
       </div>
 
       {/* Tab content */}
-      <div className="m-5 h-full">{renderTabContent()}</div>
+      <div className="p-5 h-full w-[70%]">{renderTabContent()}</div>
     </div>
   );
 }

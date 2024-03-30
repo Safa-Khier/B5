@@ -150,7 +150,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="flex flex-col justify-between scrollable-content overflow-y-auto w-full h-screen">
+    <div className="flex flex-col justify-between scrollable-content overflow-y-auto w-full content">
       <div className="m-2 md:m-5 text-slate-950 dark:text-white flex flex-col items-center gap-5 md:gap-10 ">
         <div className="flex divide-x gap-5 w-full md:w-[70%]">
           <div className="flex justify-center items-center">

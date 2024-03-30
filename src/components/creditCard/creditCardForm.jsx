@@ -52,8 +52,8 @@ const CreditCardForm = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="circles">
-        <div className="circle circle-1"></div>
-        <div className="circle circle-2"></div>
+        <div className="circle circle-1" />
+        <div className="circle circle-2" />
       </div>
       <h1 className="title text-black dark:text-white">
         {t("creditCardTitle")}

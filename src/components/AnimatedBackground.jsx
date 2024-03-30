@@ -106,6 +106,6 @@ const AnimatedBackground = () => {
     };
   }, []);
 
-  return <canvas className="canvas-background" ref={canvasRef} />;
+  return <canvas className="canvas-background w-full h-full" ref={canvasRef} />;
 };
 export default AnimatedBackground;

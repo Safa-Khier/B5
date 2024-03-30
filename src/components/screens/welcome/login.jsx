@@ -7,6 +7,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../../../firebase";
+import Footer from "../../footer.jsx";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -103,7 +104,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex w-full justify-center items-center h-full pb-28">
+    <div className="scrollable-content overflow-y-auto content flex w-full justify-center items-center">
       <div className="grid md:grid-cols-2 w-full">
         <div className="flex justify-end">
           <img
@@ -114,8 +115,11 @@ export default function Login() {
           />
           <div className="h-full bg-gray-300 dark:bg-gray-600 hidden md:block w-px mx-[10px]" />
         </div>
-        <div onSubmit={handleSubmit} className="flex flex-col justify-center">
-          <h1 className="mx-10 text-5xl font-bold text-slate-950 dark:text-white">
+        <div
+          onSubmit={handleSubmit}
+          className="flex flex-col justify-center mx-10"
+        >
+          <h1 className="text-5xl font-bold text-slate-950 dark:text-white">
             {t("logIn")}
           </h1>
 
@@ -124,7 +128,7 @@ export default function Login() {
             onChange={(e) =>
               setLoginData({ ...loginData, email: e.target.value })
             }
-            className="mx-10 mt-10 h-10 pl-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="mt-10 h-10 pl-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder={t("mail")}
           />
           <input
@@ -132,11 +136,11 @@ export default function Login() {
             onChange={(e) =>
               setLoginData({ ...loginData, password: e.target.value })
             }
-            className="mx-10 mt-5 h-10 pl-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="mt-5 h-10 pl-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder={t("password")}
           />
 
-          <div className="flex ml-10 mt-5 gap-2">
+          <div className="flex mt-5 gap-2">
             <input
               type="checkbox"
               onClick={() => setShowPassword(!showPassword)}
@@ -149,7 +153,7 @@ export default function Login() {
           <button
             type="button"
             onClick={handleSubmit}
-            className="mx-10 mt-10 text-gray-800 font-bold py-2 px-5 rounded-lg dark:text-white bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex justify-start"
+            className="mt-10 text-gray-800 font-bold py-2 px-5 rounded-lg dark:text-white bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex justify-start"
           >
             {t("logIn")}
             {isLoggingIn && (
@@ -158,7 +162,7 @@ export default function Login() {
           </button>
 
           <a
-            className="mx-10 mt-5 text-gray-500 dark:text-gray-300 cursor-pointer font-semibold underline"
+            className="mt-5 text-gray-500 dark:text-gray-300 cursor-pointer font-semibold underline"
             onClick={hundleForgotPassword}
           >
             {t("forgotPassword")}

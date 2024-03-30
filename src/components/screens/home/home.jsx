@@ -24,7 +24,7 @@ export default function Home() {
   }, [currentUser]);
 
   return (
-    <div className="text-slate-950 dark:text-white h-[calc(100vh-72px)]">
+    <div className="text-slate-950 dark:text-white scrollable-content overflow-hidden content">
       <AnimatedBackground />
       <div className="h-full flex flex-col md:flex-row justify-start md:justify-center items-center mt-24 md:m-0 md:left-1/2 md:-translate-x-[20%] gap-10">
         <img

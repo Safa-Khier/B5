@@ -32,14 +32,15 @@
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type="checkbox"] {
-    --active: #275efe;
+    --active: #4bc0c0;
     --active-inner: #fff;
-    --focus: 2px rgba(39, 94, 254, 0.3);
+    --focus: 2px rgba(75, 192, 192, 0.3);
     --border: #bbc1e1;
-    --border-hover: #275efe;
+    --border-hover: #4bc0c0;
     --background: #d3d3d3;
     --disabled: #f6f8ff;
     --disabled-inner: #e1e6f9;
+    color: #4bc0c0;
     -webkit-appearance: none;
     -moz-appearance: none;
     height: 21px;
@@ -191,25 +192,29 @@
 
 /* Custom scrollbar for Webkit (Chrome, Safari) */
 .scrollable-content::-webkit-scrollbar {
+  position: absolute;
   width: 8px;
 }
 
 .scrollable-content::-webkit-scrollbar-track {
+  position: absolute;
   background: lightgray;
   border-radius: 8px;
 }
 
 .scrollable-content::-webkit-scrollbar-thumb {
+  position: absolute;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
 }
 
 body,
 #root,
 .App {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
+}
+
+.content {
+  height: calc(100vh - 72px);
 }
 
 .canvas-background {

@@ -44,7 +44,7 @@ export default function News() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full h-screen">
+    <div className="scrollable-content overflow-y-auto w-full content">
       <div className="m-5 text-slate-950 dark:text-white">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-5">
           <h1 className="text-3xl font-bold">{t("latestNews")}</h1>
