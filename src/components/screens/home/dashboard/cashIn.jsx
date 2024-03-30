@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import CreditCardForm from "../../../creditCard/creditCardForm";
@@ -14,6 +14,18 @@ export default function CashIn() {
   const [currencies, setCurrencied] = useState();
   const [price, setPrice] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState();
+  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const tabRefs = useRef([]);
+
+  useEffect(() => {
+    if (tabRefs.current[activeTab]) {
+      const { offsetLeft, clientWidth } = tabRefs.current[activeTab];
+      setIndicatorStyle({
+        width: clientWidth,
+        transform: `translateX(${offsetLeft}px)`, // Use the corrected offset
+      });
+    }
+  }, [activeTab, tabRefs]);
 
   useEffect(() => {
     setCurrencied(
@@ -137,8 +149,14 @@ export default function CashIn() {
         );
       case "sell":
         return (
-          <div className="w-full h-40 p-5 border rounded-lg">
-            Content for Tab 2
+          <div className="grid grid-cols-2 h-min w-full p-10 border rounded-xl dark:border-gray-600">
+            Content for Sell Tab
+          </div>
+        );
+      case "history":
+        return (
+          <div className="grid grid-cols-2 h-min w-full p-10 border rounded-xl dark:border-gray-600">
+            Content for History Tab
           </div>
         );
       default:
@@ -163,21 +181,16 @@ export default function CashIn() {
   const renderTabButton = (tab, title) => {
     return (
       <div
-        className={`flex flex-col justify-start items-center -m-0.5 text-xl font-semibold ${activeTab === tab && "text-custom-teal"}`}
+        className={`flex flex-col justify-start items-center text-xl font-semibold ${activeTab === tab && "text-custom-teal"}`}
       >
         <button
-          className="flex justify-center items-center gap-2 p-2 hover:text-gray-500 dark:hover:text-gray-300"
+          ref={(el) => (tabRefs.current[tab] = el)}
+          className="flex justify-center items-center gap-2 p-1 hover:text-gray-500 dark:hover:text-gray-300"
           onClick={() => setActiveTab(tab)}
         >
           <i className="material-icons">{renderTabButtonIcon(tab)}</i>
           {t(title)}
         </button>
-        {
-          // Render the history icon for the active tab
-          activeTab === tab && (
-            <div className="border-2 w-2/3 rounded border-custom-teal" />
-          )
-        }
       </div>
     );
   };
@@ -185,12 +198,19 @@ export default function CashIn() {
   return (
     <div className="scrollable-content overflow-y-auto w-full content p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
       {/* Tab buttons */}
-      <div className="w-[70%] flex justify-center items-center border-b">
-        <div className="flex w-full gap-5">
+      <div className="w-[70%] flex flex-col justify-center items-start border-b">
+        <div className="flex w-full gap-5 relative">
           {renderTabButton("buy", "Buy")}
           {renderTabButton("sell", "Sell")}
           {renderTabButton("history", "History")}
         </div>
+        <div
+          className="w-full border-2 rounded border-custom-teal"
+          style={{
+            ...indicatorStyle,
+            transition: "width 0.3s ease, transform 0.3s ease",
+          }}
+        />
       </div>
 
       {/* Tab content */}
