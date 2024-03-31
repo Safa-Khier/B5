@@ -97,6 +97,8 @@
   "expDate": "Data di scadenza",
   "cvv": "CVV",
 
+  "errorInvalidCardNumber": "Numero di carta non valido!",
+
   "tags": "TAG",
   "Categories": "Categorie"
 }

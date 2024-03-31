@@ -17,7 +17,7 @@ export default function Alert({
     if (messageType === undefined) {
       return (
         <button
-          className="w-1/4 text-black dark:text-white bg-gray-300 dark:bg-gray-500 p-1.5 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-lg"
+          className="w-fit text-black dark:text-white bg-gray-300 dark:bg-gray-500 p-1.5 hover:bg-gray-200 dark:hover:bg-gray-400 rounded-lg whitespace-nowrap"
           onClick={onClose}
         >
           {t("ok")}
