@@ -292,6 +292,7 @@ export default function AuthenticatedNavBar() {
           className="flex justify-center items-start py-10 absolute bg-white bg-opacity-5 md:hidden w-full h-screen font-bold text-black dark:text-white"
           style={{
             backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
           }}
         >
           <div className="w-[75%] flex flex-col justify-center items-center gap-4">
