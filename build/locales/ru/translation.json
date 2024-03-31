@@ -70,7 +70,7 @@
   "resetPasswordEmailSent": "Письмо для сброса пароля отправлено!",
   "accountCreated": "Аккаунт успешно создан!",
 
-  "ok": "ОК",
+  "ok": "Хорошо",
   "confirm": "Подтвердить",
   "cancel": "Отмена",
   "signOutTitle": "Подтверждение выхода из системы",
@@ -96,6 +96,8 @@
   "cardHolder": "Держатель карты",
   "expDate": "Срок действия",
   "cvv": "CVV",
+
+  "errorInvalidCardNumber": "Неверный номер карты!",
 
   "tags": "Теги",
   "Categories": "Категории"

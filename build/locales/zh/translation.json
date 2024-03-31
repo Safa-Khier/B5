@@ -97,6 +97,8 @@
   "expDate": "到期日",
   "cvv": "CVV",
 
+  "errorInvalidCardNumber": "無效的卡號！",
+
   "tags": "標籤",
   "Categories": "分類"
 }
