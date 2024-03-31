@@ -106,7 +106,7 @@ export default function CashIn() {
     switch (activeTab) {
       case "buy":
         return (
-          <div className="grid grid-cols-2 h-min w-full p-10 border rounded-xl dark:border-gray-600">
+          <div className="grid grid-cols-2 h-full w-full p-10 border rounded-xl dark:border-gray-600">
             <div className="w-full h-full p-5 flex flex-col justify-between items-start text-xl">
               <div className="text-lg w-full h-full flex flex-col gap-10">
                 <div className="flex flex-col w-full">
@@ -196,25 +196,27 @@ export default function CashIn() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full content p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
-      {/* Tab buttons */}
-      <div className="w-[70%] flex flex-col justify-center items-start border-b">
-        <div className="flex w-full gap-5 relative">
-          {renderTabButton("buy", "Buy")}
-          {renderTabButton("sell", "Sell")}
-          {renderTabButton("history", "History")}
+    <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between">
+      <div className=" p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
+        {/* Tab buttons */}
+        <div className="w-[80%] flex flex-col justify-center items-start border-b">
+          <div className="flex w-full gap-5 relative">
+            {renderTabButton("buy", "Buy")}
+            {renderTabButton("sell", "Sell")}
+            {renderTabButton("history", "History")}
+          </div>
+          <div
+            className="w-full border-2 rounded border-custom-teal"
+            style={{
+              ...indicatorStyle,
+              transition: "width 0.3s ease, transform 0.3s ease",
+            }}
+          />
         </div>
-        <div
-          className="w-full border-2 rounded border-custom-teal"
-          style={{
-            ...indicatorStyle,
-            transition: "width 0.3s ease, transform 0.3s ease",
-          }}
-        />
-      </div>
 
-      {/* Tab content */}
-      <div className="p-5 h-full w-[70%]">{renderTabContent()}</div>
+        {/* Tab content */}
+        <div className="p-5 h-full w-[80%]">{renderTabContent()}</div>
+      </div>
       <Footer />
     </div>
   );

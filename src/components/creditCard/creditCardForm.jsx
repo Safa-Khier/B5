@@ -50,7 +50,7 @@ const CreditCardForm = () => {
   // Handlers for cardName and ccv similar to handleCardNumberChange (omitted for brevity)
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex w-full flex-col justify-center items-center">
       <div className="circles">
         <div className="circle circle-1" />
         <div className="circle circle-2" />
@@ -83,7 +83,7 @@ const CreditCardForm = () => {
             <span className="card-underline bg-gray-600 dark:bg-white"></span>
           </div>
           <br />
-          <div className="group">
+          <div className="group whitespace-nowrap">
             <div className="card-name">
               <label className="label text-black dark:text-white">
                 {t("cardHolder")}

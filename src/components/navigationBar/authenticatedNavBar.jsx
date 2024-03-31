@@ -289,7 +289,7 @@ export default function AuthenticatedNavBar() {
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
       {isHamburgerMenuOpen && (
         <div
-          className="flex justify-center items-start py-10 absolute bg-white bg-opacity-5 md:hidden w-full h-screen font-bold text-black dark:text-white"
+          className="flex justify-center items-start py-10 absolute md:bg-white bg-opacity-95 md:bg-opacity-5 bg-gray-200 dark:bg-gray-700 md:hidden w-full h-screen font-bold text-black dark:text-white"
           style={{
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
