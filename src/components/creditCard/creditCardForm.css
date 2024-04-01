@@ -16,7 +16,7 @@
   height: 300px;
   width: 300px;
   top: 70px;
-  left: -20px;
+  left: -70px;
   opacity: 0.8;
   animation-timing-function: cubic-bezier(0.54, 0.085, 0.5, 0.92);
   animation-iteration-count: infinite;
@@ -33,7 +33,7 @@
   height: 240px;
   width: 240px;
   bottom: 70px;
-  right: -130px;
+  right: -70px;
   opacity: 0.8;
   animation-timing-function: cubic-bezier(0.54, 0.085, 0.5, 0.92);
   animation-iteration-count: infinite;
@@ -96,8 +96,8 @@
 
 .card-wrapper {
   position: relative; /* New wrapper for positioning context */
-  width: 100%; /* Adjust width as necessary */
-  display: flex;
+  max-width: fit-content; /* Adjust width as necessary */
+  display: inline-block;
   justify-content: center; /* Center the card within the wrapper */
 }
 

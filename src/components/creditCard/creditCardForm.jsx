@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./creditCardForm.css";
 import { useTranslation } from "react-i18next";
 
-const CreditCardForm = ({ handleCreditCardData }) => {
+const CreditCardForm = ({
+  handleCreditCardData,
+  hiddenBackground,
+  disabledFields,
+  cardDetails,
+}) => {
   const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
   const [expDate, setExpDate] = useState("");
@@ -19,6 +24,15 @@ const CreditCardForm = ({ handleCreditCardData }) => {
       .trim();
     setCardNumber(value);
   };
+
+  useEffect(() => {
+    if (cardDetails) {
+      setCardNumber(cardDetails.cardNumber);
+      setCardName(cardDetails.cardName);
+      setExpDate(cardDetails.expDate);
+      setCcv(cardDetails.ccv);
+    }
+  }, [cardDetails]);
 
   useEffect(() => {
     sendCreditCardDataToParent();
@@ -65,11 +79,13 @@ const CreditCardForm = ({ handleCreditCardData }) => {
 
   return (
     <div className="flex w-full flex-col justify-center items-center relative">
-      <h1 className="title text-black dark:text-white">
+      <h1
+        className={`title text-black dark:text-white ${hiddenBackground && "hidden"}`}
+      >
         {t("creditCardTitle")}
       </h1>
       <div className="card-wrapper">
-        <div className="circles">
+        <div className={`circles ${hiddenBackground && "hidden"}`}>
           <div className="circle circle-1" />
           <div className="circle circle-2" />
         </div>
@@ -94,9 +110,12 @@ const CreditCardForm = ({ handleCreditCardData }) => {
                 placeholder="1234 1234 1234 1234"
                 type="text"
                 maxLength="19"
+                disabled={disabledFields}
                 required
               />
-              <span className="card-underline bg-gray-600 dark:bg-white"></span>
+              <span
+                className={`${!disabledFields && "card-underline"} bg-gray-600 dark:bg-white `}
+              />
             </div>
             <br />
             <div className="group whitespace-nowrap">
@@ -111,9 +130,12 @@ const CreditCardForm = ({ handleCreditCardData }) => {
                   onChange={(e) => setCardName(e.target.value.toUpperCase())}
                   placeholder="Safa Khier"
                   type="text"
+                  disabled={disabledFields}
                   required
                 />
-                <span className="card-underline bg-gray-600 dark:bg-white"></span>
+                <span
+                  className={`${!disabledFields && "card-underline"} bg-gray-600 dark:bg-white `}
+                />
               </div>
               <div className="expiration-date">
                 <label className="label text-black dark:text-white">
@@ -127,9 +149,12 @@ const CreditCardForm = ({ handleCreditCardData }) => {
                   placeholder="10/25"
                   type="text"
                   maxLength="5"
+                  disabled={disabledFields}
                   required
                 />
-                <span className="card-underline bg-gray-600 dark:bg-white"></span>
+                <span
+                  className={`${!disabledFields && "card-underline"} bg-gray-600 dark:bg-white `}
+                />
               </div>
               <div className="ccv">
                 <label className="label text-black dark:text-white">
@@ -145,9 +170,12 @@ const CreditCardForm = ({ handleCreditCardData }) => {
                   placeholder="123"
                   type="text"
                   maxLength="3"
+                  disabled={disabledFields}
                   required
                 />
-                <span className="card-underline bg-gray-600 dark:bg-white"></span>
+                <span
+                  className={`${!disabledFields && "card-underline"} bg-gray-600 dark:bg-white `}
+                />
               </div>
             </div>
           </form>

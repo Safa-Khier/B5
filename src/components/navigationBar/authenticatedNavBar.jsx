@@ -184,7 +184,7 @@ export default function AuthenticatedNavBar() {
           </ul>
         </div>
 
-        <div className="text-black dark:text-white hidden justify-start items-center lg:order-2 rtl:space-x-reverse lg:flex">
+        <div className="text-black dark:text-white hidden justify-start items-center lg:order-2 rtl:space-x-reverse xl:flex">
           {/* <i className="material-icons text-white dark:text-black bg-black dark:bg-white rounded-full mr-2">
             currency_bitcoin
           </i> */}

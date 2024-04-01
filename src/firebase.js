@@ -158,6 +158,7 @@ export async function addCryptoToTheWallet(
       transaction.set(userTransactionsRef, {
         accountBalance: accountBalance,
         currencyId: currency.id,
+        transactionType: "buy",
         amount: amount,
         price: price,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Stores the time the transaction was made

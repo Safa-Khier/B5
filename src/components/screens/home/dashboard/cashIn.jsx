@@ -8,7 +8,7 @@ import Footer from "../../../footer.jsx";
 import { addCryptoToTheWallet } from "../../../../firebase.js";
 import { useAuth } from "../../../../AuthContext.js";
 import Alert from "../../../alert/alert.jsx";
-import { use } from "i18next";
+import TransactionsTable from "../../../table/transactionsTable/transactionsTable.jsx";
 
 export default function CashIn() {
   const { t } = useTranslation();
@@ -38,6 +38,7 @@ export default function CashIn() {
   });
   const [indicatorStyle, setIndicatorStyle] = useState({});
   const tabRefs = useRef([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     if (tabRefs.current[activeTab]) {
@@ -47,7 +48,7 @@ export default function CashIn() {
         transform: `translateX(${offsetLeft}px)`, // Use the corrected offset
       });
     }
-  }, [activeTab, tabRefs]);
+  }, [activeTab, tabRefs, windowWidth]);
 
   useEffect(() => {
     setCurrencied(
@@ -59,6 +60,16 @@ export default function CashIn() {
         symbol: currency.symbol,
       })),
     );
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleCreditCardData = (data) => {
@@ -134,13 +145,15 @@ export default function CashIn() {
     const amount =
       (parseFloat(value) || 0) / selectedCurrency.value.current_price;
 
-    let accountBalance = 0;
+    let accountBalance = selectedCurrency.value.current_price * amount;
+    console.log(accountBalance);
+
     currentUserData.wallet.forEach((currency) => {
       const currencyPrice = currencies.find((c) => c.id === currency.id).value
         .current_price;
       accountBalance += currency.amount * currencyPrice;
     });
-
+    // return;
     try {
       await addCryptoToTheWallet(
         currentUserData,
@@ -163,6 +176,43 @@ export default function CashIn() {
       showAlert();
     }
   }
+
+  const handleCardNumberChange = (e) => {
+    const input = e.target.value;
+    let cleaned = input.replace(/[^\d\s]/g, "");
+    let value = cleaned
+      .replace(/[^0-9]+/g, "")
+      .replace(/(.{4})/g, "$1 ")
+      .trim();
+    setCreditCardDetails({ ...creditCardDetails, cardNumber: value });
+  };
+
+  const handleExpDateChange = (e) => {
+    let value = e.target.value.replace(/[^0-9]+/g, ""); // Keep only digits
+
+    if (value.length === 1 && parseInt(value) > 1) {
+      // Automatically add a leading zero
+      value = "0" + value;
+    }
+
+    if (value.length === 2 && parseInt(value) > 12) {
+      // Prevent month from being greater than 12
+      value = value.substring(0, 1);
+      console.log("value", value);
+    }
+
+    // Automatically add a slash after the month (first two digits)
+    if (value.length > 2) {
+      value = value.substring(0, 2) + "/" + value.substring(2);
+    }
+
+    // Handle case when user backspaces over the slash
+    if (value.length === 3 && e.target.value.length === 2) {
+      value = value.substring(0, 2);
+    }
+
+    setCreditCardDetails({ ...creditCardDetails, expDate: value });
+  };
 
   // Custom option component
   const CustomOption = ({ innerProps, isFocused, isSelected, data }) => (
@@ -232,8 +282,8 @@ export default function CashIn() {
     switch (activeTab) {
       case "buy":
         return (
-          <div className="grid grid-cols-2 h-full w-full p-10 border rounded-xl dark:border-gray-600">
-            <div className="w-full max-h-full p-5 flex flex-col justify-between items-start text-xl">
+          <div className="grid xl:grid-cols-2 h-full w-full xl:p-10 xl:border rounded-xl dark:border-gray-600">
+            <div className="w-full max-h-full md:p-5 flex flex-col justify-between items-start text-xl">
               <div className="text-lg w-full h-full flex flex-col gap-10">
                 <div className="flex flex-col w-full">
                   <label className="font-bold mb-1">{t("spend")}</label>
@@ -266,14 +316,31 @@ export default function CashIn() {
 
               <button
                 onClick={handleBuy}
-                className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded"
+                className="hidden xl:justify-center xl:flex w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
               >
                 Buy
               </button>
             </div>
-            <div className="p-14">
-              <CreditCardForm handleCreditCardData={handleCreditCardData} />
+            <div className="p-14 hidden md:flex">
+              <CreditCardForm
+                handleCreditCardData={handleCreditCardData}
+                hiddenBackground={false}
+                disabledFields={false}
+                cardDetails={creditCardDetails}
+              />
             </div>
+            <div className="flex flex-col md:hidden mt-10">
+              <label className="font-bold text-xl mb-5">
+                {t("creditcardDetails")}
+              </label>
+              {creditCardFormForSmallScreens()}
+            </div>
+            <button
+              onClick={handleBuy}
+              className="flex justify-center xl:hidden w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
+            >
+              Buy
+            </button>
           </div>
         );
       case "sell":
@@ -321,14 +388,75 @@ export default function CashIn() {
         );
       case "history":
         return (
-          <div className="grid grid-cols-2 h-min w-full p-10 border rounded-xl dark:border-gray-600">
-            Content for History Tab
+          <div className="h-full w-full md:p-10 md:border rounded-xl dark:border-gray-600">
+            <TransactionsTable
+              transactions={currentUserData.transactions}
+              currencies={currencies}
+            />
           </div>
         );
       default:
         return null;
     }
   };
+
+  function creditCardFormForSmallScreens() {
+    return (
+      <div className="">
+        <label className="font-bold">{t("cardNumber")}</label>
+        <input
+          type="text"
+          value={creditCardDetails.cardNumber}
+          className="react-input w-full rounded focus:ring-transparent text-lg"
+          onChange={handleCardNumberChange}
+          placeholder="1234 1234 1234 1234"
+          maxLength="19"
+        />
+        <label className="font-bold">{t("cardHolder")}</label>
+        <input
+          type="text"
+          value={creditCardDetails.cardName}
+          className="react-input w-full rounded focus:ring-transparent text-lg"
+          placeholder="Safa Khier"
+          onChange={(e) =>
+            setCreditCardDetails({
+              ...creditCardDetails,
+              cardName: e.target.value.toUpperCase(),
+            })
+          }
+        />
+        <div className="flex gap-5 w-full">
+          <div className="w-full">
+            <label className="font-bold">{t("expDate")}</label>
+            <input
+              type="text"
+              value={creditCardDetails.expDate}
+              className="react-input w-full rounded focus:ring-transparent text-lg"
+              onChange={handleExpDateChange}
+              placeholder="10/25"
+              maxLength="5"
+            />
+          </div>
+          <div className="w-full">
+            <label className="font-bold">{t("cvv")}</label>
+            <input
+              type="text"
+              value={creditCardDetails.ccv}
+              onChange={(e) =>
+                setCreditCardDetails({
+                  ...creditCardDetails,
+                  ccv: e.target.value.replace(/[^0-9]+/g, ""),
+                })
+              }
+              className="react-input w-full rounded focus:ring-transparent text-lg"
+              maxLength="3"
+              placeholder="123"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const renderTabButtonIcon = (tab) => {
     switch (tab) {
@@ -363,10 +491,10 @@ export default function CashIn() {
 
   return (
     <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between">
-      <div className=" p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
+      <div className="p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
         {/* Tab buttons */}
-        <div className="w-[80%] flex flex-col justify-center items-start border-b">
-          <div className="flex w-full gap-5 relative">
+        <div className="w-full xl:w-[80%] flex flex-col justify-center items-start border-b md:p-0">
+          <div className="flex justify-between md:justify-start w-full gap-5 relative">
             {renderTabButton("buy", "Buy")}
             {renderTabButton("sell", "Sell")}
             {renderTabButton("history", "History")}
@@ -381,7 +509,9 @@ export default function CashIn() {
         </div>
 
         {/* Tab content */}
-        <div className="p-5 h-full w-[80%]">{renderTabContent()}</div>
+        <div className="pt-5 md:p-5 h-full w-full xl:w-[80%]">
+          {renderTabContent()}
+        </div>
       </div>
       <Alert
         {...alertData}
