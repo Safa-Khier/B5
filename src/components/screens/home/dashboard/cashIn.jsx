@@ -8,7 +8,9 @@ import Footer from "../../../footer.jsx";
 import { addCryptoToTheWallet } from "../../../../firebase.js";
 import { useAuth } from "../../../../AuthContext.js";
 import Alert from "../../../alert/alert.jsx";
-import TransactionsTable from "../../../table/transactionsTable/transactionsTable.jsx";
+import TransactionsBuyTable from "../../../table/transactionsTable/transactionsBuyTable.jsx";
+import TransactionsTradeTable from "../../../table/transactionsTable/transactionsTradeTable.jsx";
+import { isDisabled } from "@testing-library/user-event/dist/cjs/utils/index.js";
 
 export default function CashIn() {
   const { t } = useTranslation();
@@ -30,14 +32,32 @@ export default function CashIn() {
   const [currencies, setCurrencied] = useState();
   const [price, setPrice] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState();
+
   const [creditCardDetails, setCreditCardDetails] = useState({
     cardNumber: "",
     cardName: "",
     expDate: "",
     ccv: "",
   });
-  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const [indicatorStyle, setIndicatorStyle] = useState({
+    width: 0,
+    transform: `translateX(0px)`, // Use the corrected offset
+  });
   const tabRefs = useRef([]);
+
+  const [activeTableTab, setActiveTableTab] = useState("buy");
+  const [tableTabIndicatorStyle, setTableTabIndicatorStyle] = useState({
+    width: 35,
+    transform: `translateX(0px)`, // Use the corrected offset
+  });
+  const tableTabRefs = useRef([]);
+  const [tradeSelectedCurrencyForSell, setTradeSelectedCurrencyForSell] =
+    useState();
+  const [amountSelectedCurrencyForBuy, setAmountSelectedCurrencyForBuy] =
+    useState();
+  const [tradeSelectedCurrencyForBuy, setTradeSelectedCurrencyForBuy] =
+    useState();
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -49,6 +69,16 @@ export default function CashIn() {
       });
     }
   }, [activeTab, tabRefs, windowWidth]);
+
+  useEffect(() => {
+    if (tableTabRefs.current[activeTableTab]) {
+      const { offsetLeft, clientWidth } = tableTabRefs.current[activeTableTab];
+      setTableTabIndicatorStyle({
+        width: clientWidth,
+        transform: `translateX(${offsetLeft}px)`, // Use the corrected offset
+      });
+    }
+  }, [activeTableTab, tableTabRefs, windowWidth]);
 
   useEffect(() => {
     setCurrencied(
@@ -238,6 +268,43 @@ export default function CashIn() {
     </div>
   );
 
+  // Custom option component
+  const TradeCustomOption = ({ innerProps, isFocused, isSelected, data }) => {
+    const isDisabled =
+      !isSelected &&
+      (data === tradeSelectedCurrencyForBuy ||
+        data === tradeSelectedCurrencyForSell);
+    return (
+      <div
+        {...innerProps}
+        className={`text-sm flex justify-between items-center p-2 
+        ${isFocused && "bg-gray-300 dark:bg-gray-600"} 
+        ${isSelected && "font-bold text-custom-teal"} 
+        ${isDisabled && "text-gray-500 dark:text-gray-400 opacity-50"}`}
+      >
+        <div className="flex justify-start h-[100%] items-center">
+          <img
+            className="w-6 h-6 mr-2"
+            loading="lazy"
+            src={data.image}
+            alt={data.label + " Logo"}
+          />
+          <div className="flex flex-col justify-center items-start">
+            {data.symbol.toUpperCase()}
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {data.label}
+            </span>
+          </div>
+        </div>
+        {isSelected ? (
+          <i className="material-icons">done</i>
+        ) : (
+          isDisabled && <i className="material-icons">block</i>
+        )}
+      </div>
+    );
+  };
+
   const CustomSingleValue = ({ data }) => (
     <div className="flex items-center">
       <img src={data.image} style={{ width: 20, height: 20, marginRight: 8 }} />
@@ -275,6 +342,34 @@ export default function CashIn() {
 
     // Update the numeric state (convert string to float)
     setPrice("$" + (formattedNumber || 0));
+  };
+
+  // Handle change in input
+  const handleAmountChange = (e) => {
+    // Remove non-numeric chars (except for decimal point)
+    const value = e.target.value.replace(/[^0-9.]/g, "");
+
+    if (value === "") {
+      setPrice("");
+      return;
+    }
+
+    if (parseFloat(value) > 20000) {
+      return;
+    }
+
+    const formattedNumber = parseFloat(value).toLocaleString("en-US");
+
+    // Update the numeric state (convert string to float)
+    setPrice(formattedNumber || 0);
+  };
+
+  const maxSellAmount = () => {
+    if (!tradeSelectedCurrencyForSell) return "";
+    const maxAmount = currentUserData.wallet.find(
+      (currency) => tradeSelectedCurrencyForSell.id === currency.id,
+    ).amount;
+    return "(Up To" + maxAmount + ")";
   };
 
   // Function to render the tab content based on the active tab
@@ -343,45 +438,76 @@ export default function CashIn() {
             </button>
           </div>
         );
-      case "sell":
+      case "trade":
         return (
-          <div className="grid grid-cols-2 h-full w-full p-10 border rounded-xl dark:border-gray-600">
+          <div className="grid grid-cols-3 h-full w-full p-10 border rounded-xl dark:border-gray-600 text-lg">
             <div className="w-full max-h-full p-5 flex flex-col justify-between items-start text-xl">
-              <div className="text-lg w-full h-full flex flex-col gap-10">
+              <div className=" w-full h-full flex flex-col gap-10">
                 <div className="flex flex-col w-full">
-                  <label className="font-bold">Receive</label>
+                  <label className="font-bold">{t("spend")}</label>
                   <Select
-                    value={selectedCurrency}
+                    value={tradeSelectedCurrencyForSell}
                     className="react-select-container w-full"
                     classNamePrefix="react-select"
                     placeholder={t("search") + "..."}
                     onChange={(selectedOption) =>
-                      setSelectedCurrency(selectedOption)
+                      setTradeSelectedCurrencyForSell(selectedOption)
                     }
+                    isOptionDisabled={(option) => {
+                      if (!tradeSelectedCurrencyForBuy) return false;
+                      return option.id === tradeSelectedCurrencyForBuy.id;
+                    }}
                     components={{
-                      Option: CustomOption,
+                      Option: TradeCustomOption,
                       SingleValue: CustomSingleValue,
                     }}
                     options={currencies}
                   />
                 </div>
                 <div className="flex flex-col w-full">
-                  <label className="font-bold mb-1">{t("spend")}</label>
+                  <label className="font-bold mb-1">{t("amount")}</label>
                   <input
                     type="text"
-                    value={price}
+                    value={amountSelectedCurrencyForBuy}
                     className="react-input w-full rounded focus:ring-transparent text-lg"
-                    onChange={handlePriceChange}
-                    placeholder="$10 - $20,000"
+                    onChange={handleAmountChange}
+                    placeholder={`select amount...${maxSellAmount()}`}
                   />
                 </div>
               </div>
-
+            </div>
+            <div>
+              <i className="material-icons text-9xl text-custom-teal h-full flex justify-center items-center">
+                arrow_forward
+              </i>
+            </div>
+            <div className="p-5 flex flex-col justify-between items-center">
+              <div className="flex flex-col w-full">
+                <label className="font-bold mb-1">{t("receive")}</label>
+                <Select
+                  value={tradeSelectedCurrencyForBuy}
+                  className="react-select-container w-full"
+                  classNamePrefix="react-select"
+                  placeholder={t("search") + "..."}
+                  isOptionDisabled={(option) => {
+                    if (!tradeSelectedCurrencyForSell) return false;
+                    return option.id === tradeSelectedCurrencyForSell.id;
+                  }}
+                  onChange={(selectedOption) =>
+                    setTradeSelectedCurrencyForBuy(selectedOption)
+                  }
+                  components={{
+                    Option: TradeCustomOption,
+                    SingleValue: CustomSingleValue,
+                  }}
+                  options={currencies}
+                />
+              </div>
               <button
                 onClick={handleBuy}
                 className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded"
               >
-                Buy
+                Trade
               </button>
             </div>
           </div>
@@ -389,10 +515,30 @@ export default function CashIn() {
       case "history":
         return (
           <div className="h-full w-full md:p-10 md:border rounded-xl dark:border-gray-600">
-            <TransactionsTable
-              transactions={currentUserData.transactions}
-              currencies={currencies}
-            />
+            <div className="relative">
+              <div className="flex justify-between md:justify-start w-full gap-5">
+                {renderTableTabButton("buy", "buy")}
+                {renderTableTabButton("trade", "trade")}
+              </div>
+              <div
+                className="absolute w-full h-full top-0 left-0 rounded bg-custom-teal bg-opacity-60 -z-10"
+                style={{
+                  ...tableTabIndicatorStyle,
+                  transition: "width 0.3s ease, transform 0.3s ease",
+                }}
+              />
+            </div>
+            {activeTableTab === "buy" ? (
+              <TransactionsBuyTable
+                transactions={currentUserData.transactions}
+                currencies={currencies}
+              />
+            ) : (
+              <TransactionsTradeTable
+                transactions={currentUserData.transactions}
+                currencies={currencies}
+              />
+            )}
           </div>
         );
       default:
@@ -462,8 +608,8 @@ export default function CashIn() {
     switch (tab) {
       case "buy":
         return "shopping_cart";
-      case "sell":
-        return "sell";
+      case "trade":
+        return "compare_arrows";
       case "history":
         return "history";
       default:
@@ -489,6 +635,22 @@ export default function CashIn() {
     );
   };
 
+  const renderTableTabButton = (tab, title) => {
+    return (
+      <div
+        className={`flex flex-col justify-start items-center text-md font-semibold ${activeTableTab === tab && "text-white"}`}
+      >
+        <button
+          ref={(el) => (tableTabRefs.current[tab] = el)}
+          className={`flex justify-center items-center gap-2 p-1 ${activeTableTab === tab ? "hover:text-gray-800" : "hover:text-custom-teal"}`}
+          onClick={() => setActiveTableTab(tab)}
+        >
+          {t(title)}
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between">
       <div className="p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
@@ -496,7 +658,7 @@ export default function CashIn() {
         <div className="w-full xl:w-[80%] flex flex-col justify-center items-start border-b md:p-0">
           <div className="flex justify-between md:justify-start w-full gap-5 relative">
             {renderTabButton("buy", "Buy")}
-            {renderTabButton("sell", "Sell")}
+            {renderTabButton("trade", "trade")}
             {renderTabButton("history", "History")}
           </div>
           <div

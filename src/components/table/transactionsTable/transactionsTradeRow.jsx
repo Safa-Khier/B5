@@ -2,7 +2,7 @@ import React from "react";
 import { removeTrailingZeros } from "../../../../public/publicFunctions";
 import { useTranslation } from "react-i18next";
 
-export const TransactionsRow = (prop) => {
+export const TransactionsTradeRow = (prop) => {
   const transaction = prop.data;
   const { t } = useTranslation();
 
@@ -29,34 +29,42 @@ export const TransactionsRow = (prop) => {
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"
-            src={transaction.image}
-            alt={transaction.name + " Logo"}
+            src={transaction.soldCurrency.image}
+            alt={transaction.soldCurrency.name + " Logo"}
           />
-          <div className="flex flex-col justify-center items-start">
-            {transaction.symbol.toUpperCase()}
+          <div className="flex flex-col justify-start items-start">
+            {transaction.soldCurrency.symbol.toUpperCase()}
             <span className="text-xs text-gray-500 dark:text-gray-400">
-              {transaction.name}
+              {transaction.soldCurrency.name}
             </span>
           </div>
         </div>
       </td>
-      <td
-        className={`py-2 items-start ${transaction.transactionType === "buy" ? "text-green" : "text-red"}`}
-      >
-        {t(transaction.transactionType)}
+      <td className="py-2">
+        <div className="flex justify-start h-[100%] items-center">
+          <img
+            className="w-6 h-6 mr-2"
+            loading="lazy"
+            src={transaction.boughtCurrency.image}
+            alt={transaction.boughtCurrency.name + " Logo"}
+          />
+          <div className="flex flex-col justify-center items-start">
+            {transaction.boughtCurrency.symbol.toUpperCase()}
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {transaction.boughtCurrency.name}
+            </span>
+          </div>
+        </div>
       </td>
-      <td className="py-2 text-end md:table-cell hidden">
-        {"$" +
-          parseFloat(removeTrailingZeros(transaction.price)).toLocaleString()}
-      </td>
-      <td className="py-2 text-end">
-        {/* {transaction.amount} */}
-        {parseFloat(transaction.amount.toFixed(5)).toLocaleString() +
+      <td className={`py-2 text-end`}>
+        {transaction.soldCurrency.amount +
           " " +
-          transaction.symbol.toUpperCase()}
+          transaction.soldCurrency.symbol.toUpperCase()}
       </td>
-      <td className="py-2 md:table-cell hidden text-end">
-        {transaction.creditCardDetails.cardNumber}
+      <td className={`py-2 text-end`}>
+        {transaction.boughtCurrency.amount +
+          " " +
+          transaction.boughtCurrency.symbol.toUpperCase()}
       </td>
       <td className="py-2 text-end md:table-cell hidden">
         {formatDate(transaction.timestamp.toDate())}
@@ -65,4 +73,4 @@ export const TransactionsRow = (prop) => {
   );
 };
 
-export default TransactionsRow;
+export default TransactionsTradeRow;

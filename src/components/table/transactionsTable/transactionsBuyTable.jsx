@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import TransactionsRow from "./transactionsRow";
-import { cryptoData } from "../../../atoms/cryptoData";
+import TransactionsBuyRow from "./transactionsBuyRow";
 
-export default function TransactionsTable({ transactions, currencies }) {
+export default function TransactionsBuyTable({ transactions, currencies }) {
   const { t } = useTranslation();
   const transactionsPerPage = 7;
 
@@ -12,8 +11,27 @@ export default function TransactionsTable({ transactions, currencies }) {
   const [sort, setSort] = useState({ field: "", asc: null });
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [tableType, setTableType] = useState(true); // true for transactions, false for holdings
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [length, setLength] = useState(5);
+
+  const [activeTab, setActiveTab] = useState("buy");
+  const [indicatorStyle, setIndicatorStyle] = useState({
+    width: 0,
+    transform: `translateX(0px)`, // Use the corrected offset
+  });
+  const tabRefs = useRef([]);
+
+  useEffect(() => {
+    if (tabRefs.current[activeTab]) {
+      const { offsetLeft, clientWidth } = tabRefs.current[activeTab];
+      setIndicatorStyle({
+        width: clientWidth,
+        transform: `translateX(${offsetLeft}px)`, // Use the corrected offset
+      });
+    }
+  }, [activeTab, tabRefs, windowWidth]);
 
   useEffect(() => {
     updateTransactionsData();
@@ -30,18 +48,20 @@ export default function TransactionsTable({ transactions, currencies }) {
   }, []);
 
   function updateTransactionsData() {
-    const transactionsFullData = transactions.map((transaction) => {
-      const currency = currencies.find(
-        (currency) => currency.id === transaction.currencyId,
-      );
+    const transactionsFullData = transactions
+      .filter((transaction) => transaction.transactionType === "buy") // Only include "buy" transactions
+      .map((transaction) => {
+        const currency = currencies.find(
+          (currency) => currency.id === transaction.currencyId,
+        );
 
-      return {
-        ...transaction,
-        name: currency.value.name,
-        image: currency.value.image,
-        symbol: currency.value.symbol,
-      };
-    });
+        return {
+          ...transaction,
+          name: currency.value.name,
+          image: currency.value.image,
+          symbol: currency.value.symbol,
+        };
+      });
 
     transactionsFullData.sort(
       (a, b) => b.timestamp.toDate() - a.timestamp.toDate(),
@@ -114,7 +134,7 @@ export default function TransactionsTable({ transactions, currencies }) {
   const headerCell = (field, title) => {
     return (
       <div
-        className={`flex py-2 ${title === "coin" || title === "type" ? "justify-start" : "justify-end"} items-center`}
+        className={`flex py-2 ${title === "coin" || title === "spent coin" || title === "type" ? "justify-start" : "justify-end"} items-center`}
       >
         {t(title)}
         {checkIfSortedBy(field) ? (
@@ -175,12 +195,6 @@ export default function TransactionsTable({ transactions, currencies }) {
               {headerCell("transactionType", "type")}
             </th>
             <th
-              onClick={() => sortData("price")}
-              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
-            >
-              {headerCell("price", "price")}
-            </th>
-            <th
               onClick={() => sortData("amount")}
               className="cursor-pointer bg-white dark:bg-gray-800"
             >
@@ -202,7 +216,7 @@ export default function TransactionsTable({ transactions, currencies }) {
         </thead>
         <tbody>
           {data.map((d, index) => (
-            <TransactionsRow
+            <TransactionsBuyRow
               data={d}
               key={d.id}
               index={index + 1 + (currentPage - 1) * transactionsPerPage}
@@ -211,6 +225,7 @@ export default function TransactionsTable({ transactions, currencies }) {
           ))}
         </tbody>
       </table>
+
       {totalPageNumber() > 1 && (
         <div className="flex justify-end items-center mt-2">
           <button

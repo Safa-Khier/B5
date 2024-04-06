@@ -171,3 +171,89 @@ export async function addCryptoToTheWallet(
     console.log("Transaction failed: ", error);
   }
 }
+
+export async function tradeCrypto(
+  user,
+  soldCurrency,
+  boughtCurrency,
+  soldCurrencyAmount,
+  boughtCurrencyAmount,
+) {
+  const db = firebase.firestore(); // Initialize Firestore database reference
+
+  const boughtCurrenceyRef = db
+    .collection("users")
+    .doc(user.uid)
+    .collection("wallet")
+    .doc(boughtCurrency.id);
+
+  const soldCurrenceyRef = db
+    .collection("users")
+    .doc(user.uid)
+    .collection("wallet")
+    .doc(soldCurrency.id);
+
+  const userTransactionsRef = db
+    .collection("users")
+    .doc(user.uid)
+    .collection("transactions")
+    .doc(); // Generates a new document reference for a transaction
+
+  try {
+    await db.runTransaction(async (transaction) => {
+      const soldCurrenceyDoc = await transaction.get(soldCurrenceyRef);
+      const boughtCurrenceyDoc = await transaction.get(boughtCurrenceyRef);
+
+      // Retrieve the current amount from the document
+      const currentSoldAmount = soldCurrenceyDoc.data()
+        ? soldCurrenceyDoc.data().amount
+        : 0;
+      // Retrieve the current amount from the document
+      const currentBoughtAmount = boughtCurrenceyDoc.data()
+        ? boughtCurrenceyDoc.data().amount
+        : 0;
+
+      if (currentSoldAmount < amount) {
+        console.log("Insufficient funds!");
+        return "Error: Insufficient funds!";
+      }
+
+      // Calculate the new amount
+      const newSoldCurrenceyAmount = currentSoldAmount - soldCurrencyAmount;
+      const newBoughtCurrenceyAmount =
+        currentBoughtAmount + boughtCurrencyAmount;
+
+      transaction.update(soldCurrenceyRef, { amount: newSoldCurrenceyAmount });
+
+      // Update the document with the new amount
+      if (boughtCurrenceyDoc.exists) {
+        transaction.update(boughtCurrenceyRef, {
+          amount: newBoughtCurrenceyAmount,
+        });
+      } else {
+        transaction.set(boughtCurrenceyRef, {
+          id: boughtCurrency.id,
+          amount: newBoughtCurrenceyAmount,
+        });
+      }
+
+      // Add a new transaction record
+      transaction.set(userTransactionsRef, {
+        soldCurrency: {
+          id: soldCurrency.id,
+          amount: soldCurrencyAmount,
+        },
+        boughtCurrency: {
+          id: boughtCurrency.id,
+          amount: boughtCurrencyAmount,
+        },
+        transactionType: "trade",
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Stores the time the transaction was made
+      });
+    });
+
+    console.log("Transaction successfully committed!");
+  } catch (error) {
+    console.log("Transaction failed: ", error);
+  }
+}
