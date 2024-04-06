@@ -11,6 +11,7 @@ import Alert from "../../../alert/alert.jsx";
 import TransactionsBuyTable from "../../../table/transactionsTable/transactionsBuyTable.jsx";
 import TransactionsTradeTable from "../../../table/transactionsTable/transactionsTradeTable.jsx";
 import { isDisabled } from "@testing-library/user-event/dist/cjs/utils/index.js";
+import BuyCurrencyScreen from "./buy.currencey.screen.jsx";
 
 export default function CashIn() {
   const { t } = useTranslation();
@@ -30,20 +31,14 @@ export default function CashIn() {
   // State to track the active tab
   const [activeTab, setActiveTab] = useState("buy");
   const [currencies, setCurrencied] = useState();
-  const [price, setPrice] = useState("");
-  const [selectedCurrency, setSelectedCurrency] = useState();
 
-  const [creditCardDetails, setCreditCardDetails] = useState({
-    cardNumber: "",
-    cardName: "",
-    expDate: "",
-    ccv: "",
-  });
   const [indicatorStyle, setIndicatorStyle] = useState({
     width: 0,
     transform: `translateX(0px)`, // Use the corrected offset
   });
   const tabRefs = useRef([]);
+
+  const [walletCurrencies, setWalletCurrencies] = useState([]);
 
   const [activeTableTab, setActiveTableTab] = useState("buy");
   const [tableTabIndicatorStyle, setTableTabIndicatorStyle] = useState({
@@ -51,10 +46,10 @@ export default function CashIn() {
     transform: `translateX(0px)`, // Use the corrected offset
   });
   const tableTabRefs = useRef([]);
+
   const [tradeSelectedCurrencyForSell, setTradeSelectedCurrencyForSell] =
     useState();
-  const [amountSelectedCurrencyForBuy, setAmountSelectedCurrencyForBuy] =
-    useState();
+  const [amountToSpend, setAmountToSpend] = useState("");
   const [tradeSelectedCurrencyForBuy, setTradeSelectedCurrencyForBuy] =
     useState();
 
@@ -81,6 +76,19 @@ export default function CashIn() {
   }, [activeTableTab, tableTabRefs, windowWidth]);
 
   useEffect(() => {
+    const walletCurrencies = currentUserData.wallet.map((walletCurrencey) => {
+      const currency = mcokCurrencies.find(
+        (currency) => currency.id === walletCurrencey.id,
+      );
+      return {
+        amount: walletCurrencey.amount,
+        ...currency,
+      };
+    });
+
+    console.log(walletCurrencies);
+
+    setWalletCurrencies(walletCurrencies);
     setCurrencied(
       mcokCurrencies.map((currency) => ({
         id: currency.id,
@@ -102,177 +110,21 @@ export default function CashIn() {
     };
   }, []);
 
-  const handleCreditCardData = (data) => {
-    setCreditCardDetails(data);
-  };
-
-  function checkCreditCardDetails() {
-    if (creditCardDetails.cardNumber.length !== 19) {
-      setAlertData({
-        title: "error",
-        message: "errorInvalidCardNumber",
-      });
-      showAlert();
-      return false;
-    }
-    if (creditCardDetails.cardName === "") {
-      setAlertData({
-        title: "error",
-        message: "errorInvalidCardName",
-      });
-      showAlert();
-      return false;
-    }
-    if (creditCardDetails.expDate.length !== 5) {
-      setAlertData({
-        title: "error",
-        message: "errorInvalidExpDate",
-      });
-      showAlert();
-      return false;
-    }
-    const now = new Date();
-    const month = now.getMonth() + 1;
-    const year = now.getFullYear().toString().slice(2, 4);
-
-    const expDate = creditCardDetails.expDate.split("/");
-    if (
-      parseInt(expDate[1]) < year ||
-      (parseInt(expDate[0]) <= month && parseInt(expDate[1]) == parseInt(year))
-    ) {
-      setAlertData({
-        title: "error",
-        message: "errorInvalidExpDate",
-      });
-      showAlert();
-      return false;
-    }
-    if (creditCardDetails.ccv.length !== 3) {
-      setAlertData({
-        title: "error",
-        message: "errorInvalidCCV",
-      });
-      showAlert();
-      return false;
-    }
-    return true;
-  }
-
-  async function handleBuy() {
-    if (!checkCreditCardDetails()) {
-      return;
-    }
-    // Handle buy logic
-    if (!selectedCurrency || !price) {
-      setAlertData({
-        title: "error",
-        message: "errorFillAllFields",
-      });
-      showAlert();
-      return;
-    }
-    const value = price.replace(/[^0-9.]/g, "");
-    const amount =
-      (parseFloat(value) || 0) / selectedCurrency.value.current_price;
-
-    let accountBalance = selectedCurrency.value.current_price * amount;
-    console.log(accountBalance);
-
-    currentUserData.wallet.forEach((currency) => {
-      const currencyPrice = currencies.find((c) => c.id === currency.id).value
-        .current_price;
-      accountBalance += currency.amount * currencyPrice;
+  const handleAlert = ({ title, message, messageType, action }) => {
+    setAlertData({
+      title: title,
+      message: message,
+      messageType: messageType,
+      action: action,
     });
-    // return;
-    try {
-      await addCryptoToTheWallet(
-        currentUserData,
-        selectedCurrency,
-        amount,
-        value,
-        creditCardDetails,
-        accountBalance,
-      );
-      setAlertData({
-        title: "Success",
-        message: "successBuyCrypto",
-      });
-      showAlert();
-    } catch (error) {
-      setAlertData({
-        title: "error",
-        message: "errorSomethingWentWrong",
-      });
-      showAlert();
-    }
-  }
-
-  const handleCardNumberChange = (e) => {
-    const input = e.target.value;
-    let cleaned = input.replace(/[^\d\s]/g, "");
-    let value = cleaned
-      .replace(/[^0-9]+/g, "")
-      .replace(/(.{4})/g, "$1 ")
-      .trim();
-    setCreditCardDetails({ ...creditCardDetails, cardNumber: value });
+    showAlert();
   };
-
-  const handleExpDateChange = (e) => {
-    let value = e.target.value.replace(/[^0-9]+/g, ""); // Keep only digits
-
-    if (value.length === 1 && parseInt(value) > 1) {
-      // Automatically add a leading zero
-      value = "0" + value;
-    }
-
-    if (value.length === 2 && parseInt(value) > 12) {
-      // Prevent month from being greater than 12
-      value = value.substring(0, 1);
-      console.log("value", value);
-    }
-
-    // Automatically add a slash after the month (first two digits)
-    if (value.length > 2) {
-      value = value.substring(0, 2) + "/" + value.substring(2);
-    }
-
-    // Handle case when user backspaces over the slash
-    if (value.length === 3 && e.target.value.length === 2) {
-      value = value.substring(0, 2);
-    }
-
-    setCreditCardDetails({ ...creditCardDetails, expDate: value });
-  };
-
-  // Custom option component
-  const CustomOption = ({ innerProps, isFocused, isSelected, data }) => (
-    <div
-      {...innerProps}
-      className={`text-sm flex justify-between items-center p-2 ${isFocused && "bg-gray-300 dark:bg-gray-600"} ${isSelected && "font-bold text-custom-teal"}`}
-    >
-      <div className="flex justify-start h-[100%] items-center">
-        <img
-          className="w-6 h-6 mr-2"
-          loading="lazy"
-          src={data.image}
-          alt={data.label + " Logo"}
-        />
-        <div className="flex flex-col justify-center items-start">
-          {data.symbol.toUpperCase()}
-          <span className="text-xs text-gray-500 dark:text-gray-400">
-            {data.label}
-          </span>
-        </div>
-      </div>
-      {isSelected && <i className="material-icons">done</i>}
-    </div>
-  );
 
   // Custom option component
   const TradeCustomOption = ({ innerProps, isFocused, isSelected, data }) => {
     const isDisabled =
       !isSelected &&
-      (data === tradeSelectedCurrencyForBuy ||
+      (data.id === tradeSelectedCurrencyForBuy.id ||
         data === tradeSelectedCurrencyForSell);
     return (
       <div
@@ -287,12 +139,12 @@ export default function CashIn() {
             className="w-6 h-6 mr-2"
             loading="lazy"
             src={data.image}
-            alt={data.label + " Logo"}
+            alt={data.name + " Logo"}
           />
           <div className="flex flex-col justify-center items-start">
             {data.symbol.toUpperCase()}
             <span className="text-xs text-gray-500 dark:text-gray-400">
-              {data.label}
+              {data.name}
             </span>
           </div>
         </div>
@@ -312,6 +164,16 @@ export default function CashIn() {
     </div>
   );
 
+  const CustomTradeSingleValue = ({ data }) => (
+    <div className="flex items-center">
+      <img src={data.image} style={{ width: 20, height: 20, marginRight: 8 }} />
+      {data.symbol.toUpperCase()}
+      <div className="pl-2 text-gray-500 dark:text-gray-400">
+        {" (" + data.name + ")"}
+      </div>
+    </div>
+  );
+
   const currencyAmount = () => {
     if (!selectedCurrency) return 0;
     const value = price.replace(/[^0-9.]/g, "");
@@ -321,47 +183,28 @@ export default function CashIn() {
   };
 
   // Handle change in input
-  const handlePriceChange = (e) => {
-    if (e.target.value === "$") {
-      setPrice("");
-      return;
-    }
-    // Remove non-numeric chars (except for decimal point)
-    const value = e.target.value.replace(/[^0-9.]/g, "");
-
-    if (value === "") {
-      setPrice("");
-      return;
-    }
-
-    if (parseFloat(value) > 20000) {
-      return;
-    }
-
-    const formattedNumber = parseFloat(value).toLocaleString("en-US");
-
-    // Update the numeric state (convert string to float)
-    setPrice("$" + (formattedNumber || 0));
-  };
-
-  // Handle change in input
   const handleAmountChange = (e) => {
     // Remove non-numeric chars (except for decimal point)
     const value = e.target.value.replace(/[^0-9.]/g, "");
 
     if (value === "") {
-      setPrice("");
+      setAmountToSpend("");
       return;
     }
 
-    if (parseFloat(value) > 20000) {
+    if (!tradeSelectedCurrencyForSell) return "";
+    const maxAmount = currentUserData.wallet.find(
+      (currency) => tradeSelectedCurrencyForSell.id === currency.id,
+    ).amount;
+
+    if (parseFloat(value) > maxAmount) {
       return;
     }
 
     const formattedNumber = parseFloat(value).toLocaleString("en-US");
 
     // Update the numeric state (convert string to float)
-    setPrice(formattedNumber || 0);
+    setAmountToSpend(formattedNumber || 0);
   };
 
   const maxSellAmount = () => {
@@ -369,7 +212,7 @@ export default function CashIn() {
     const maxAmount = currentUserData.wallet.find(
       (currency) => tradeSelectedCurrencyForSell.id === currency.id,
     ).amount;
-    return "(Up To" + maxAmount + ")";
+    return "(Up To ≈ " + maxAmount.toFixed(5) + ")";
   };
 
   // Function to render the tab content based on the active tab
@@ -377,70 +220,11 @@ export default function CashIn() {
     switch (activeTab) {
       case "buy":
         return (
-          <div className="grid xl:grid-cols-2 h-full w-full xl:p-10 xl:border rounded-xl dark:border-gray-600">
-            <div className="w-full max-h-full md:p-5 flex flex-col justify-between items-start text-xl">
-              <div className="text-lg w-full h-full flex flex-col gap-10">
-                <div className="flex flex-col w-full">
-                  <label className="font-bold mb-1">{t("spend")}</label>
-                  <input
-                    type="text"
-                    value={price}
-                    className="react-input w-full rounded focus:ring-transparent text-lg"
-                    onChange={handlePriceChange}
-                    placeholder="$10 - $20,000"
-                  />
-                </div>
-                <div className="flex flex-col w-full">
-                  <label className="font-bold">Receive</label>
-                  <Select
-                    value={selectedCurrency}
-                    className="react-select-container w-full"
-                    classNamePrefix="react-select"
-                    placeholder={t("search") + "..."}
-                    onChange={(selectedOption) =>
-                      setSelectedCurrency(selectedOption)
-                    }
-                    components={{
-                      Option: CustomOption,
-                      SingleValue: CustomSingleValue,
-                    }}
-                    options={currencies}
-                  />
-                </div>
-              </div>
-
-              <button
-                onClick={handleBuy}
-                className="hidden xl:justify-center xl:flex w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
-              >
-                Buy
-              </button>
-            </div>
-            <div className="p-14 hidden md:flex">
-              <CreditCardForm
-                handleCreditCardData={handleCreditCardData}
-                hiddenBackground={false}
-                disabledFields={false}
-                cardDetails={creditCardDetails}
-              />
-            </div>
-            <div className="flex flex-col md:hidden mt-10">
-              <label className="font-bold text-xl mb-5">
-                {t("creditcardDetails")}
-              </label>
-              {creditCardFormForSmallScreens()}
-            </div>
-            <button
-              onClick={handleBuy}
-              className="flex justify-center xl:hidden w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
-            >
-              Buy
-            </button>
-          </div>
+          <BuyCurrencyScreen currencies={currencies} alert={handleAlert} />
         );
       case "trade":
         return (
-          <div className="grid grid-cols-3 h-full w-full p-10 border rounded-xl dark:border-gray-600 text-lg">
+          <div className="flex h-full w-full p-10 border rounded-xl dark:border-gray-600 text-lg">
             <div className="w-full max-h-full p-5 flex flex-col justify-between items-start text-xl">
               <div className=" w-full h-full flex flex-col gap-10">
                 <div className="flex flex-col w-full">
@@ -450,38 +234,39 @@ export default function CashIn() {
                     className="react-select-container w-full"
                     classNamePrefix="react-select"
                     placeholder={t("search") + "..."}
-                    onChange={(selectedOption) =>
-                      setTradeSelectedCurrencyForSell(selectedOption)
-                    }
+                    onChange={setTradeSelectedCurrencyForSell}
                     isOptionDisabled={(option) => {
                       if (!tradeSelectedCurrencyForBuy) return false;
                       return option.id === tradeSelectedCurrencyForBuy.id;
                     }}
                     components={{
                       Option: TradeCustomOption,
-                      SingleValue: CustomSingleValue,
+                      SingleValue: CustomTradeSingleValue,
                     }}
-                    options={currencies}
+                    options={walletCurrencies}
                   />
                 </div>
                 <div className="flex flex-col w-full">
                   <label className="font-bold mb-1">{t("amount")}</label>
                   <input
                     type="text"
-                    value={amountSelectedCurrencyForBuy}
+                    value={amountToSpend}
                     className="react-input w-full rounded focus:ring-transparent text-lg"
                     onChange={handleAmountChange}
-                    placeholder={`select amount...${maxSellAmount()}`}
+                    placeholder={`select amount...`}
                   />
+                  <div className="text-sm text-gray-500 dark:text-gray-300">
+                    {`select amount...${maxSellAmount()}`}
+                  </div>
                 </div>
               </div>
             </div>
             <div>
-              <i className="material-icons text-9xl text-custom-teal h-full flex justify-center items-center">
+              <i className="material-icons w-full text-9xl text-custom-teal h-full flex justify-center items-center">
                 arrow_forward
               </i>
             </div>
-            <div className="p-5 flex flex-col justify-between items-center">
+            <div className="w-full p-5 flex flex-col justify-between items-center">
               <div className="flex flex-col w-full">
                 <label className="font-bold mb-1">{t("receive")}</label>
                 <Select
@@ -503,10 +288,7 @@ export default function CashIn() {
                   options={currencies}
                 />
               </div>
-              <button
-                onClick={handleBuy}
-                className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded"
-              >
+              <button className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded">
                 Trade
               </button>
             </div>
@@ -545,64 +327,6 @@ export default function CashIn() {
         return null;
     }
   };
-
-  function creditCardFormForSmallScreens() {
-    return (
-      <div className="">
-        <label className="font-bold">{t("cardNumber")}</label>
-        <input
-          type="text"
-          value={creditCardDetails.cardNumber}
-          className="react-input w-full rounded focus:ring-transparent text-lg"
-          onChange={handleCardNumberChange}
-          placeholder="1234 1234 1234 1234"
-          maxLength="19"
-        />
-        <label className="font-bold">{t("cardHolder")}</label>
-        <input
-          type="text"
-          value={creditCardDetails.cardName}
-          className="react-input w-full rounded focus:ring-transparent text-lg"
-          placeholder="Safa Khier"
-          onChange={(e) =>
-            setCreditCardDetails({
-              ...creditCardDetails,
-              cardName: e.target.value.toUpperCase(),
-            })
-          }
-        />
-        <div className="flex gap-5 w-full">
-          <div className="w-full">
-            <label className="font-bold">{t("expDate")}</label>
-            <input
-              type="text"
-              value={creditCardDetails.expDate}
-              className="react-input w-full rounded focus:ring-transparent text-lg"
-              onChange={handleExpDateChange}
-              placeholder="10/25"
-              maxLength="5"
-            />
-          </div>
-          <div className="w-full">
-            <label className="font-bold">{t("cvv")}</label>
-            <input
-              type="text"
-              value={creditCardDetails.ccv}
-              onChange={(e) =>
-                setCreditCardDetails({
-                  ...creditCardDetails,
-                  ccv: e.target.value.replace(/[^0-9]+/g, ""),
-                })
-              }
-              className="react-input w-full rounded focus:ring-transparent text-lg"
-              maxLength="3"
-              placeholder="123"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   const renderTabButtonIcon = (tab) => {
     switch (tab) {
@@ -675,12 +399,7 @@ export default function CashIn() {
           {renderTabContent()}
         </div>
       </div>
-      <Alert
-        {...alertData}
-        action={handleBuy}
-        isVisible={alertVisible}
-        onClose={hideAlert}
-      />
+      <Alert {...alertData} onClose={hideAlert} />
       <Footer />
     </div>
   );
