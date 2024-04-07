@@ -92,10 +92,9 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
       return;
     }
     const value = price.replace(/[^0-9.]/g, "");
-    const amount =
-      (parseFloat(value) || 0) / selectedCurrency.value.current_price;
+    const amount = (parseFloat(value) || 0) / selectedCurrency.current_price;
 
-    let accountBalance = selectedCurrency.value.current_price * amount;
+    let accountBalance = selectedCurrency.current_price * amount;
     console.log(accountBalance);
 
     currentUserData.wallet.forEach((currency) => {
@@ -197,8 +196,7 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
   const currencyAmount = () => {
     if (!selectedCurrency) return 0;
     const value = price.replace(/[^0-9.]/g, "");
-    let amount =
-      (parseFloat(value) || 0) / selectedCurrency.value.current_price;
+    let amount = (parseFloat(value) || 0) / selectedCurrency.current_price;
     return removeTrailingZeros(amount.toFixed(10));
   };
 
@@ -305,6 +303,10 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
               className="react-select-container w-full"
               classNamePrefix="react-select"
               placeholder={t("search") + "..."}
+              isOptionSelected={(option) => {
+                if (!selectedCurrency) return false;
+                return option.id === selectedCurrency.id;
+              }}
               onChange={(selectedOption) => setSelectedCurrency(selectedOption)}
               components={{
                 Option: CustomOption,

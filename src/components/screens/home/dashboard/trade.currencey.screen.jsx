@@ -1,22 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
 import Select from "react-select";
+import { set } from "firebase/database";
 
-const TradeCurrencyScreen = ({ currencies, alert }) => {
+const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   const { t } = useTranslation();
-  const [tradeSelectedCurrencyForSell, setTradeSelectedCurrencyForSell] =
-    useState();
+
+  const [walletCurrencies, setWalletCurrencies] = useState([]);
   const [amountToSpend, setAmountToSpend] = useState("");
-  const [tradeSelectedCurrencyForBuy, setTradeSelectedCurrencyForBuy] =
-    useState();
+  const [spendCurrency, setSpendCurrency] = useState();
+
+  const [receiveCurrency, setReceiveCurrency] = useState();
+
+  useEffect(() => {
+    console.log(currencies);
+    const walletCurrencies = currentUserData.wallet.map((walletCurrencey) => {
+      const currency = currencies.find(
+        (currency) => currency.id === walletCurrencey.id,
+      );
+      return {
+        amount: walletCurrencey.amount,
+        ...currency,
+      };
+    });
+    console.log(walletCurrencies);
+    setWalletCurrencies(walletCurrencies);
+  }, [currentUserData.wallet]);
 
   // Custom option component
-  const TradeCustomOption = ({ innerProps, isFocused, isSelected, data }) => {
+  const SelectCustomOption = ({ innerProps, isFocused, isSelected, data }) => {
     const isDisabled =
       !isSelected &&
-      (data.id === tradeSelectedCurrencyForBuy.id ||
-        data === tradeSelectedCurrencyForSell);
+      receiveCurrency &&
+      spendCurrency &&
+      (data.id === receiveCurrency.id || data.id === spendCurrency.id);
     return (
       <div
         {...innerProps}
@@ -48,14 +66,14 @@ const TradeCurrencyScreen = ({ currencies, alert }) => {
     );
   };
 
-  const CustomSingleValue = ({ data }) => (
+  const CustomReceiveValue = ({ data }) => (
     <div className="flex items-center">
       <img src={data.image} style={{ width: 20, height: 20, marginRight: 8 }} />
       {"≈ " + currencyAmount() + " " + data.symbol.toUpperCase()}
     </div>
   );
 
-  const CustomTradeSingleValue = ({ data }) => (
+  const CustomSpendValue = ({ data }) => (
     <div className="flex items-center">
       <img src={data.image} style={{ width: 20, height: 20, marginRight: 8 }} />
       {data.symbol.toUpperCase()}
@@ -66,42 +84,59 @@ const TradeCurrencyScreen = ({ currencies, alert }) => {
   );
 
   const currencyAmount = () => {
-    if (!selectedCurrency) return 0;
+    if (!setReceiveCurrency) return 0;
+    const price =
+      setSpendCurrency.current_price *
+      parseFloat(amountToSpend.replace(/[^0-9.]/g, ""));
     const value = price.replace(/[^0-9.]/g, "");
-    let amount =
-      (parseFloat(value) || 0) / selectedCurrency.value.current_price;
+    let amount = (parseFloat(value) || 0) / setReceiveCurrency.current_price;
     return removeTrailingZeros(amount.toFixed(10));
   };
 
-  // Handle change in input
   const handleAmountChange = (e) => {
-    // Remove non-numeric chars (except for decimal point)
-    const value = e.target.value.replace(/[^0-9.]/g, "");
+    // Get the raw input value
+    let value = e.target.value;
+    if (value === ".") {
+      value = "0";
+    }
 
-    if (value === "") {
-      setAmountToSpend("");
+    // Remove leading zeros and non-numeric chars except for the first decimal point
+    value = value.replace(/^0+/, "").replace(/[^0-9.]/g, "");
+    const parts = value.split(".");
+    if (parts.length > 2) {
+      // If there are multiple dots, keep only the first part and the second part separated by a dot
+      value = parts[0] + "." + parts.slice(1).join("");
+    }
+
+    // If the value is an empty string or only a dot, update the state accordingly and exit
+    if (value === "" || value === ".") {
+      setAmountToSpend(value);
       return;
     }
 
-    if (!tradeSelectedCurrencyForSell) return "";
-    const maxAmount = currentUserData.wallet.find(
-      (currency) => tradeSelectedCurrencyForSell.id === currency.id,
-    ).amount;
+    // Check if there is a selected spendCurrency
+    if (!spendCurrency) return "";
 
-    if (parseFloat(value) > maxAmount) {
+    // Find the maxAmount for the selected currency
+    const maxAmount =
+      currentUserData.wallet.find(
+        (currency) => spendCurrency.id === currency.id,
+      )?.amount || 0;
+
+    // If the input value exceeds maxAmount, ignore it
+    const numericValue = parseFloat(value);
+    if (numericValue > maxAmount) {
       return;
     }
 
-    const formattedNumber = parseFloat(value).toLocaleString("en-US");
-
-    // Update the numeric state (convert string to float)
-    setAmountToSpend(formattedNumber || 0);
+    // Update the state with the cleaned-up, yet unformatted value, to preserve input behavior
+    setAmountToSpend(value);
   };
 
   const maxSellAmount = () => {
-    if (!tradeSelectedCurrencyForSell) return "";
+    if (!spendCurrency) return "";
     const maxAmount = currentUserData.wallet.find(
-      (currency) => tradeSelectedCurrencyForSell.id === currency.id,
+      (currency) => spendCurrency.id === currency.id,
     ).amount;
     return "(Up To ≈ " + maxAmount.toFixed(5) + ")";
   };
@@ -113,18 +148,22 @@ const TradeCurrencyScreen = ({ currencies, alert }) => {
           <div className="flex flex-col w-full">
             <label className="font-bold">{t("spend")}</label>
             <Select
-              value={tradeSelectedCurrencyForSell}
+              value={spendCurrency}
               className="react-select-container w-full"
               classNamePrefix="react-select"
               placeholder={t("search") + "..."}
-              onChange={setTradeSelectedCurrencyForSell}
+              onChange={setSpendCurrency}
               isOptionDisabled={(option) => {
-                if (!tradeSelectedCurrencyForBuy) return false;
-                return option.id === tradeSelectedCurrencyForBuy.id;
+                if (!receiveCurrency) return false;
+                return option.id === receiveCurrency.id;
+              }}
+              isOptionSelected={(option) => {
+                if (!spendCurrency) return false;
+                return option.id === spendCurrency.id;
               }}
               components={{
-                Option: TradeCustomOption,
-                SingleValue: CustomTradeSingleValue,
+                Option: SelectCustomOption,
+                SingleValue: CustomSpendValue,
               }}
               options={walletCurrencies}
             />
@@ -153,20 +192,22 @@ const TradeCurrencyScreen = ({ currencies, alert }) => {
         <div className="flex flex-col w-full">
           <label className="font-bold mb-1">{t("receive")}</label>
           <Select
-            value={tradeSelectedCurrencyForBuy}
+            value={receiveCurrency}
             className="react-select-container w-full"
             classNamePrefix="react-select"
             placeholder={t("search") + "..."}
             isOptionDisabled={(option) => {
-              if (!tradeSelectedCurrencyForSell) return false;
-              return option.id === tradeSelectedCurrencyForSell.id;
+              if (!spendCurrency) return false;
+              return option.id === spendCurrency.id;
             }}
-            onChange={(selectedOption) =>
-              setTradeSelectedCurrencyForBuy(selectedOption)
-            }
+            isOptionSelected={(option) => {
+              if (!receiveCurrency) return false;
+              return option.id === receiveCurrency.id;
+            }}
+            onChange={(selectedOption) => setReceiveCurrency(selectedOption)}
             components={{
-              Option: TradeCustomOption,
-              SingleValue: CustomSingleValue,
+              Option: SelectCustomOption,
+              SingleValue: CustomReceiveValue,
             }}
             options={currencies}
           />
