@@ -53,17 +53,21 @@ export default function Dashboard() {
       return;
     }
 
-    const sortedTransactionsAsc = currentUserData.transactions.sort((a, b) => {
-      // Assuming `timestamp` is a Firestore timestamp; convert to Date object if necessary
-      const dateA = a.timestamp.toDate
-        ? a.timestamp.toDate()
-        : new Date(a.timestamp);
-      const dateB = b.timestamp.toDate
-        ? b.timestamp.toDate()
-        : new Date(b.timestamp);
+    console.log(currentUserData.transactions);
 
-      return dateA - dateB;
-    });
+    const sortedTransactionsAsc = currentUserData.transactions
+      .filter((transaction) => transaction.transactionType !== "trade")
+      .sort((a, b) => {
+        // Assuming `timestamp` is a Firestore timestamp; convert to Date object if necessary
+        const dateA = a.timestamp.toDate
+          ? a.timestamp.toDate()
+          : new Date(a.timestamp);
+        const dateB = b.timestamp.toDate
+          ? b.timestamp.toDate()
+          : new Date(b.timestamp);
+
+        return dateA - dateB;
+      });
     const accountBalance = sortedTransactionsAsc.map((transaction) => {
       return transaction.accountBalance;
     });

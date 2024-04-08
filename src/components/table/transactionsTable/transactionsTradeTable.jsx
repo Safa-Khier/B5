@@ -43,15 +43,15 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
           ...transaction,
           soldCurrency: {
             ...transaction.soldCurrency,
-            name: soldCurrency.value.name,
-            symbol: soldCurrency.value.symbol,
-            image: soldCurrency.value.image,
+            name: soldCurrency.name,
+            symbol: soldCurrency.symbol,
+            image: soldCurrency.image,
           },
           boughtCurrency: {
             ...transaction.boughtCurrency,
-            name: boughtCurrency.value.name,
-            symbol: boughtCurrency.value.symbol,
-            image: boughtCurrency.value.image,
+            name: boughtCurrency.name,
+            symbol: boughtCurrency.symbol,
+            image: boughtCurrency.image,
           },
         };
       });
@@ -61,7 +61,6 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
     );
 
     setTransactionsData(transactionsFullData);
-    console.log("transactions Data", transactionsData);
     handlePageChange();
   }
 
@@ -73,10 +72,6 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
       setLength(5); // For desktop
     }
   }, [windowWidth]);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   useEffect(() => {
     if (Math.ceil(data.length / transactionsPerPage) < currentPage) {

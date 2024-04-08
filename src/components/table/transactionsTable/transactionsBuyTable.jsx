@@ -57,9 +57,9 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
 
         return {
           ...transaction,
-          name: currency.value.name,
-          image: currency.value.image,
-          symbol: currency.value.symbol,
+          name: currency.name,
+          image: currency.image,
+          symbol: currency.symbol,
         };
       });
 

@@ -72,10 +72,10 @@ export default function CashIn() {
     setCurrencied(
       mcokCurrencies.map((currency) => ({
         id: currency.id,
-        ...currency,
         label: currency.name,
         image: currency.image,
         symbol: currency.symbol,
+        ...currency,
       })),
     );
 

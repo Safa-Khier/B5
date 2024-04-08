@@ -213,7 +213,7 @@ export async function tradeCrypto(
         ? boughtCurrenceyDoc.data().amount
         : 0;
 
-      if (currentSoldAmount < amount) {
+      if (currentSoldAmount < soldCurrencyAmount) {
         console.log("Insufficient funds!");
         return "Error: Insufficient funds!";
       }

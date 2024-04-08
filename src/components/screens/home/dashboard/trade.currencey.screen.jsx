@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
 import Select from "react-select";
-import { set } from "firebase/database";
+import { tradeCrypto } from "../../../../firebase";
 
 const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   const { t } = useTranslation();
@@ -27,6 +27,30 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
     console.log(walletCurrencies);
     setWalletCurrencies(walletCurrencies);
   }, [currentUserData.wallet]);
+
+  async function handleTrade() {
+    // MARK: - Add Check for empty fields, and Validate the amount
+
+    try {
+      await tradeCrypto(
+        currentUserData,
+        spendCurrency,
+        receiveCurrency,
+        parseFloat(amountToSpend.replace(/[^0-9.]/g, "")),
+        currencyAmount(),
+      );
+      alert({
+        title: "Success",
+        message: "successBuyCrypto",
+      });
+    } catch (error) {
+      console.log(error);
+      alert({
+        title: "error",
+        message: "errorSomethingWentWrong",
+      });
+    }
+  }
 
   // Custom option component
   const SelectCustomOption = ({ innerProps, isFocused, isSelected, data }) => {
@@ -84,13 +108,12 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   );
 
   const currencyAmount = () => {
-    if (!setReceiveCurrency) return 0;
+    if (!receiveCurrency || !spendCurrency) return 0;
     const price =
-      setSpendCurrency.current_price *
+      spendCurrency.current_price *
       parseFloat(amountToSpend.replace(/[^0-9.]/g, ""));
-    const value = price.replace(/[^0-9.]/g, "");
-    let amount = (parseFloat(value) || 0) / setReceiveCurrency.current_price;
-    return removeTrailingZeros(amount.toFixed(10));
+    let amount = (price || 0) / receiveCurrency.current_price;
+    return removeTrailingZeros(amount);
   };
 
   const handleAmountChange = (e) => {
@@ -130,7 +153,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
     }
 
     // Update the state with the cleaned-up, yet unformatted value, to preserve input behavior
-    setAmountToSpend(value);
+    setAmountToSpend(parseFloat(value).toLocaleString() || "");
   };
 
   const maxSellAmount = () => {
@@ -212,7 +235,10 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
             options={currencies}
           />
         </div>
-        <button className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded">
+        <button
+          onClick={handleTrade}
+          className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded"
+        >
           Trade
         </button>
       </div>
