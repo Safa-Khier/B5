@@ -165,8 +165,8 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   };
 
   return (
-    <div className="flex h-full w-full p-10 border rounded-xl dark:border-gray-600 text-lg">
-      <div className="w-full max-h-full p-5 flex flex-col justify-between items-start text-xl">
+    <div className="flex flex-col lg:flex-row h-full w-full md:p-10 md:border rounded-xl dark:border-gray-600 text-lg">
+      <div className="w-full max-h-full md:p-5 flex flex-col  justify-between items-start text-xl">
         <div className=" w-full h-full flex flex-col gap-10">
           <div className="flex flex-col w-full">
             <label className="font-bold">{t("spend")}</label>
@@ -198,20 +198,23 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
               value={amountToSpend}
               className="react-input w-full rounded focus:ring-transparent text-lg"
               onChange={handleAmountChange}
-              placeholder={`select amount...`}
+              placeholder={
+                spendCurrency ? `select amount...` : "Select currency first"
+              }
+              disabled={!spendCurrency}
             />
             <div className="text-sm text-gray-500 dark:text-gray-300">
-              {`select amount...${maxSellAmount()}`}
+              {spendCurrency ? `select amount...${maxSellAmount()}` : ""}
             </div>
           </div>
         </div>
       </div>
       <div>
         <i className="material-icons w-full text-9xl text-custom-teal h-full flex justify-center items-center">
-          arrow_forward
+          currency_exchange
         </i>
       </div>
-      <div className="w-full p-5 flex flex-col justify-between items-center">
+      <div className="w-full md:p-5 flex flex-col justify-between items-center">
         <div className="flex flex-col w-full">
           <label className="font-bold mb-1">{t("receive")}</label>
           <Select
@@ -237,7 +240,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
         </div>
         <button
           onClick={handleTrade}
-          className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded"
+          className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 my-5 rounded"
         >
           Trade
         </button>
