@@ -56,9 +56,8 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   const SelectCustomOption = ({ innerProps, isFocused, isSelected, data }) => {
     const isDisabled =
       !isSelected &&
-      receiveCurrency &&
-      spendCurrency &&
-      (data.id === receiveCurrency.id || data.id === spendCurrency.id);
+      ((receiveCurrency && data.id === receiveCurrency.id) ||
+        (spendCurrency && data.id === spendCurrency.id));
     return (
       <div
         {...innerProps}
