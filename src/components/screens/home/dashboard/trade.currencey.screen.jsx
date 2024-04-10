@@ -171,7 +171,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
             <label className="font-bold">{t("spend")}</label>
             <Select
               value={spendCurrency}
-              className="react-select-container w-full"
+              className="react-select-container w-full py-5"
               classNamePrefix="react-select"
               placeholder={t("search") + "..."}
               onChange={setSpendCurrency}
@@ -218,7 +218,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
           <label className="font-bold mb-1">{t("receive")}</label>
           <Select
             value={receiveCurrency}
-            className="react-select-container w-full"
+            className="react-select-container w-full py-5"
             classNamePrefix="react-select"
             placeholder={t("search") + "..."}
             isOptionDisabled={(option) => {
