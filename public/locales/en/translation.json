@@ -90,7 +90,19 @@
   "coinPrice": "Coin Price",
   "today'sPnL": "Today's PnL",
   "trade": "Trade",
+  "buy": "Buy",
+  "history": "History",
+  "time": "Time",
 
+  "spend": "Spend",
+  "receive": "Receive",
+
+  "fromCurrency": "From Currency",
+  "toCurrency": "To Currency",
+  "quantitySold": "Quantity Sold",
+  "quantityBought": "Quantity Bought",
+
+  "creditCardDetails": "Credit Card Details",
   "creditCardTitle": "Please enter your credit card \ndetails below",
   "cardNumber": "Card Number",
   "cardHolder": "Card Holder",
@@ -98,6 +110,9 @@
   "cvv": "CVV",
 
   "errorInvalidCardNumber": "Invalid card number!",
+
+  "selectCurrencyFirst": "Please select a currency first!",
+  "selectAmount": "select an amount",
 
   "tags": "tags",
   "Categories": "Categories"

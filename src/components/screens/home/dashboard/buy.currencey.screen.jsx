@@ -297,7 +297,7 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
             />
           </div>
           <div className="flex flex-col w-full">
-            <label className="font-bold">Receive</label>
+            <label className="font-bold">{t("receive")}</label>
             <Select
               value={selectedCurrency}
               className="react-select-container w-full"
@@ -321,7 +321,7 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
           onClick={handleBuy}
           className="hidden xl:justify-center xl:flex w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
         >
-          Buy
+          {t("buy")}
         </button>
       </div>
       <div className="p-14 hidden md:flex">
@@ -334,7 +334,7 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
       </div>
       <div className="flex flex-col md:hidden mt-10">
         <label className="font-bold text-xl mb-5">
-          {t("creditcardDetails")}
+          {t("creditCardDetails")}
         </label>
         {creditCardFormForSmallScreens()}
       </div>
@@ -342,7 +342,7 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
         onClick={handleBuy}
         className="flex justify-center xl:hidden w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
       >
-        Buy
+        {t("buy")}
       </button>
     </div>
   );

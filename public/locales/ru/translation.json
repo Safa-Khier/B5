@@ -90,7 +90,19 @@
   "coinPrice": "Цена монеты",
   "today'sPnL": "Прибыль/убыток за день",
   "trade": "Торговля",
+  "buy": "Купить",
+  "history": "История",
+  "time": "Время",
 
+  "spend": "Потратить",
+  "receive": "Получить",
+
+  "fromCurrency": "Из валюты",
+  "toCurrency": "В валюту",
+  "quantitySold": "Количество продано",
+  "quantityBought": "Количество куплено",
+
+  "creditCardDetails": "Данные кредитной карты",
   "creditCardTitle": "Пожалуйста, введите данные вашей кредитной карты ниже",
   "cardNumber": "Номер карты",
   "cardHolder": "Держатель карты",
@@ -98,6 +110,9 @@
   "cvv": "CVV",
 
   "errorInvalidCardNumber": "Неверный номер карты!",
+
+  "selectCurrencyFirst": "Пожалуйста, выберите валюту сначала!",
+  "selectAmount": "Выберите сумму",
 
   "tags": "Теги",
   "Categories": "Категории"

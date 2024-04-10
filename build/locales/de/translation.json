@@ -90,7 +90,19 @@
   "coinPrice": "Münzpreis",
   "today'sPnL": "Heutiger P&L",
   "trade": "Handel",
+  "buy": "Kaufen",
+  "history": "Geschichte",
+  "time": "Zeit",
 
+  "spend": "Ausgeben",
+  "receive": "Empfangen",
+
+  "fromCurrency": "Von Währung",
+  "toCurrency": "Zu Währung",
+  "quantitySold": "Verkaufte Menge",
+  "quantityBought": "Gekaufte Menge",
+
+  "creditCardDetails": "Kreditkartendetails",
   "creditCardTitle": "Bitte geben Sie unten Ihre Kreditkartendaten ein",
   "cardNumber": "Kartennummer",
   "cardHolder": "Karteninhaber",
@@ -98,6 +110,9 @@
   "cvv": "CVV",
 
   "errorInvalidCardNumber": "Ungültige Kartennummer!",
+
+  "selectCurrencyFirst": "Wählen Sie zuerst eine Währung aus!",
+  "selectAmount": "Wählen Sie den Betrag aus",
 
   "tags": "SCHLAGWORTE",
   "Categories": "Kategorien"

@@ -118,12 +118,13 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   const handleAmountChange = (e) => {
     // Get the raw input value
     let value = e.target.value;
+
     if (value === ".") {
-      value = "0";
+      value = "0.";
     }
 
     // Remove leading zeros and non-numeric chars except for the first decimal point
-    value = value.replace(/^0+/, "").replace(/[^0-9.]/g, "");
+    value = value.replace(/[^0-9.]/g, "");
     const parts = value.split(".");
     if (parts.length > 2) {
       // If there are multiple dots, keep only the first part and the second part separated by a dot
@@ -152,7 +153,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
     }
 
     // Update the state with the cleaned-up, yet unformatted value, to preserve input behavior
-    setAmountToSpend(parseFloat(value).toLocaleString() || "");
+    setAmountToSpend(value);
   };
 
   const maxSellAmount = () => {
@@ -166,7 +167,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   return (
     <div className="flex flex-col lg:flex-row h-full w-full md:p-10 md:border rounded-xl dark:border-gray-600 text-lg">
       <div className="w-full max-h-full md:p-5 flex flex-col  justify-between items-start text-xl">
-        <div className=" w-full h-full flex flex-col gap-10">
+        <div className=" w-full h-full flex flex-col md:gap-10">
           <div className="flex flex-col w-full">
             <label className="font-bold">{t("spend")}</label>
             <Select
@@ -198,7 +199,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
               className="react-input w-full rounded focus:ring-transparent text-lg"
               onChange={handleAmountChange}
               placeholder={
-                spendCurrency ? `select amount...` : "Select currency first"
+                spendCurrency ? t("selectAmount") : t("selectCurrencyFirst")
               }
               disabled={!spendCurrency}
             />
@@ -209,7 +210,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
         </div>
       </div>
       <div>
-        <i className="material-icons w-full text-9xl text-custom-teal h-full flex justify-center items-center">
+        <i className="material-icons w-full text-9xl text-custom-teal p-10 h-full flex justify-center items-center">
           currency_exchange
         </i>
       </div>
@@ -239,9 +240,9 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
         </div>
         <button
           onClick={handleTrade}
-          className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 my-5 rounded"
+          className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded"
         >
-          Trade
+          {t("trade")}
         </button>
       </div>
     </div>

@@ -56,11 +56,6 @@ export const TransactionsBuyRow = (prop) => {
           </div>
         </div>
       </td>
-      <td
-        className={`py-2 items-start ${transaction.transactionType === "buy" ? "text-green" : "text-red"}`}
-      >
-        {t(transaction.transactionType)}
-      </td>
       {/* <td className="py-2 text-end md:table-cell hidden">
         {"$" +
           parseFloat(removeTrailingZeros(transaction.price)).toLocaleString()}
@@ -72,7 +67,7 @@ export const TransactionsBuyRow = (prop) => {
       <td className="py-2 md:table-cell hidden text-end">
         {transaction.creditCardDetails.cardNumber}
       </td>
-      <td className="py-2 text-end md:table-cell hidden">
+      <td className="py-2 text-end">
         {formatDate(transaction.timestamp.toDate())}
       </td>
     </tr>

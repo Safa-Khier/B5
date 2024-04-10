@@ -24,7 +24,7 @@ export const TransactionsTradeRow = (prop) => {
 
   return (
     <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900 font-bold">
-      <td className="py-2">
+      <td className="py-2 md:table-cell hidden">
         <div className="flex justify-start h-[100%] items-center">
           <img
             className="w-6 h-6 mr-2"
@@ -40,7 +40,25 @@ export const TransactionsTradeRow = (prop) => {
           </div>
         </div>
       </td>
-      <td className="py-2">
+      <td className="py-2 md:hidden">
+        <div className="flex justify-start h-[100%] items-center">
+          <img
+            className="w-6 h-6 mr-2"
+            loading="lazy"
+            src={transaction.soldCurrency.image}
+            alt={transaction.soldCurrency.name + " Logo"}
+          />
+          <div className="flex flex-col justify-start items-start">
+            {transaction.soldCurrency.symbol.toUpperCase()}
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {transaction.soldCurrency.amount +
+                " " +
+                transaction.soldCurrency.symbol.toUpperCase()}
+            </span>
+          </div>
+        </div>
+      </td>
+      <td className="py-2 md:table-cell hidden">
         <div className="flex justify-start h-[100%] items-center">
           <img
             className="w-6 h-6 mr-2"
@@ -56,12 +74,30 @@ export const TransactionsTradeRow = (prop) => {
           </div>
         </div>
       </td>
-      <td className={`py-2 text-end`}>
+      <td className="py-2 md:hidden">
+        <div className="flex justify-start h-[100%] items-center">
+          <img
+            className="w-6 h-6 mr-2"
+            loading="lazy"
+            src={transaction.boughtCurrency.image}
+            alt={transaction.boughtCurrency.name + " Logo"}
+          />
+          <div className="flex flex-col justify-center items-start">
+            {transaction.boughtCurrency.symbol.toUpperCase()}
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {transaction.boughtCurrency.amount +
+                " " +
+                transaction.boughtCurrency.symbol.toUpperCase()}
+            </span>
+          </div>
+        </div>
+      </td>
+      <td className={`py-2 text-end md:table-cell hidden`}>
         {transaction.soldCurrency.amount +
           " " +
           transaction.soldCurrency.symbol.toUpperCase()}
       </td>
-      <td className={`py-2 text-end`}>
+      <td className={`py-2 text-end md:table-cell hidden`}>
         {transaction.boughtCurrency.amount +
           " " +
           transaction.boughtCurrency.symbol.toUpperCase()}

@@ -88,18 +88,33 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
     handlePageChange();
   }, [currentPage]);
 
-  function sortData(field) {
-    if (sort.field === field) {
+  function sortData(field, subField = null) {
+    if (sort.field === field || sort.field === field + "." + subField) {
       if (sort.asc === false) {
         setData(
           data.sort((a, b) => {
-            if (typeof a[field] === "number") {
+            if (
+              typeof a[field] === "number" ||
+              typeof a[field][subField] === "number"
+            ) {
+              if (subField) {
+                return b[field][subField] - a[field][subField];
+              }
               return b[field] - a[field];
             } else {
+              if (subField) {
+                return ("" + b[field][subField]).localeCompare(
+                  a[field][subField],
+                );
+              }
               return ("" + b[field]).localeCompare(a[field]);
             }
           }),
         );
+        if (subField) {
+          setSort({ field: field + "." + subField, asc: true });
+          return;
+        }
         setSort({ field, asc: true });
         return;
       }
@@ -109,20 +124,33 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
     }
     setData(
       data.sort((a, b) => {
-        if (typeof a[field] === "number") {
+        if (
+          typeof a[field] === "number" ||
+          typeof a[field][subField] === "number"
+        ) {
+          if (subField) {
+            return a[field][subField] - b[field][subField];
+          }
           return a[field] - b[field];
         } else {
+          if (subField) {
+            return ("" + a[field][subField]).localeCompare(b[field][subField]);
+          }
           return ("" + a[field]).localeCompare(b[field]);
         }
       }),
     );
+    if (subField) {
+      setSort({ field: field + "." + subField, asc: false });
+      return;
+    }
     setSort({ field, asc: false });
   }
 
   const headerCell = (field, title) => {
     return (
       <div
-        className={`flex py-2 ${title === "To Currency" || title === "From Currency" ? "justify-start" : "justify-end"} items-center`}
+        className={`flex py-2 ${title === "toCurrency" || title === "fromCurrency" ? "justify-start" : "justify-end"} items-center`}
       >
         {t(title)}
         {checkIfSortedBy(field) ? (
@@ -171,29 +199,29 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
         <thead>
           <tr className="border-b">
             <th
-              onClick={() => sortData("name")}
+              onClick={() => sortData("soldCurrency", "name")}
               className="cursor-pointer bg-white dark:bg-gray-800 "
             >
-              {headerCell("name", "From Currency")}
+              {headerCell("soldCurrency.name", "fromCurrency")}
             </th>
 
             <th
-              onClick={() => sortData("soldCurrencey")}
+              onClick={() => sortData("boughtCurrency", "name")}
               className="cursor-pointer bg-white dark:bg-gray-800 "
             >
-              {headerCell("soldCurrencey", "To Currency")}
+              {headerCell("boughtCurrency.name", "toCurrency")}
             </th>
             <th
-              onClick={() => sortData("transactionType")}
-              className="cursor-pointer bg-white dark:bg-gray-800"
+              onClick={() => sortData("soldCurrency", "amount")}
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
             >
-              {headerCell("transactionType", "Quantity Sold")}
+              {headerCell("soldCurrency.amount", "quantitySold")}
             </th>
             <th
-              onClick={() => sortData("amount")}
-              className="cursor-pointer bg-white dark:bg-gray-800"
+              onClick={() => sortData("boughtCurrency", "amount")}
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
             >
-              {headerCell("amount", "Quantity Bought")}
+              {headerCell("boughtCurrency.amount", "quantityBought")}
             </th>
             <th
               onClick={() => sortData("timestamp")}

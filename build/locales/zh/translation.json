@@ -90,7 +90,19 @@
   "coinPrice": "硬幣價格",
   "today'sPnL": "今天的盈虧",
   "trade": "貿易",
+  "buy": "購買",
+  "history": "歷史",
+  "time": "時間",
 
+  "spend": "花費",
+  "receive": "接收",
+
+  "fromCurrency": "從貨幣",
+  "toCurrency": "到貨幣",
+  "quantitySold": "已售數量",
+  "quantityBought": "已購數量",
+
+  "creditCardDetails": "信用卡詳細信息",
   "creditCardTitle": "請在下面輸入您的信用卡詳細信息",
   "cardNumber": "卡號",
   "cardHolder": "持卡人",
@@ -98,6 +110,9 @@
   "cvv": "CVV",
 
   "errorInvalidCardNumber": "無效的卡號！",
+
+  "selectCurrencyFirst": "請先選擇貨幣！",
+  "selectAmount": "請選擇金額",
 
   "tags": "標籤",
   "Categories": "分類"

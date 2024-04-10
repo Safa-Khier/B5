@@ -62,7 +62,7 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
           symbol: currency.symbol,
         };
       });
-
+    console.log(transactionsFullData);
     transactionsFullData.sort(
       (a, b) => b.timestamp.toDate() - a.timestamp.toDate(),
     );
@@ -189,12 +189,6 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
               {headerCell("name", "coin")}
             </th>
             <th
-              onClick={() => sortData("transactionType")}
-              className="cursor-pointer bg-white dark:bg-gray-800"
-            >
-              {headerCell("transactionType", "type")}
-            </th>
-            <th
               onClick={() => sortData("amount")}
               className="cursor-pointer bg-white dark:bg-gray-800"
             >
@@ -204,11 +198,11 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
               onClick={() => sortData("creditCardDetails")}
               className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
             >
-              {headerCell("creditCardDetails", "cardnumber")}
+              {headerCell("creditCardDetails", "cardNumber")}
             </th>
             <th
               onClick={() => sortData("timestamp")}
-              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800"
             >
               {headerCell("timestamp", "time")}
             </th>

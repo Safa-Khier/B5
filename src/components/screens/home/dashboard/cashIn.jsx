@@ -163,7 +163,7 @@ export default function CashIn() {
   };
 
   // Function to render the tab content based on the active tab
-  const renderTabButton = (tab, title) => {
+  const renderTabButton = (tab) => {
     return (
       <div
         className={`flex flex-col justify-start items-center text-xl font-semibold ${activeTab === tab && "text-custom-teal"}`}
@@ -174,7 +174,7 @@ export default function CashIn() {
           onClick={() => setActiveTab(tab)}
         >
           <i className="material-icons">{renderTabButtonIcon(tab)}</i>
-          {t(title)}
+          {t(tab)}
         </button>
       </div>
     );
@@ -202,9 +202,9 @@ export default function CashIn() {
         {/* Tab buttons */}
         <div className="w-full xl:w-[80%] flex flex-col justify-center items-start border-b md:p-0">
           <div className="flex justify-between md:justify-start w-full gap-5 relative">
-            {renderTabButton("buy", "Buy")}
-            {renderTabButton("trade", "trade")}
-            {renderTabButton("history", "History")}
+            {renderTabButton("buy")}
+            {renderTabButton("trade")}
+            {renderTabButton("history")}
           </div>
           <div
             className="w-full border-2 rounded border-custom-teal"
