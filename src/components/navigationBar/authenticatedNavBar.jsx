@@ -41,7 +41,7 @@ export default function AuthenticatedNavBar() {
   const buttons = [
     { title: "coins", icon: "monetization_on" },
     { title: "news", icon: "feed" },
-    { title: "compare", icon: "compare_arrows" },
+    // { title: "compare", icon: "compare_arrows" },
   ];
 
   const selectedButtonClass = "text-custom-teal dark:text-custom-teal";

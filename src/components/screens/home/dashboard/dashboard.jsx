@@ -225,7 +225,10 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-col">
             <div className="flex justify-between font-semibold mb-2 gap-3">
-              <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
+              <button
+                onClick={() => setPathLocation("/home/dashboard/deposit")}
+                className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg"
+              >
                 {t("deposit")}
               </button>
               <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
@@ -251,42 +254,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-const transaction = [
-  {
-    id: 1,
-    balance: 0.0001,
-    type: "buy",
-    coin: "BTC",
-    amount: 0.0001,
-    price: 50000,
-    date: "2021-10-01",
-  },
-  {
-    id: 2,
-    balance: 0.0001,
-    type: "sell",
-    coin: "BTC",
-    amount: 0.0001,
-    price: 50000,
-    date: "2021-10-02",
-  },
-  {
-    id: 3,
-    balance: 0.0001,
-    type: "deposit",
-    coin: "BTC",
-    amount: 0.0001,
-    price: 50000,
-    date: "2021-10-02",
-  },
-  {
-    id: 4,
-    balance: 0.0001,
-    type: "withdraw",
-    coin: "BTC",
-    amount: 0.0001,
-    price: 50000,
-    date: "2021-10-02",
-  },
-];

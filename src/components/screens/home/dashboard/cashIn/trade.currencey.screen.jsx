@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { removeTrailingZeros } from "../../../../../public/publicFunctions";
+import { removeTrailingZeros } from "../../../../../../public/publicFunctions";
 import Select from "react-select";
-import { tradeCrypto } from "../../../../firebase";
+import { tradeCrypto } from "../../../../../firebase";
 
 const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   const { t } = useTranslation();
@@ -12,6 +12,40 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   const [spendCurrency, setSpendCurrency] = useState();
 
   const [receiveCurrency, setReceiveCurrency] = useState();
+  // const [blockHeight, setBlockHeight] = useState(0);
+
+  // function calculateHalvingDate(currentBlockHeight) {
+  //   const blocksUntilHalving = 210000 - (currentBlockHeight % 210000);
+  //   const averageTimePerBlock = 10; // Average time in minutes to mine a block
+
+  //   // Total minutes until the halving
+  //   const totalMinutesUntilHalving = blocksUntilHalving * averageTimePerBlock;
+
+  //   // Convert minutes to days for readability
+  //   const daysUntilHalving = totalMinutesUntilHalving / (60 * 24);
+
+  //   // Calculate the estimated halving date by adding `daysUntilHalving` to the current date
+  //   const currentDate = new Date();
+  //   const halvingDate = new Date(
+  //     currentDate.getTime() + daysUntilHalving * 24 * 60 * 60 * 1000,
+  //   );
+
+  //   return halvingDate;
+  // }
+
+  // useEffect(() => {
+  //   const url = "https://blockchain.info/q/getblockcount";
+
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setBlockHeight(data);
+  //       console.log("Block height:", calculateHalvingDate(data));
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching block height:", error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     console.log(currencies);

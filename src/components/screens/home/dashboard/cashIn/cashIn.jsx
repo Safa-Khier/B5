@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import Select from "react-select";
-import CreditCardForm from "../../../creditCard/creditCardForm";
-import { mcokCurrencies } from "../../../../../public/mockData.jsx";
-import { removeTrailingZeros } from "../../../../../public/publicFunctions.jsx";
-import Footer from "../../../footer.jsx";
-import { addCryptoToTheWallet } from "../../../../firebase.js";
-import { useAuth } from "../../../../AuthContext.js";
-import Alert from "../../../alert/alert.jsx";
-import TransactionsBuyTable from "../../../table/transactionsTable/transactionsBuyTable.jsx";
-import TransactionsTradeTable from "../../../table/transactionsTable/transactionsTradeTable.jsx";
-import { isDisabled } from "@testing-library/user-event/dist/cjs/utils/index.js";
+import { mcokCurrencies } from "../../../../../../public/mockData.jsx";
+import Footer from "../../../../footer.jsx";
+import { useAuth } from "../../../../../AuthContext.js";
+import Alert from "../../../../alert/alert.jsx";
+import TransactionsBuyTable from "../../../../table/transactionsTable/transactionsBuyTable.jsx";
+import TransactionsTradeTable from "../../../../table/transactionsTable/transactionsTradeTable.jsx";
 import BuyCurrencyScreen from "./buy.currencey.screen.jsx";
 import TradeCurrencyScreen from "./trade.currencey.screen.jsx";
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../../AuthContext";
+import { useAuth } from "../../../../../AuthContext";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
-import CreditCardForm from "../../../creditCard/creditCardForm";
-import { removeTrailingZeros } from "../../../../../public/publicFunctions";
-import { addCryptoToTheWallet } from "../../../../firebase";
+import CreditCardForm from "../../../../creditCard/creditCardForm";
+import { removeTrailingZeros } from "../../../../../../public/publicFunctions";
+import { addCryptoToTheWallet } from "../../../../../firebase";
 
 const BuyCurrencyScreen = ({ currencies, alert }) => {
   const { t } = useTranslation();
