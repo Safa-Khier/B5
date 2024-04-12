@@ -5,7 +5,7 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="flex justify-between items-center bg-white dark:bg-gray-800 text-black dark:text-white p-5 bottom-0 left-0 right-0 font-semibold">
+    <footer className="flex w-full justify-between items-center bg-white dark:bg-gray-800 text-black dark:text-white p-5 bottom-0 left-0 right-0 font-semibold">
       <p>&copy; {new Date().getFullYear() + " " + t("rights")}</p>
       <div className="flex gap-4 text-lg">
         <a

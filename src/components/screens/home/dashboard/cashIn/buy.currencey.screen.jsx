@@ -9,9 +9,6 @@ import { addCryptoToTheWallet } from "../../../../../firebase";
 const BuyCurrencyScreen = ({ currencies, alert }) => {
   const { t } = useTranslation();
   const { currentUserData } = useAuth();
-  const [alertVisible, setAlertVisible] = useState(false);
-  const showAlert = () => setAlertVisible(true);
-  const hideAlert = () => setAlertVisible(false);
   const [alertData, setAlertData] = useState({
     title: "",
     message: "",

@@ -223,6 +223,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
                 SingleValue: CustomSpendValue,
               }}
               options={walletCurrencies}
+              isClearable={true}
             />
           </div>
           <div className="flex flex-col w-full">

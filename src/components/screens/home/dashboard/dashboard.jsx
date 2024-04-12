@@ -231,7 +231,10 @@ export default function Dashboard() {
               >
                 {t("deposit")}
               </button>
-              <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg">
+              <button
+                onClick={() => setPathLocation("/home/dashboard/withdraw")}
+                className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg"
+              >
                 {t("withdraw")}
               </button>
               <button

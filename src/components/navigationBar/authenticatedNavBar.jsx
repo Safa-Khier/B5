@@ -135,8 +135,7 @@ export default function AuthenticatedNavBar() {
         </div>
         <div className="flex md:order-2">
           {!isHamburgerMenuOpen &&
-            location !== "home" &&
-            location !== "dashboard" && (
+            (location === "coins" || location === "news") && (
               <button
                 type="button"
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
