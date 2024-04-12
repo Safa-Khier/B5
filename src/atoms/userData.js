@@ -9,9 +9,7 @@ export const userData = atom({
     displayName: "",
     photoURL: "",
     createdAt: "",
-    wallet: {
-      transactions: [],
-      currencies: [],
-    },
+    wallet: [],
+    transactions: [],
   },
 });

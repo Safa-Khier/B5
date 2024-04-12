@@ -8,6 +8,7 @@ import "./dashboard.css";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions.jsx";
 import Footer from "../../../footer.jsx";
 import { setPathLocation } from "../../../../App.jsx";
+import { convertTimestampToDate } from "../../../../firebase.js";
 
 export default function Dashboard() {
   const { t } = useTranslation();
@@ -57,17 +58,11 @@ export default function Dashboard() {
 
     const sortedTransactionsAsc = currentUserData.transactions
       .filter((transaction) => transaction.transactionType !== "trade")
-      .sort((a, b) => {
-        // Assuming `timestamp` is a Firestore timestamp; convert to Date object if necessary
-        const dateA = a.timestamp.toDate
-          ? a.timestamp.toDate()
-          : new Date(a.timestamp);
-        const dateB = b.timestamp.toDate
-          ? b.timestamp.toDate()
-          : new Date(b.timestamp);
-
-        return dateA - dateB;
-      });
+      .sort(
+        (a, b) =>
+          convertTimestampToDate(a.timestamp) -
+          convertTimestampToDate(b.timestamp),
+      );
     const accountBalance = sortedTransactionsAsc.map((transaction) => {
       return transaction.accountBalance;
     });

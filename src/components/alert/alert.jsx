@@ -44,12 +44,12 @@ export default function Alert({
   };
 
   return (
-    <div className="alert border border-gray-600 dark:border-white flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-700 min-h-fit">
+    <div className="alert border border-gray-600 dark:border-white flex flex-col justify-center items-center bg-gray-100 w-[calc(100%-50px)] md:w-fit dark:bg-gray-700 min-h-fit">
       <div className="text-2xl w-full font-bold text-black dark:text-white">
         {t(title)}
       </div>
 
-      <div className="text-lg my-5 h-full w-full font-semibold text-black dark:text-white whitespace-pre-line">
+      <div className="text-lg my-5 h-full w-full font-semibold text-black dark:text-white whitespace-pre-wrap">
         {t(message)}
       </div>
 

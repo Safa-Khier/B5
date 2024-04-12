@@ -129,7 +129,6 @@ export const holdingCoinTable = (prop) => {
                 "today'sPnL",
               )}
             </th>
-            <th className="md:table-cell hidden text-end">{t("trade")}</th>
           </tr>
         </thead>
         <tbody>

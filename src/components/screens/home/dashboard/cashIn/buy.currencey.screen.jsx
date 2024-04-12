@@ -16,6 +16,8 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
     action: null,
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [price, setPrice] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState();
   const [creditCardDetails, setCreditCardDetails] = useState({
@@ -94,17 +96,19 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
     let accountBalance = selectedCurrency.current_price * amount;
 
     currentUserData.wallet.forEach((currency) => {
-      const currencyPrice = currencies.find((c) => c.id === currency.id).value
-        .current_price;
+      const currencyPrice = currencies.find(
+        (c) => c.id === currency.id,
+      ).current_price;
       accountBalance += currency.amount * currencyPrice;
     });
     // return;
     try {
+      setIsLoading(true);
       await addCryptoToTheWallet(
         currentUserData,
         selectedCurrency,
-        amount,
-        value,
+        parseFloat(amount),
+        parseFloat(value),
         creditCardDetails,
         accountBalance,
       );
@@ -117,6 +121,18 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
       alert({
         title: "error",
         message: "errorSomethingWentWrong",
+      });
+    } finally {
+      // Reset the loading state
+      setIsLoading(false);
+      // Reset the form
+      setPrice("");
+      setSelectedCurrency(null);
+      setCreditCardDetails({
+        cardNumber: "",
+        cardName: "",
+        expDate: "",
+        ccv: "",
       });
     }
   }
@@ -315,9 +331,18 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
 
         <button
           onClick={handleBuy}
-          className="hidden xl:justify-center xl:flex w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
+          disabled={isLoading}
+          className={`hidden xl:flex justify-center items-center w-full font-bold bg-custom-teal ${!isLoading && "hover:bg-teal-500"} h-14 rounded`}
         >
-          {t("buy")}
+          {isLoading ? (
+            <div className="loading-container">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+            </div>
+          ) : (
+            t("buy")
+          )}
         </button>
       </div>
       <div className="p-14 hidden md:flex">
@@ -336,9 +361,18 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
       </div>
       <button
         onClick={handleBuy}
-        className="flex justify-center xl:hidden w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
+        disabled={isLoading}
+        className={`flex justify-center items-center xl:hidden w-full font-bold bg-custom-teal ${!isLoading && "hover:bg-teal-500"} mt-10 h-11 rounded`}
       >
-        {t("buy")}
+        {isLoading ? (
+          <div className="loading-container">
+            <span className="dot"></span>
+            <span className="dot"></span>
+            <span className="dot"></span>
+          </div>
+        ) : (
+          t("buy")
+        )}
       </button>
     </div>
   );

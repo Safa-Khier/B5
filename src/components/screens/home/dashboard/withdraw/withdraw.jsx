@@ -5,17 +5,30 @@ import Select from "react-select";
 import { mcokCurrencies } from "../../../../../../public/mockData.jsx";
 import { useAuth } from "../../../../../AuthContext.js";
 import { withdrawCrypto } from "../../../../../firebase.js";
+import Alert from "../../../../alert/alert.jsx";
 
 export default function Withdraw() {
   const { t } = useTranslation();
   const { currentUserData } = useAuth();
   const [selectedCurrency, setSelectedCurrency] = useState();
   const [currencies, setCurrencies] = useState([]);
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState("");
   const [bankAccountDetails, setBankAccountDetails] = useState({
     accountNumber: "",
     branchNumber: "",
     bankNumber: "",
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [alertVisible, setAlertVisible] = useState(false);
+  const showAlert = () => setAlertVisible(true);
+  const hideAlert = () => setAlertVisible(false);
+  const [alertData, setAlertData] = useState({
+    title: "",
+    message: "",
+    messageType: "",
+    action: () => {},
   });
 
   useEffect(() => {
@@ -82,7 +95,7 @@ export default function Withdraw() {
 
     // If the value is an empty string or only a dot, update the state accordingly and exit
     if (value === "" || value === ".") {
-      setAmount(parseFloat(value));
+      setAmount(value);
       return;
     }
 
@@ -99,7 +112,7 @@ export default function Withdraw() {
     }
 
     // Update the state with the cleaned-up, yet unformatted value, to preserve input behavior
-    setAmount(parseFloat(value));
+    setAmount(value);
   };
 
   const maxWithdrawAmount = () => {
@@ -137,7 +150,37 @@ export default function Withdraw() {
   };
 
   const validateInputs = () => {
+    if (!selectedCurrency) {
+      alert("Error", "Please select a currency to withdraw");
+      return false;
+    }
+    if (!amount) {
+      alert("Error", "Please enter an amount to withdraw");
+      return false;
+    }
+    if (!bankAccountDetails.accountNumber) {
+      alert("Error", "Please enter your account number");
+      return false;
+    }
+    if (!bankAccountDetails.branchNumber) {
+      alert("Error", "Please enter your branch number");
+      return false;
+    }
+    if (!bankAccountDetails.bankNumber) {
+      alert("Error", "Please enter your bank number");
+      return false;
+    }
     return true;
+  };
+
+  const alert = (title, message, messageType, action) => {
+    setAlertData({
+      title: title,
+      message: message,
+      messageType: messageType,
+      action: action,
+    });
+    showAlert();
   };
 
   const handleWithdraw = async () => {
@@ -145,6 +188,7 @@ export default function Withdraw() {
 
     // Withdraw the amount
     try {
+      setIsLoading(true);
       let accountBalance = 0;
 
       if (!selectedCurrency) return;
@@ -160,12 +204,24 @@ export default function Withdraw() {
       await withdrawCrypto(
         currentUserData,
         selectedCurrency,
-        amount,
+        parseFloat(amount),
         bankAccountDetails,
         accountBalance,
       );
+      alert("Success", "Your funds have been withdrawn successfully");
     } catch (error) {
       console.error("Error: ", error);
+      alert("Error", "An error occurred while withdrawing your funds");
+    } finally {
+      setIsLoading(false);
+      // Reset the form
+      setSelectedCurrency(null);
+      setAmount("");
+      setBankAccountDetails({
+        accountNumber: "",
+        branchNumber: "",
+        bankNumber: "",
+      });
     }
   };
 
@@ -269,11 +325,28 @@ export default function Withdraw() {
         </div>
         <button
           onClick={handleWithdraw}
-          className=" w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10"
+          disabled={isLoading}
+          className={`flex justify-center items-center w-full font-bold bg-custom-teal ${!isLoading && "hover:bg-teal-500"} h-11 rounded mt-10`}
         >
-          {t("withdraw")}
+          {isLoading ? (
+            <div className="loading-container">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+            </div>
+          ) : (
+            t("withdraw")
+          )}
         </button>
       </div>
+      <Alert
+        title={alertData.title}
+        message={alertData.message}
+        isVisible={alertVisible}
+        onClose={hideAlert}
+        messageType={alertData.messageType}
+        action={alertData.action}
+      />
       <Footer />
     </div>
   );

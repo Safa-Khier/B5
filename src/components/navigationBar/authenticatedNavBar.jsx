@@ -322,7 +322,7 @@ export default function AuthenticatedNavBar() {
                 {t(button.title)}
               </a>
             ))}
-            <div className="w-full flex">
+            <div className="w-full flex items-start">
               <a
                 key={"dashboard"}
                 href={`/home/dashboard`}

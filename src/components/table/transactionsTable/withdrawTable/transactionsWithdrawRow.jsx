@@ -1,5 +1,6 @@
 import React from "react";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
+import { convertTimestampToDate } from "../../../../firebase";
 
 export const TransactionsWithdrawRow = (prop) => {
   const transaction = prop.data;
@@ -65,7 +66,7 @@ export const TransactionsWithdrawRow = (prop) => {
         {transaction.bankAccountDetails.accountNumber}
       </td>
       <td className="py-2 text-end">
-        {formatDate(transaction.timestamp.toDate())}
+        {formatDate(convertTimestampToDate(transaction.timestamp))}
       </td>
     </tr>
   );

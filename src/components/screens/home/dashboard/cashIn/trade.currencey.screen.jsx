@@ -11,41 +11,9 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
   const [amountToSpend, setAmountToSpend] = useState("");
   const [spendCurrency, setSpendCurrency] = useState();
 
-  const [receiveCurrency, setReceiveCurrency] = useState();
-  // const [blockHeight, setBlockHeight] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // function calculateHalvingDate(currentBlockHeight) {
-  //   const blocksUntilHalving = 210000 - (currentBlockHeight % 210000);
-  //   const averageTimePerBlock = 10; // Average time in minutes to mine a block
-
-  //   // Total minutes until the halving
-  //   const totalMinutesUntilHalving = blocksUntilHalving * averageTimePerBlock;
-
-  //   // Convert minutes to days for readability
-  //   const daysUntilHalving = totalMinutesUntilHalving / (60 * 24);
-
-  //   // Calculate the estimated halving date by adding `daysUntilHalving` to the current date
-  //   const currentDate = new Date();
-  //   const halvingDate = new Date(
-  //     currentDate.getTime() + daysUntilHalving * 24 * 60 * 60 * 1000,
-  //   );
-
-  //   return halvingDate;
-  // }
-
-  // useEffect(() => {
-  //   const url = "https://blockchain.info/q/getblockcount";
-
-  //   fetch(url)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setBlockHeight(data);
-  //       console.log("Block height:", calculateHalvingDate(data));
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching block height:", error);
-  //     });
-  // }, []);
+  const [receiveCurrency, setReceiveCurrency] = useState("");
 
   useEffect(() => {
     console.log(currencies);
@@ -62,20 +30,27 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
     setWalletCurrencies(walletCurrencies);
   }, [currentUserData.wallet]);
 
+  const validateTrade = () => {
+    if (!spendCurrency || !receiveCurrency) return false;
+    if (!amountToSpend) return false;
+    return true;
+  };
+
   async function handleTrade() {
     // MARK: - Add Check for empty fields, and Validate the amount
-
+    if (!validateTrade()) return;
     try {
+      setIsLoading(true);
       await tradeCrypto(
         currentUserData,
         spendCurrency,
         receiveCurrency,
         parseFloat(amountToSpend.replace(/[^0-9.]/g, "")),
-        currencyAmount(),
+        parseFloat(currencyAmount()),
       );
       alert({
         title: "Success",
-        message: "successBuyCrypto",
+        message: "successTradeCrypto",
       });
     } catch (error) {
       console.log(error);
@@ -83,6 +58,13 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
         title: "error",
         message: "errorSomethingWentWrong",
       });
+    } finally {
+      // Reset the loading state
+      setIsLoading(false);
+      // Reset the form
+      setAmountToSpend("");
+      setSpendCurrency(null);
+      setReceiveCurrency(null);
     }
   }
 
@@ -275,9 +257,18 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
         </div>
         <button
           onClick={handleTrade}
-          className="w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded"
+          disabled={isLoading}
+          className={`flex justify-center items-center w-full font-bold bg-custom-teal ${!isLoading && "hover:bg-teal-500"} h-11 rounded`}
         >
-          {t("trade")}
+          {isLoading ? (
+            <div className="loading-container">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+            </div>
+          ) : (
+            <div>{t("trade")}</div>
+          )}
         </button>
       </div>
     </div>

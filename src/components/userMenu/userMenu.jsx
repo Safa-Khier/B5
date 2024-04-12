@@ -75,6 +75,13 @@ const UserMenu = ({ isUserMenuOpen }) => {
               <i className="material-icons">feed</i>
               <p>{t("news")}</p>
             </div>
+            <div
+              onClick={() => setPathLocation("/home/transactions-history")}
+              className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
+            >
+              <i className="material-icons">history</i>
+              <p>{t("transactions-history")}</p>
+            </div>
             <div className="w-full flex">
               <div
                 onClick={() => setPathLocation("/home/dashboard")}
@@ -123,14 +130,6 @@ const UserMenu = ({ isUserMenuOpen }) => {
                 </button>
               </div>
             )}
-
-            <div
-              onClick={() => setPathLocation("/home/transactions-history")}
-              className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
-            >
-              <i className="material-icons">history</i>
-              <p>{t("history")}</p>
-            </div>
           </div>
 
           <button

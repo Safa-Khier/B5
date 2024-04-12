@@ -1,12 +1,14 @@
 import React from "react";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
 import { useTranslation } from "react-i18next";
+import { convertTimestampToDate } from "../../../../firebase";
 
 export const TransactionsBuyRow = (prop) => {
   const transaction = prop.data;
   const { t } = useTranslation();
 
   function formatDate(date) {
+    console.log(date);
     let day = date.getDate();
     let month = date.getMonth() + 1; // getMonth() returns month from 0 to 11
     let year = date.getFullYear();
@@ -67,7 +69,7 @@ export const TransactionsBuyRow = (prop) => {
         {transaction.creditCardDetails.cardNumber}
       </td>
       <td className="py-2 text-end">
-        {formatDate(transaction.timestamp.toDate())}
+        {formatDate(convertTimestampToDate(transaction.timestamp))}
       </td>
     </tr>
   );

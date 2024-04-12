@@ -114,7 +114,7 @@ export default function Login() {
 
   return (
     <div className="scrollable-content overflow-y-auto content flex w-full justify-center items-center">
-      <div className="grid md:grid-cols-2 w-full">
+      <div className="grid md:grid-cols-2 w-full py-10">
         <div className="flex justify-end">
           <img
             src={Logo}
@@ -162,12 +162,22 @@ export default function Login() {
           <button
             type="button"
             onClick={handleSubmit}
-            className="mt-10 text-gray-800 font-bold py-2 px-5 rounded-lg dark:text-white bg-gray-200 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex justify-start"
+            disabled={isLoggingIn}
+            className={`mt-10 h-10 text-gray-800 font-bold px-5 rounded-lg bg-custom-teal ${!isLoggingIn && "hover:bg-teal-500"} flex justify-start items-center`}
           >
-            {t("logIn")}
-            {isLoggingIn && (
-              <div className="buttonLoader flex justify-center items-center my-auto ml-2" />
+            {/* {t("logIn")} */}
+            {isLoggingIn ? (
+              <div className="loading-container">
+                <span className="dot"></span>
+                <span className="dot"></span>
+                <span className="dot"></span>
+              </div>
+            ) : (
+              t("logIn")
             )}
+            {/* {isLoggingIn && (
+              <div className="buttonLoader flex justify-center items-center my-auto ml-2" />
+            )} */}
           </button>
 
           <a

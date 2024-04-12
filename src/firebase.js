@@ -1,6 +1,8 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { Timestamp } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore"; // Import onSnapshot for listening to real-time updates
 
 // const firebaseConfig = {
 //   apiKey: "AIzaSyBU7bpMsc4MZhNgQUr5fctbKZnOrQGvaFI",
@@ -324,4 +326,8 @@ export async function withdrawCrypto(
   } catch (error) {
     console.log("Transaction failed: ", error);
   }
+}
+
+export function convertTimestampToDate(timestamp) {
+  return new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate();
 }

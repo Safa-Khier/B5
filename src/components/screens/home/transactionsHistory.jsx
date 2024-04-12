@@ -124,7 +124,7 @@ export default function TransactionsHistory() {
     <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between">
       <div className="p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
         <h1 className="mb-5 text-3xl font-bold w-full">
-          {t("transactionsHistory")}
+          {t("transactions-history")}
         </h1>
         {/* Tab buttons */}
         <div className="w-full xl:w-[80%] flex flex-col justify-center items-start border-b md:p-0">

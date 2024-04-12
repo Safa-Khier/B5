@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { TransactionsTradeRow } from "./transactionsTradeRow";
+import { convertTimestampToDate } from "../../../../firebase";
 
 export default function TransactionsTradeTable({ transactions, currencies }) {
   const { t } = useTranslation();
@@ -57,7 +58,9 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
       });
 
     transactionsFullData.sort(
-      (a, b) => b.timestamp.toDate() - a.timestamp.toDate(),
+      (a, b) =>
+        convertTimestampToDate(b.timestamp) -
+        convertTimestampToDate(a.timestamp),
     );
 
     setTransactionsData(transactionsFullData);

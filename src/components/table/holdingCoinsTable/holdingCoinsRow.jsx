@@ -58,17 +58,6 @@ export const HoldingCoinsRow = (prop) => {
       <td className="py-2 md:table-cell hidden text-end">
         {createChangeElement(currency.price_change_percentage_24h_in_currency)}
       </td>
-      <td className="py-2 md:table-cell hidden text-end">
-        <button
-          onClick={() => console.log("Trade")}
-          className="underline text-custom-teal"
-        >
-          {t("trade")}
-        </button>
-      </td>
-      <td className="py-2 md:hidden table-cell text-end">
-        <button className="material-icons">more_vert</button>
-      </td>
     </tr>
   );
 };

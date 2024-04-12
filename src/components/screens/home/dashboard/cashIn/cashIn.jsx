@@ -4,8 +4,6 @@ import { mcokCurrencies } from "../../../../../../public/mockData.jsx";
 import Footer from "../../../../footer.jsx";
 import { useAuth } from "../../../../../AuthContext.js";
 import Alert from "../../../../alert/alert.jsx";
-import TransactionsBuyTable from "../../../../table/transactionsTable/buyTable/transactionsBuyTable.jsx";
-import TransactionsTradeTable from "../../../../table/transactionsTable/tradeTable/transactionsTradeTable.jsx";
 import BuyCurrencyScreen from "./buy.currencey.screen.jsx";
 import TradeCurrencyScreen from "./trade.currencey.screen.jsx";
 
@@ -150,7 +148,7 @@ export default function CashIn() {
           {renderTabContent()}
         </div>
       </div>
-      <Alert {...alertData} onClose={hideAlert} />
+      <Alert {...alertData} isVisible={alertVisible} onClose={hideAlert} />
       <Footer />
     </div>
   );

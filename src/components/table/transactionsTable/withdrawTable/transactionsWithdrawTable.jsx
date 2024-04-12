@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import TransactionsWithdrawRow from "./transactionsWithdrawRow";
+import { convertTimestampToDate } from "../../../../firebase";
 
 export default function TransactionsWithdrawTable({
   transactions,
@@ -60,7 +61,9 @@ export default function TransactionsWithdrawTable({
       .filter((transaction) => transaction !== null);
     console.log(transactionsFullData);
     transactionsFullData.sort(
-      (a, b) => b.timestamp.toDate() - a.timestamp.toDate(),
+      (a, b) =>
+        convertTimestampToDate(b.timestamp) -
+        convertTimestampToDate(a.timestamp),
     );
 
     setTransactionsData(transactionsFullData);

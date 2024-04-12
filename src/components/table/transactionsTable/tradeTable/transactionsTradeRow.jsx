@@ -1,6 +1,7 @@
 import React from "react";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
 import { useTranslation } from "react-i18next";
+import { convertTimestampToDate } from "../../../../firebase";
 
 export const TransactionsTradeRow = (prop) => {
   const transaction = prop.data;
@@ -103,7 +104,7 @@ export const TransactionsTradeRow = (prop) => {
           transaction.boughtCurrency.symbol.toUpperCase()}
       </td>
       <td className="py-2 text-end md:table-cell hidden">
-        {formatDate(transaction.timestamp.toDate())}
+        {formatDate(convertTimestampToDate(transaction.timestamp))}
       </td>
     </tr>
   );
