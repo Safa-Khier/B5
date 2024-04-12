@@ -257,3 +257,68 @@ export async function tradeCrypto(
     console.log("Transaction failed: ", error);
   }
 }
+
+export async function withdrawCrypto(
+  user,
+  currency,
+  amount,
+  bankAccountDetails,
+) {
+  const db = firebase.firestore();
+
+  const currenceyRef = db
+    .collection("users")
+    .doc(user.uid)
+    .collection("wallet")
+    .doc(currency.id);
+
+  const transactionsRef = db
+    .collection("users")
+    .doc(user.uid)
+    .collection("transactions")
+    .doc(); // Generates a new document reference for a transaction
+
+  try {
+    await db.runTransaction(async (transaction) => {
+      const currenceyDoc = await transaction.get(currenceyRef);
+
+      // Retrieve the current amount from the document
+      const currencyCurrentAmount = currenceyDoc.data()
+        ? currenceyDoc.data().amount
+        : 0;
+
+      if (currencyCurrentAmount < amount) {
+        console.log("Insufficient funds!");
+        return "Error: Insufficient funds!";
+      }
+
+      // Calculate the new amount
+      const newCurrenceyAmount = currencyCurrentAmount - amount;
+
+      // Update the document with the new amount
+      if (currenceyDoc.exists) {
+        transaction.update(currenceyRef, {
+          amount: newCurrenceyAmount,
+        });
+      } else {
+        transaction.set(currenceyRef, {
+          id: currency.id,
+          amount: newCurrenceyAmount,
+        });
+      }
+
+      // Add a new transaction record
+      transaction.set(transactionsRef, {
+        currencyId: currency.id,
+        amount: soldCurrencyAmount,
+        bankAccountDetails: bankAccountDetails,
+        transactionType: "withdraw",
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Stores the time the transaction was made
+      });
+    });
+
+    console.log("Transaction successfully committed!");
+  } catch (error) {
+    console.log("Transaction failed: ", error);
+  }
+}

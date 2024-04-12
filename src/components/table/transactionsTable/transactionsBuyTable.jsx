@@ -11,8 +11,6 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
   const [sort, setSort] = useState({ field: "", asc: null });
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [tableType, setTableType] = useState(true); // true for transactions, false for holdings
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [length, setLength] = useState(5);
 

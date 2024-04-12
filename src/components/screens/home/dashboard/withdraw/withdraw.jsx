@@ -113,46 +113,88 @@ export default function Withdraw() {
 
   return (
     <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between items-center text-black dark:text-white">
-      <div className="flex w-full md:w-[70%] justify-center md:border rounded-lg md:m-10 p-5">
-        <div className="flex flex-col w-full gap-10">
-          <div className="flex flex-col w-full">
-            <label className="font-bold">{t("currency")}</label>
-            <Select
-              className="react-select-container w-full"
-              classNamePrefix="react-select"
-              placeholder={t("search") + "..."}
-              isOptionSelected={(option) => {
-                if (!selectedCurrency) return false;
-                return option.id === selectedCurrency.id;
-              }}
-              onChange={setSelectedCurrency}
-              components={{
-                Option: CustomOption,
-                SingleValue: SelectValue,
-              }}
-              options={currencies}
-              value={selectedCurrency}
-              isClearable={true}
-              isLoading={currencies.length === 0}
-            />
+      <div className="flex flex-col w-full md:w-[70%] justify-center md:border rounded-lg md:m-10 p-5">
+        <div className="flex justify-center items-center gap-5">
+          <div className="flex flex-col w-full gap-10">
+            <div className="flex flex-col w-full">
+              <label className="font-bold">{t("currency")}</label>
+              <Select
+                className="react-select-container w-full"
+                classNamePrefix="react-select"
+                placeholder={t("search") + "..."}
+                isOptionSelected={(option) => {
+                  if (!selectedCurrency) return false;
+                  return option.id === selectedCurrency.id;
+                }}
+                onChange={setSelectedCurrency}
+                components={{
+                  Option: CustomOption,
+                  SingleValue: SelectValue,
+                }}
+                options={currencies}
+                value={selectedCurrency}
+                isClearable={true}
+                isLoading={currencies.length === 0}
+              />
+            </div>
+
+            <div className="flex flex-col w-full">
+              <label className="font-bold mb-1">{t("amount")}</label>
+              <input
+                type="text"
+                value={amount}
+                onChange={handleAmountChange}
+                className="react-input w-full rounded focus:ring-transparent text-lg"
+                placeholder="Select amount to withdraw..."
+                disabled={!selectedCurrency}
+              />
+              <p className="text-sm text-gray-400">{amountMessage()}</p>
+            </div>
           </div>
 
-          <div className="flex flex-col w-full">
-            <label className="font-bold mb-1">{t("amount")}</label>
-            <input
-              type="text"
-              value={amount}
-              onChange={handleAmountChange}
-              className="react-input w-full rounded focus:ring-transparent text-lg"
-              placeholder="Select amount to withdraw..."
-              disabled={!selectedCurrency}
-            />
-            <p className="text-sm text-gray-400">{amountMessage()}</p>
+          {/* Bank Account Details */}
+          <div className="flex flex-col w-full h-full gap-10">
+            <div className="flex flex-col w-full">
+              <label className="font-bold">{t("bankAccountNumber")}</label>
+              <input
+                type="text"
+                value={amount}
+                onChange={handleAmountChange}
+                className="react-input w-full rounded focus:ring-transparent text-lg"
+                placeholder="Select amount to withdraw..."
+                disabled={!selectedCurrency}
+              />
+            </div>
+
+            <div className="flex gap-5">
+              <div className="flex flex-col w-full">
+                <label className="font-bold mb-1">{t("BranchNumber")}</label>
+                <input
+                  type="text"
+                  value={amount}
+                  onChange={handleAmountChange}
+                  className="react-input w-full rounded focus:ring-transparent text-lg"
+                  placeholder="Select amount to withdraw..."
+                  disabled={!selectedCurrency}
+                />
+              </div>
+              <div className="flex flex-col w-full">
+                <label className="font-bold mb-1">{t("amount")}</label>
+                <input
+                  type="text"
+                  value={amount}
+                  onChange={handleAmountChange}
+                  className="react-input w-full rounded focus:ring-transparent text-lg"
+                  placeholder="Select amount to withdraw..."
+                  disabled={!selectedCurrency}
+                />
+              </div>
+            </div>
           </div>
-          <button className="hidden xl:justify-center xl:flex w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10">
-            {t("withdraw")}
-          </button>
         </div>
+        <button className="hidden xl:justify-center xl:flex w-full font-bold bg-custom-teal hover:bg-teal-500 p-3 rounded mt-10">
+          {t("withdraw")}
+        </button>
       </div>
       <Footer />
     </div>
