@@ -1,5 +1,5 @@
 import React from "react";
-import { removeTrailingZeros } from "../../../../public/publicFunctions";
+import { removeTrailingZeros } from "../../../../../public/publicFunctions";
 import { useTranslation } from "react-i18next";
 
 export const TransactionsBuyRow = (prop) => {
@@ -26,13 +26,12 @@ export const TransactionsBuyRow = (prop) => {
     return (
       <div className="flex flex-col justify-center items-end">
         <div>
-          {parseFloat(transaction.amount.toFixed(5)).toLocaleString() +
+          {removeTrailingZeros(transaction.amount) +
             " " +
             transaction.symbol.toUpperCase()}
         </div>
         <div className="font-semibold text-sm text-gray-500 dark:text-gray-400">
-          {"$" +
-            parseFloat(removeTrailingZeros(transaction.price)).toLocaleString()}
+          {"$" + removeTrailingZeros(transaction.price)}
         </div>
       </div>
     );

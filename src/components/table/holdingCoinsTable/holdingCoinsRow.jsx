@@ -10,12 +10,9 @@ export const HoldingCoinsRow = (prop) => {
   const amount = () => {
     return (
       <div className="flex flex-col text-md font-semibold">
-        {removeTrailingZeros(crypto.amount.toFixed(10))}
+        {removeTrailingZeros(crypto.amount) + " " + crypto.symbol.toUpperCase()}
         <span className="text-sm text-gray-500 dark:text-gray-400">
-          {"$ " +
-            removeTrailingZeros(
-              (crypto.amount * crypto.current_price).toFixed(10),
-            )}
+          {"$ " + removeTrailingZeros(crypto.amount * crypto.current_price)}
         </span>
       </div>
     );

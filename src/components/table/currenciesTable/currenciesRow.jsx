@@ -69,7 +69,7 @@ export const CurrenciesRow = (prop) => {
         </div>
       </td>
       <td className="py-2 text-end">
-        {"$" + removeTrailingZeros(crypto.current_price.toFixed(10))}
+        {"$" + removeTrailingZeros(crypto.current_price)}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
         {createChangeElement(crypto.price_change_percentage_1h_in_currency)}

@@ -27,6 +27,8 @@ export default function AuthenticatedNavBar() {
   const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
+  const [dashboardMenuOpened, setDashboardMenuOpened] = useState(false);
+
   const [settings, setSettings] = useRecoilState(webSettings);
   const { currentUser, currentUserData } = useAuth();
   const [logo, setLogo] = useState(Usa);
@@ -41,6 +43,14 @@ export default function AuthenticatedNavBar() {
   const buttons = [
     { title: "coins", icon: "monetization_on" },
     { title: "news", icon: "feed" },
+    { title: "transactions-history", icon: "history" },
+    // { title: "compare", icon: "compare_arrows" },
+  ];
+
+  const dashboardButtons = [
+    { title: "cashIn", icon: "shopping_cart" },
+    { title: "withdraw", icon: "account_balance" },
+    { title: "deposit", icon: "wallet" },
     // { title: "compare", icon: "compare_arrows" },
   ];
 
@@ -161,7 +171,7 @@ export default function AuthenticatedNavBar() {
           </div>
         </div>
 
-        <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+        {/* <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
           <ul className="flex flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             {
               // Map the buttons array to create the buttons
@@ -181,7 +191,7 @@ export default function AuthenticatedNavBar() {
               ))
             }
           </ul>
-        </div>
+        </div> */}
 
         <div className="text-black dark:text-white hidden justify-start items-center lg:order-2 rtl:space-x-reverse xl:flex">
           {/* <i className="material-icons text-white dark:text-black bg-black dark:bg-white rounded-full mr-2">
@@ -288,7 +298,7 @@ export default function AuthenticatedNavBar() {
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
       {isHamburgerMenuOpen && (
         <div
-          className="flex justify-center items-start py-10 absolute md:bg-white bg-opacity-95 md:bg-opacity-5 bg-gray-200 dark:bg-gray-700 md:hidden w-full h-screen font-bold text-black dark:text-white"
+          className="scrollable-content overflow-y-auto content flex justify-center items-start py-10 absolute md:bg-white bg-opacity-95 md:bg-opacity-5 bg-gray-200 dark:bg-gray-700 md:hidden w-full h-full font-bold text-black dark:text-white"
           style={{
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
@@ -312,15 +322,39 @@ export default function AuthenticatedNavBar() {
                 {t(button.title)}
               </a>
             ))}
-            <a
-              key="Dashboard"
-              href={`/home/dashboard`}
-              className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
-              onClick={() => setLocation("dashboard")}
-            >
-              <i className="material-icons">dashboard</i>
-              {t("dashboard")}
-            </a>
+            <div className="w-full flex">
+              <a
+                key={"dashboard"}
+                href={`/home/dashboard`}
+                className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
+                onClick={() => setLocation("dashboard")}
+              >
+                <i className="material-icons">dashboard</i>
+                {t("dashboard")}
+              </a>
+              <button
+                onClick={() => {
+                  setDashboardMenuOpened(!dashboardMenuOpened);
+                }}
+                className="material-icons"
+              >
+                {dashboardMenuOpened ? "expand_less" : "expand_more"}
+              </button>
+            </div>
+            {dashboardMenuOpened &&
+              dashboardButtons.map((button) => (
+                <a
+                  key={button.title}
+                  href={`/home/dashboard/${button.title}`}
+                  className="flex w-full pl-10 h-10  "
+                  onClick={() => setLocation(button.title)}
+                >
+                  <div className="w-full flex gap-5 border-b border-gray-400">
+                    <i className="material-icons">{button.icon}</i>
+                    {t(button.title)}
+                  </div>
+                </a>
+              ))}
             <div className="w-full py-2">
               <button
                 onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}

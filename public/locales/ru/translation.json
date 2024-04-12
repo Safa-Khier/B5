@@ -25,6 +25,7 @@
   "news": "Новости",
   "compare": "Сравнить",
   "dashboard": "Панель управления",
+  "transactionsHistory": "История транзакций",
 
   "name": "Имя",
   "price": "Цена",
@@ -103,6 +104,10 @@
   "quantitySold": "Количество продано",
   "quantityBought": "Количество куплено",
 
+  "accountNumber": "Номер счета",
+  "branchNumber": "Номер филиала",
+  "bankNumber": "Номер банка",
+
   "creditCardDetails": "Данные кредитной карты",
   "creditCardTitle": "Пожалуйста, введите данные вашей кредитной карты ниже",
   "cardNumber": "Номер карты",
@@ -112,8 +117,10 @@
 
   "errorInvalidCardNumber": "Неверный номер карты!",
 
+  "max": "Максимум",
   "selectCurrencyFirst": "Пожалуйста, выберите валюту сначала!",
-  "selectAmount": "Выберите сумму",
+  "enterAmount": "Введите сумму",
+  "forExample": "Например",
 
   "tags": "Теги",
   "Categories": "Категории"

@@ -92,7 +92,6 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
     const amount = (parseFloat(value) || 0) / selectedCurrency.current_price;
 
     let accountBalance = selectedCurrency.current_price * amount;
-    console.log(accountBalance);
 
     currentUserData.wallet.forEach((currency) => {
       const currencyPrice = currencies.find((c) => c.id === currency.id).value
@@ -194,7 +193,7 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
     if (!selectedCurrency) return 0;
     const value = price.replace(/[^0-9.]/g, "");
     let amount = (parseFloat(value) || 0) / selectedCurrency.current_price;
-    return removeTrailingZeros(amount.toFixed(10));
+    return removeTrailingZeros(amount);
   };
 
   // Handle change in input

@@ -24,6 +24,7 @@ import Dashboard from "./components/screens/home/dashboard/dashboard.jsx";
 import CashIn from "./components/screens/home/dashboard/cashIn/cashIn.jsx";
 import Deposit from "./components/screens/home/dashboard/deposit/deposit.jsx";
 import Withdraw from "./components/screens/home/dashboard/withdraw/withdraw.jsx";
+import TransactionsHistory from "./components/screens/home/transactionsHistory.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
@@ -76,6 +77,10 @@ function App() {
           <Route path="coins" element={<Coin />} />
           <Route path="news" element={<News />} />
           <Route path="compare" element={<Compare />} />
+          <Route
+            path="transactions-history"
+            element={<TransactionsHistory />}
+          />
           <Route path="dashboard" element={<Outlet />}>
             <Route path="" element={<Dashboard />} />
             <Route path="cashin" element={<CashIn />} />

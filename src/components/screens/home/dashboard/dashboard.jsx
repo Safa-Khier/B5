@@ -71,6 +71,7 @@ export default function Dashboard() {
     const accountBalance = sortedTransactionsAsc.map((transaction) => {
       return transaction.accountBalance;
     });
+    console.log(accountBalance);
     setTransactionsData(accountBalance);
   }, [currentUserData]);
 
@@ -99,16 +100,16 @@ export default function Dashboard() {
       balance += coin.amount * coin.current_price;
     });
     if (selectedCoin.toLowerCase() === "usd") {
-      return removeTrailingZeros(balance.toFixed(10));
+      return removeTrailingZeros(balance, 10);
     }
     const selectedCoinData = currenciesData.find(
       (coin) => coin.symbol.toLowerCase() === selectedCoin.toLowerCase(),
     );
     if (!selectedCoinData) {
-      return removeTrailingZeros(balance.toFixed(10));
+      return removeTrailingZeros(balance, 10);
     }
     balance = balance / selectedCoinData.current_price;
-    return removeTrailingZeros(balance.toFixed(10));
+    return removeTrailingZeros(balance, 10);
   }
 
   function calculateEstimatedValue() {
@@ -117,7 +118,7 @@ export default function Dashboard() {
     walletData.forEach((coin) => {
       estimatedValue += coin.amount * coin.current_price;
     });
-    return removeTrailingZeros(estimatedValue.toFixed(2));
+    return removeTrailingZeros(estimatedValue, 10);
   }
 
   return (

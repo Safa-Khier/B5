@@ -25,6 +25,7 @@
   "news": "Nachricht",
   "compare": "vergleichen",
   "dashboard": "Armaturenbrett",
+  "transactionsHistory": "Transaktionsverlauf",
 
   "name": "Name",
   "price": "Preis",
@@ -103,6 +104,10 @@
   "quantitySold": "Verkaufte Menge",
   "quantityBought": "Gekaufte Menge",
 
+  "accountNumber": "Kontonummer",
+  "branchNumber": "Zweignummer",
+  "bankNumber": "Banknummer",
+
   "creditCardDetails": "Kreditkartendetails",
   "creditCardTitle": "Bitte geben Sie unten Ihre Kreditkartendaten ein",
   "cardNumber": "Kartennummer",
@@ -112,8 +117,10 @@
 
   "errorInvalidCardNumber": "Ungültige Kartennummer!",
 
+  "max": "Max",
   "selectCurrencyFirst": "Wählen Sie zuerst eine Währung aus!",
-  "selectAmount": "Wählen Sie den Betrag aus",
+  "enterAmount": "Geben Sie den Betrag ein",
+  "forExample": "zum Beispiel",
 
   "tags": "SCHLAGWORTE",
   "Categories": "Kategorien"

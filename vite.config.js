@@ -3,6 +3,11 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    host: "0.0.0.0",
+    // You can also specify a port, but it's optional as Vite will use 3000 by default
+    // port: 3000,
+  },
   build: {
     outDir: "build",
   },

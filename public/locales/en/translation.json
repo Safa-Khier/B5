@@ -25,6 +25,7 @@
   "news": "News",
   "compare": "Compare",
   "dashboard": "Dashboard",
+  "transactionsHistory": "Transactions History",
 
   "name": "Name",
   "price": "Price",
@@ -103,6 +104,10 @@
   "quantitySold": "Quantity Sold",
   "quantityBought": "Quantity Bought",
 
+  "accountNumber": "Account Number",
+  "branchNumber": "Branch Number",
+  "bankNumber": "Bank Number",
+
   "creditCardDetails": "Credit Card Details",
   "creditCardTitle": "Please enter your credit card \ndetails below",
   "cardNumber": "Card Number",
@@ -112,8 +117,10 @@
 
   "errorInvalidCardNumber": "Invalid card number!",
 
+  "max": "Max",
   "selectCurrencyFirst": "Please select a currency first!",
-  "selectAmount": "select an amount",
+  "enterAmount": "Enter amount",
+  "forExample": "e.g.,",
 
   "tags": "tags",
   "Categories": "Categories"

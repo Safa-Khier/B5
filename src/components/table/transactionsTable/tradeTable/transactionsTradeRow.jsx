@@ -1,5 +1,5 @@
 import React from "react";
-import { removeTrailingZeros } from "../../../../public/publicFunctions";
+import { removeTrailingZeros } from "../../../../../public/publicFunctions";
 import { useTranslation } from "react-i18next";
 
 export const TransactionsTradeRow = (prop) => {
@@ -51,7 +51,7 @@ export const TransactionsTradeRow = (prop) => {
           <div className="flex flex-col justify-start items-start">
             {transaction.soldCurrency.symbol.toUpperCase()}
             <span className="text-xs text-gray-500 dark:text-gray-400">
-              {transaction.soldCurrency.amount +
+              {removeTrailingZeros(transaction.soldCurrency.amount) +
                 " " +
                 transaction.soldCurrency.symbol.toUpperCase()}
             </span>
@@ -85,7 +85,7 @@ export const TransactionsTradeRow = (prop) => {
           <div className="flex flex-col justify-center items-start">
             {transaction.boughtCurrency.symbol.toUpperCase()}
             <span className="text-xs text-gray-500 dark:text-gray-400">
-              {transaction.boughtCurrency.amount +
+              {removeTrailingZeros(transaction.boughtCurrency.amount) +
                 " " +
                 transaction.boughtCurrency.symbol.toUpperCase()}
             </span>
@@ -93,12 +93,12 @@ export const TransactionsTradeRow = (prop) => {
         </div>
       </td>
       <td className={`py-2 text-end md:table-cell hidden`}>
-        {transaction.soldCurrency.amount +
+        {removeTrailingZeros(transaction.soldCurrency.amount) +
           " " +
           transaction.soldCurrency.symbol.toUpperCase()}
       </td>
       <td className={`py-2 text-end md:table-cell hidden`}>
-        {transaction.boughtCurrency.amount +
+        {removeTrailingZeros(transaction.boughtCurrency.amount) +
           " " +
           transaction.boughtCurrency.symbol.toUpperCase()}
       </td>

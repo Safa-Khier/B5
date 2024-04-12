@@ -1,6 +1,10 @@
-export function removeTrailingZeros(number) {
+export function removeTrailingZeros(number, fractionDigits = 10) {
   // Convert to string and use a regex to remove trailing zeros
-  return parseFloat(number.toString().replace(/(\.\d*?[1-9])0+$|\.0*$/, "$1"));
+  return parseFloat(
+    number.toString().replace(/(\.\d*?[1-9])0+$|\.0*$/, "$1"),
+  ).toLocaleString("en-US", {
+    maximumFractionDigits: fractionDigits,
+  });
 }
 //0.21156100000000000000 => 0.211561
 

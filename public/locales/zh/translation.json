@@ -25,6 +25,7 @@
   "news": "新聞",
   "compare": "比較",
   "dashboard": "儀表板",
+  "transactionsHistory": "交易歷史",
 
   "name": "名稱",
   "price": "價格",
@@ -103,6 +104,10 @@
   "quantitySold": "已售數量",
   "quantityBought": "已購數量",
 
+  "accountNumber": "帳號",
+  "branchNumber": "分行號碼",
+  "bankNumber": "銀行號碼",
+
   "creditCardDetails": "信用卡詳細信息",
   "creditCardTitle": "請在下面輸入您的信用卡詳細信息",
   "cardNumber": "卡號",
@@ -112,8 +117,10 @@
 
   "errorInvalidCardNumber": "無效的卡號！",
 
+  "max": "最大",
   "selectCurrencyFirst": "請先選擇貨幣！",
-  "selectAmount": "請選擇金額",
+  "enterAmount": "請輸入金額",
+  "forExample": "例如",
 
   "tags": "標籤",
   "Categories": "分類"

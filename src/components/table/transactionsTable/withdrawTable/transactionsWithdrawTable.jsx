@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import TransactionsBuyRow from "./transactionsBuyRow";
+import TransactionsWithdrawRow from "./transactionsWithdrawRow";
 
-export default function TransactionsBuyTable({ transactions, currencies }) {
+export default function TransactionsWithdrawTable({
+  transactions,
+  currencies,
+}) {
   const { t } = useTranslation();
   const transactionsPerPage = 7;
 
@@ -14,25 +17,7 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [length, setLength] = useState(5);
 
-  const [activeTab, setActiveTab] = useState("buy");
-  const [indicatorStyle, setIndicatorStyle] = useState({
-    width: 0,
-    transform: `translateX(0px)`, // Use the corrected offset
-  });
-  const tabRefs = useRef([]);
-
   useEffect(() => {
-    if (tabRefs.current[activeTab]) {
-      const { offsetLeft, clientWidth } = tabRefs.current[activeTab];
-      setIndicatorStyle({
-        width: clientWidth,
-        transform: `translateX(${offsetLeft}px)`, // Use the corrected offset
-      });
-    }
-  }, [activeTab, tabRefs, windowWidth]);
-
-  useEffect(() => {
-    updateTransactionsData();
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -45,13 +30,25 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
     };
   }, []);
 
+  useEffect(() => {
+    updateTransactionsData();
+  }, [transactions, currencies]);
+
   function updateTransactionsData() {
+    if (!transactions || !currencies) {
+      return;
+    }
+    // return;
     const transactionsFullData = transactions
-      .filter((transaction) => transaction.transactionType === "buy") // Only include "buy" transactions
+      .filter((transaction) => transaction.transactionType === "withdraw") // Only include "buy" transactions
       .map((transaction) => {
         const currency = currencies.find(
           (currency) => currency.id === transaction.currencyId,
         );
+
+        if (!currency) {
+          return null;
+        }
 
         return {
           ...transaction,
@@ -59,7 +56,8 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
           image: currency.image,
           symbol: currency.symbol,
         };
-      });
+      })
+      .filter((transaction) => transaction !== null);
     console.log(transactionsFullData);
     transactionsFullData.sort(
       (a, b) => b.timestamp.toDate() - a.timestamp.toDate(),
@@ -192,11 +190,8 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
             >
               {headerCell("amount", "amount")}
             </th>
-            <th
-              onClick={() => sortData("creditCardDetails")}
-              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
-            >
-              {headerCell("creditCardDetails", "cardNumber")}
+            <th className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden">
+              {headerCell("accountNumber", "accountNumber")}
             </th>
             <th
               onClick={() => sortData("timestamp")}
@@ -208,7 +203,7 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
         </thead>
         <tbody>
           {data.map((d, index) => (
-            <TransactionsBuyRow
+            <TransactionsWithdrawRow
               data={d}
               key={d.id}
               index={index + 1 + (currentPage - 1) * transactionsPerPage}

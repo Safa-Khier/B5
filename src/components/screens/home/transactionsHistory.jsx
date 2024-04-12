@@ -1,40 +1,27 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { mcokCurrencies } from "../../../../../../public/mockData.jsx";
-import Footer from "../../../../footer.jsx";
-import { useAuth } from "../../../../../AuthContext.js";
-import Alert from "../../../../alert/alert.jsx";
-import TransactionsBuyTable from "../../../../table/transactionsTable/buyTable/transactionsBuyTable.jsx";
-import TransactionsTradeTable from "../../../../table/transactionsTable/tradeTable/transactionsTradeTable.jsx";
-import BuyCurrencyScreen from "./buy.currencey.screen.jsx";
-import TradeCurrencyScreen from "./trade.currencey.screen.jsx";
+import TransactionsBuyTable from "../../table/transactionsTable/buyTable/transactionsBuyTable.jsx";
+import TransactionsTradeTable from "../../table/transactionsTable/tradeTable/transactionsTradeTable.jsx";
+import { useAuth } from "../../../AuthContext.js";
+import Footer from "../../footer.jsx";
+import { mcokCurrencies } from "../../../../public/mockData.jsx";
+import TransactionsWithdrawTable from "../../table/transactionsTable/withdrawTable/transactionsWithdrawTable.jsx";
 
-export default function CashIn() {
+export default function TransactionsHistory() {
   const { t } = useTranslation();
+  // State to track the active tab
 
   const { currentUserData } = useAuth();
 
-  const [alertVisible, setAlertVisible] = useState(false);
-  const showAlert = () => setAlertVisible(true);
-  const hideAlert = () => setAlertVisible(false);
-  const [alertData, setAlertData] = useState({
-    title: "",
-    message: "",
-    messageType: "",
-    action: null,
-  });
-
-  // State to track the active tab
   const [activeTab, setActiveTab] = useState("buy");
-  const [currencies, setCurrencies] = useState();
+  const [currencies, setCurrencies] = useState([]);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [indicatorStyle, setIndicatorStyle] = useState({
     width: 0,
     transform: `translateX(0px)`, // Use the corrected offset
   });
   const tabRefs = useRef([]);
-
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     if (tabRefs.current[activeTab]) {
@@ -45,6 +32,10 @@ export default function CashIn() {
       });
     }
   }, [activeTab, tabRefs, windowWidth]);
+
+  useEffect(() => {
+    console.log(currencies);
+  }, [currencies]);
 
   useEffect(() => {
     setCurrencies(
@@ -68,29 +59,29 @@ export default function CashIn() {
     };
   }, []);
 
-  const handleAlert = ({ title, message, messageType, action }) => {
-    setAlertData({
-      title: title,
-      message: message,
-      messageType: messageType,
-      action: action,
-    });
-    showAlert();
-  };
-
   // Function to render the tab content based on the active tab
   const renderTabContent = () => {
     switch (activeTab) {
       case "buy":
         return (
-          <BuyCurrencyScreen currencies={currencies} alert={handleAlert} />
+          <TransactionsBuyTable
+            transactions={currentUserData.transactions}
+            currencies={currencies}
+          />
+          //   <div></div>
         );
       case "trade":
         return (
-          <TradeCurrencyScreen
+          <TransactionsTradeTable
+            transactions={currentUserData.transactions}
             currencies={currencies}
-            currentUserData={currentUserData}
-            alert={handleAlert}
+          />
+        );
+      case "withdraw":
+        return (
+          <TransactionsWithdrawTable
+            transactions={currentUserData.transactions}
+            currencies={currencies}
           />
         );
       default:
@@ -104,6 +95,8 @@ export default function CashIn() {
         return "shopping_cart";
       case "trade":
         return "compare_arrows";
+      case "withdraw":
+        return "account_balance";
       default:
         return "";
     }
@@ -130,11 +123,15 @@ export default function CashIn() {
   return (
     <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between">
       <div className="p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
+        <h1 className="mb-5 text-3xl font-bold w-full">
+          {t("transactionsHistory")}
+        </h1>
         {/* Tab buttons */}
         <div className="w-full xl:w-[80%] flex flex-col justify-center items-start border-b md:p-0">
           <div className="flex justify-between md:justify-start w-full gap-5 relative">
             {renderTabButton("buy")}
             {renderTabButton("trade")}
+            {renderTabButton("withdraw")}
           </div>
           <div
             className="w-full border-2 rounded border-custom-teal"
@@ -150,7 +147,6 @@ export default function CashIn() {
           {renderTabContent()}
         </div>
       </div>
-      <Alert {...alertData} onClose={hideAlert} />
       <Footer />
     </div>
   );

@@ -263,6 +263,7 @@ export async function withdrawCrypto(
   currency,
   amount,
   bankAccountDetails,
+  accountBalance,
 ) {
   const db = firebase.firestore();
 
@@ -309,8 +310,10 @@ export async function withdrawCrypto(
 
       // Add a new transaction record
       transaction.set(transactionsRef, {
+        accountBalance: accountBalance,
         currencyId: currency.id,
-        amount: soldCurrencyAmount,
+        amount: amount,
+        price: currency.current_price,
         bankAccountDetails: bankAccountDetails,
         transactionType: "withdraw",
         timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Stores the time the transaction was made

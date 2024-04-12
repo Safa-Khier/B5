@@ -25,6 +25,7 @@
   "news": "Notizia",
   "compare": "Confrontare",
   "dashboard": "Cruscotto",
+  "transactionsHistory": "Storia delle transazioni",
 
   "name": "Nome",
   "price": "Prezzo",
@@ -103,6 +104,10 @@
   "quantitySold": "Quantità venduta",
   "quantityBought": "Quantità acquistata",
 
+  "accountNumber": "Numero di conto",
+  "branchNumber": "Numero di filiale",
+  "bankNumber": "Numero di banca",
+
   "creditCardDetails": "Dettagli della carta di credito",
   "creditCardTitle": "Inserisci i dettagli della tua carta di credito \nqui sotto",
   "cardNumber": "Numero di carta",
@@ -112,8 +117,10 @@
 
   "errorInvalidCardNumber": "Numero di carta non valido!",
 
+  "max": "Massimo",
   "selectCurrencyFirst": "Seleziona prima la valuta!",
-  "selectAmount": "Seleziona l'importo",
+  "enterAmount": "Inserisci l'importo",
+  "forExample": "Per esempio",
 
   "tags": "TAG",
   "Categories": "Categorie"
