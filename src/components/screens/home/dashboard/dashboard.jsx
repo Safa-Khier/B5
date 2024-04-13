@@ -92,7 +92,7 @@ export default function Dashboard() {
     // Calculate the balance based on the wallet data
     let balance = 0;
     walletData.forEach((coin) => {
-      balance += coin.amount * coin.current_price;
+      balance += parseFloat(coin.amount) * coin.current_price;
     });
     if (selectedCoin.toLowerCase() === "usd") {
       return removeTrailingZeros(balance, 10);
@@ -111,7 +111,7 @@ export default function Dashboard() {
     // Calculate the estimated value based on the wallet data
     let estimatedValue = 0;
     walletData.forEach((coin) => {
-      estimatedValue += coin.amount * coin.current_price;
+      estimatedValue += parseFloat(coin.amount) * coin.current_price;
     });
     return removeTrailingZeros(estimatedValue, 10);
   }

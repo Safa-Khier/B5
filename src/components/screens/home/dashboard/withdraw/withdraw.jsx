@@ -132,7 +132,7 @@ export default function Withdraw() {
 
   const amountInputPlaceholder = () => {
     if (!selectedCurrency) return t("selectCurrencyFirst");
-    return `${t("enterAmount")} (${t("forExample")} ${maxWithdrawAmount().toFixed(2)} ${selectedCurrency.symbol.toUpperCase()})`;
+    return `${t("enterAmount")} (${t("forExample")} ${maxWithdrawAmount().toFixed(10)} ${selectedCurrency.symbol.toUpperCase()})`;
   };
 
   const handleAccountNumberChange = (e) => {

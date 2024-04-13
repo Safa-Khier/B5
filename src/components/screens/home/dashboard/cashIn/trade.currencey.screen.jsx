@@ -177,7 +177,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
     const maxAmount = currentUserData.wallet.find(
       (currency) => spendCurrency.id === currency.id,
     ).amount;
-    return "(Up To ≈ " + maxAmount.toFixed(5) + ")";
+    return "(Up To ≈ " + maxAmount + ")";
   };
 
   return (
