@@ -67,6 +67,15 @@
   "errorWrongPassword": "Неверный пароль!",
   "errorInvalidCredentials": "Неверные учетные данные!",
 
+  "errorSelectCurrencyToWithdraw": "Пожалуйста, выберите валюту для вывода",
+  "errorEnterAmountToWithdraw": "Пожалуйста, введите сумму для вывода",
+  "errorEnterYourAccountNumber": "Пожалуйста, введите номер вашего счета",
+  "errorEnterYourBranchNumber": "Пожалуйста, введите номер вашего отделения",
+  "errorEnterYourBankNumber": "Пожалуйста, введите номер вашего банка",
+
+  "successWithdrawnSuccessfully": "Ваши средства были успешно выведены",
+  "errorOccurredWhileWithdrawingYourFunds": "Произошла ошибка при выводе средств",
+
   "success": "Успех",
   "resetPasswordEmailSent": "Письмо для сброса пароля отправлено!",
   "accountCreated": "Аккаунт успешно создан!",

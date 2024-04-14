@@ -67,6 +67,15 @@
   "errorWrongPassword": "Password errata!",
   "errorInvalidCredentials": "Credenziali non valide!",
 
+  "errorSelectCurrencyToWithdraw": "Seleziona una valuta per prelevare",
+  "errorEnterAmountToWithdraw": "Inserisci un importo da prelevare",
+  "errorEnterYourAccountNumber": "Inserisci il numero del tuo conto",
+  "errorEnterYourBranchNumber": "Пожалуйста, введите номер вашего отделения",
+  "errorEnterYourBankNumber": "Inserisci il tuo numero di banca",
+
+  "successWithdrawnSuccessfully": "I tuoi fondi sono stati prelevati con successo",
+  "errorOccurredWhileWithdrawingYourFunds": "Si è verificato un errore durante il prelievo dei tuoi fondi",
+
   "success": "Successo",
   "resetPasswordEmailSent": "Email di reimpostazione della password inviata!",
   "accountCreated": "Account creato con successo!",

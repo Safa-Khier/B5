@@ -67,6 +67,15 @@
   "errorWrongPassword": "密碼錯誤！",
   "errorInvalidCredentials": "無效的憑證！",
 
+  "errorSelectCurrencyToWithdraw": "請選擇提款幣種",
+  "errorEnterAmountToWithdraw": "請輸入提款金額",
+  "errorEnterYourAccountNumber": "請輸入您的帳號",
+  "errorEnterYourBranchNumber": "請輸入您的分行號碼",
+  "errorEnterYourBankNumber": "請輸入您的銀行號碼",
+
+  "successWithdrawnSuccessfully": "您的資金已成功提取",
+  "errorOccurredWhileWithdrawingYourFunds": "提取資金時發生錯誤",
+
   "success": "成功",
   "resetPasswordEmailSent": "重置密碼郵件已發送！",
   "accountCreated": "賬號已創建！",

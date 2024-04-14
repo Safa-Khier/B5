@@ -67,6 +67,15 @@
   "errorWrongPassword": "Wrong password!",
   "errorInvalidCredentials": "Invalid credentials!",
 
+  "errorSelectCurrencyToWithdraw": "Please select a currency to withdraw",
+  "errorEnterAmountToWithdraw": "Please enter an amount to withdraw",
+  "errorEnterYourAccountNumber": "Please enter your account number",
+  "errorEnterYourBranchNumber": "Please enter your branch number",
+  "errorEnterYourBankNumber": "Please enter your bank number",
+
+  "successWithdrawnSuccessfully": "Your funds have been successfully withdrawn",
+  "errorOccurredWhileWithdrawingYourFunds": "An error occurred while withdrawing your funds",
+
   "success": "Success",
   "resetPasswordEmailSent": "Reset password email sent!",
   "accountCreated": "Account created successfully!",
