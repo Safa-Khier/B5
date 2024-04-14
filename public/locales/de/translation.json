@@ -67,6 +67,15 @@
   "errorWrongPassword": "Falsches Passwort!",
   "errorInvalidCredentials": "Ungültige Anmeldeinformationen!",
 
+  "errorSelectCurrencyToWithdraw": "Bitte wählen Sie eine Währung zum Abheben aus",
+  "errorEnterAmountToWithdraw": "Bitte geben Sie einen Betrag zum Abheben ein",
+  "errorEnterYourAccountNumber": "Bitte geben Sie Ihre Kontonummer ein",
+  "errorEnterYourBranchNumber": "Inserisci il numero della tua filiale",
+  "errorEnterYourBankNumber": "Bitte geben Sie Ihre Bankleitzahl ein",
+
+  "successWithdrawnSuccessfully": "Ihr Geld wurde erfolgreich abgebucht",
+  "errorOccurredWhileWithdrawingYourFunds": "Beim Abheben Ihres Geldes ist ein Fehler aufgetreten",
+
   "success": "Erfolg",
   "resetPasswordEmailSent": "E-Mail zum Zurücksetzen des Passworts",
   "accountCreated": "Konto erstellt!",

@@ -29,7 +29,7 @@ const ParticlesBackground = () => {
               },
               onHover: {
                 enable: true,
-                mode: "repulse",
+                mode: "bubble",
               },
               resize: true,
             },
@@ -38,7 +38,7 @@ const ParticlesBackground = () => {
                 distance: 400,
                 duration: 2,
                 opacity: 0.8,
-                size: 40,
+                size: 20,
               },
               push: {
                 quantity: 4,
@@ -65,9 +65,9 @@ const ParticlesBackground = () => {
               enable: true,
             },
             move: {
-              direction: "bounce",
+              direction: "inside",
               enable: true,
-              outMode: "out",
+              outMode: "bounce",
               random: false,
               speed: 2,
               straight: true,
@@ -86,7 +86,7 @@ const ParticlesBackground = () => {
               type: "circle",
             },
             size: {
-              random: true,
+              random: false,
               value: 5,
             },
           },

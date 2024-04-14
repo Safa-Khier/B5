@@ -54,8 +54,6 @@ export default function Dashboard() {
       return;
     }
 
-    console.log(currentUserData.transactions);
-
     const sortedTransactionsAsc = currentUserData.transactions
       .filter((transaction) => transaction.transactionType !== "trade")
       .sort(
@@ -66,7 +64,6 @@ export default function Dashboard() {
     const accountBalance = sortedTransactionsAsc.map((transaction) => {
       return transaction.accountBalance;
     });
-    console.log(accountBalance);
     setTransactionsData(accountBalance);
   }, [currentUserData]);
 
@@ -221,12 +218,6 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-col">
             <div className="flex justify-between font-semibold mb-2 gap-3">
-              <button
-                onClick={() => setPathLocation("/home/dashboard/deposit")}
-                className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg"
-              >
-                {t("deposit")}
-              </button>
               <button
                 onClick={() => setPathLocation("/home/dashboard/withdraw")}
                 className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 w-full py-2 px-4 rounded-lg"

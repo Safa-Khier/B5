@@ -42,7 +42,6 @@ export default function Withdraw() {
         label: currency.name,
       };
     });
-    console.log("walletCurrencies", walletCurrencies);
     setCurrencies(walletCurrencies);
   }, []);
 
@@ -151,23 +150,23 @@ export default function Withdraw() {
 
   const validateInputs = () => {
     if (!selectedCurrency) {
-      alert("Error", "Please select a currency to withdraw");
+      alert("error", "errorSelectCurrencyToWithdraw");
       return false;
     }
     if (!amount) {
-      alert("Error", "Please enter an amount to withdraw");
+      alert("error", "errorEnterAmountToWithdraw");
       return false;
     }
     if (!bankAccountDetails.accountNumber) {
-      alert("Error", "Please enter your account number");
+      alert("error", "errorEnterYourAccountNumber");
       return false;
     }
     if (!bankAccountDetails.branchNumber) {
-      alert("Error", "Please enter your branch number");
+      alert("error", "errorEnterYourBranchNumber");
       return false;
     }
     if (!bankAccountDetails.bankNumber) {
-      alert("Error", "Please enter your bank number");
+      alert("error", "errorEnterYourBankNumber");
       return false;
     }
     return true;
@@ -208,10 +207,10 @@ export default function Withdraw() {
         bankAccountDetails,
         accountBalance,
       );
-      alert("Success", "Your funds have been withdrawn successfully");
+      alert("success", "successWithdrawnSuccessfully");
     } catch (error) {
       console.error("Error: ", error);
-      alert("Error", "An error occurred while withdrawing your funds");
+      alert("error", "errorOccurredWhileWithdrawingYourFunds");
     } finally {
       setIsLoading(false);
       // Reset the form
