@@ -119,15 +119,6 @@ const UserMenu = ({ isUserMenuOpen }) => {
                   <i className="material-icons">account_balance</i>
                   <p>{t("withdraw")}</p>
                 </button>
-                <button
-                  onClick={() => {
-                    setPathLocation("/home/dashboard/deposit");
-                  }}
-                  className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
-                >
-                  <i className="material-icons">wallet</i>
-                  <p>{t("deposit")}</p>
-                </button>
               </div>
             )}
           </div>

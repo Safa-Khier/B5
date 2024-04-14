@@ -44,14 +44,11 @@ export default function AuthenticatedNavBar() {
     { title: "coins", icon: "monetization_on" },
     { title: "news", icon: "feed" },
     { title: "transactions-history", icon: "history" },
-    // { title: "compare", icon: "compare_arrows" },
   ];
 
   const dashboardButtons = [
     { title: "cashIn", icon: "shopping_cart" },
     { title: "withdraw", icon: "account_balance" },
-    { title: "deposit", icon: "wallet" },
-    // { title: "compare", icon: "compare_arrows" },
   ];
 
   const selectedButtonClass = "text-custom-teal dark:text-custom-teal";
