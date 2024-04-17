@@ -9,7 +9,7 @@ import Alert from "../../../../alert/alert.jsx";
 
 export default function Withdraw() {
   const { t } = useTranslation();
-  const { currentUserData } = useAuth();
+  const { currentUser, currentUserData, fetchUserData } = useAuth();
   const [selectedCurrency, setSelectedCurrency] = useState();
   const [currencies, setCurrencies] = useState([]);
   const [amount, setAmount] = useState("");
@@ -157,15 +157,24 @@ export default function Withdraw() {
       alert("error", "errorEnterAmountToWithdraw");
       return false;
     }
-    if (!bankAccountDetails.accountNumber) {
+    if (
+      !bankAccountDetails.accountNumber ||
+      bankAccountDetails.accountNumber.length < 9
+    ) {
       alert("error", "errorEnterYourAccountNumber");
       return false;
     }
-    if (!bankAccountDetails.branchNumber) {
+    if (
+      !bankAccountDetails.branchNumber ||
+      bankAccountDetails.branchNumber.length < 3
+    ) {
       alert("error", "errorEnterYourBranchNumber");
       return false;
     }
-    if (!bankAccountDetails.bankNumber) {
+    if (
+      !bankAccountDetails.bankNumber ||
+      bankAccountDetails.bankNumber.length < 2
+    ) {
       alert("error", "errorEnterYourBankNumber");
       return false;
     }
@@ -207,6 +216,7 @@ export default function Withdraw() {
         bankAccountDetails,
         accountBalance,
       );
+      fetchUserData(currentUser);
       alert("success", "successWithdrawnSuccessfully");
     } catch (error) {
       console.error("Error: ", error);

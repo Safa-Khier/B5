@@ -10,7 +10,7 @@ import TradeCurrencyScreen from "./trade.currencey.screen.jsx";
 export default function CashIn() {
   const { t } = useTranslation();
 
-  const { currentUserData } = useAuth();
+  const { currentUser, currentUserData, fetchUserData } = useAuth();
 
   const [alertVisible, setAlertVisible] = useState(false);
   const showAlert = () => setAlertVisible(true);
@@ -81,13 +81,21 @@ export default function CashIn() {
     switch (activeTab) {
       case "buy":
         return (
-          <BuyCurrencyScreen currencies={currencies} alert={handleAlert} />
+          <BuyCurrencyScreen
+            currencies={currencies}
+            currentUser={currentUser}
+            currentUserData={currentUserData}
+            fetchUserData={fetchUserData}
+            alert={handleAlert}
+          />
         );
       case "trade":
         return (
           <TradeCurrencyScreen
             currencies={currencies}
+            currentUser={currentUser}
             currentUserData={currentUserData}
+            fetchUserData={fetchUserData}
             alert={handleAlert}
           />
         );
@@ -148,7 +156,14 @@ export default function CashIn() {
           {renderTabContent()}
         </div>
       </div>
-      <Alert {...alertData} isVisible={alertVisible} onClose={hideAlert} />
+      <Alert
+        title={alertData.title}
+        message={alertData.message}
+        isVisible={alertVisible}
+        onClose={hideAlert}
+        messageType={alertData.messageType}
+        action={alertData.action}
+      />
       <Footer />
     </div>
   );

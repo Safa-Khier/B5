@@ -12,12 +12,10 @@ import { webSettings } from "./atoms/webSettings";
 import ProtectedRoute from "./protectedRoute.jsx";
 
 import Home from "./components/screens/home/home.jsx";
-import NavBar from "./components/navigationBar/navBar.jsx";
 import Login from "./components/screens/welcome/login.jsx";
 import Signup from "./components/screens/welcome/signup.jsx";
 import Coin from "./components/screens/home/coins.screen.jsx";
 import News from "./components/screens/home/news.screen.jsx";
-import Compare from "./components/screens/home/compare.screen.jsx";
 import Welcome from "./components/screens/welcome/welcome.jsx";
 import { useAuth } from "./AuthContext.js";
 import Dashboard from "./components/screens/home/dashboard/dashboard.jsx";
@@ -25,6 +23,7 @@ import CashIn from "./components/screens/home/dashboard/cashIn/cashIn.jsx";
 import Withdraw from "./components/screens/home/dashboard/withdraw/withdraw.jsx";
 import TransactionsHistory from "./components/screens/home/transactionsHistory.jsx";
 import Settings from "./components/screens/home/settings.jsx";
+import NavigationBar from "./components/navigationBar/navigationBar.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
@@ -49,16 +48,14 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App flex flex-col">
+      <NavigationBar />
       <Routes>
         <Route
           path="welcome"
           element={
             <RedirectToHomeIfAuth isAuthenticated={currentUser}>
-              <div className="flex flex-col">
-                <NavBar />
-                <Outlet />
-              </div>
+              <Outlet />
             </RedirectToHomeIfAuth>
           }
         >
@@ -77,7 +74,6 @@ function App() {
           <Route path="settings" element={<Settings />} />
           <Route path="coins" element={<Coin />} />
           <Route path="news" element={<News />} />
-          <Route path="compare" element={<Compare />} />
           <Route
             path="transactions-history"
             element={<TransactionsHistory />}

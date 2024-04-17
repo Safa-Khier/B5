@@ -4,7 +4,13 @@ import { removeTrailingZeros } from "../../../../../../public/publicFunctions";
 import Select from "react-select";
 import { tradeCrypto } from "../../../../../firebase";
 
-const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
+const TradeCurrencyScreen = ({
+  currencies,
+  currentUserData,
+  fetchUserData,
+  currentUser,
+  alert,
+}) => {
   const { t } = useTranslation();
 
   const [walletCurrencies, setWalletCurrencies] = useState([]);
@@ -48,6 +54,7 @@ const TradeCurrencyScreen = ({ currencies, currentUserData, alert }) => {
         parseFloat(amountToSpend.replace(/[^0-9.]/g, "")),
         parseFloat(currencyAmount()),
       );
+      fetchUserData(currentUser);
       alert({
         title: "Success",
         message: "successTradeCrypto",

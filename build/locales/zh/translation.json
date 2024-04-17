@@ -124,7 +124,16 @@
   "expDate": "到期日",
   "cvv": "CVV",
 
+  "errorSelectCurrency": "請選擇貨幣！",
+  "errorEnterAmount": "請輸入金額！",
+
   "errorInvalidCardNumber": "無效的卡號！",
+  "errorInvalidCardName": "無效的卡名！",
+  "errorInvalidExpDate": "無效的到期日！",
+  "errorInvalidCCV": "無效的CCV！",
+
+  "successBuyCrypto": "您已成功購買加密貨幣！",
+  "errorSomethingWentWrong": "出了些問題！請稍後再試！",
 
   "max": "最大",
   "selectCurrencyFirst": "請先選擇貨幣！",

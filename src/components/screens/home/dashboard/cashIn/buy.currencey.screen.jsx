@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../../../AuthContext";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import CreditCardForm from "../../../../creditCard/creditCardForm";
 import { removeTrailingZeros } from "../../../../../../public/publicFunctions";
 import { addCryptoToTheWallet } from "../../../../../firebase";
 
-const BuyCurrencyScreen = ({ currencies, alert }) => {
+const BuyCurrencyScreen = ({
+  currencies,
+  currentUser,
+  currentUserData,
+  fetchUserData,
+  alert,
+}) => {
   const { t } = useTranslation();
-  const { currentUserData } = useAuth();
-  const [alertData, setAlertData] = useState({
-    title: "",
-    message: "",
-    messageType: "",
-    action: null,
-  });
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,7 +29,22 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
     setCreditCardDetails(data);
   };
 
-  function checkCreditCardDetails() {
+  function validateFormFields() {
+    if (!selectedCurrency) {
+      alert({
+        title: "error",
+        message: "errorSelectCurrency",
+      });
+      return;
+    }
+    if (!price) {
+      alert({
+        title: "error",
+        message: "errorEnterAmount",
+      });
+      return;
+    }
+
     if (creditCardDetails.cardNumber.length !== 19) {
       alert({
         title: "error",
@@ -46,19 +59,13 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
       });
       return false;
     }
-    if (creditCardDetails.expDate.length !== 5) {
-      alert({
-        title: "error",
-        message: "errorInvalidExpDate",
-      });
-      return false;
-    }
     const now = new Date();
     const month = now.getMonth() + 1;
     const year = now.getFullYear().toString().slice(2, 4);
 
     const expDate = creditCardDetails.expDate.split("/");
     if (
+      creditCardDetails.expDate.length !== 5 ||
       parseInt(expDate[1]) < year ||
       (parseInt(expDate[0]) <= month && parseInt(expDate[1]) == parseInt(year))
     ) {
@@ -79,17 +86,10 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
   }
 
   async function handleBuy() {
-    if (!checkCreditCardDetails()) {
+    if (!validateFormFields()) {
       return;
     }
-    // Handle buy logic
-    if (!selectedCurrency || !price) {
-      alert({
-        title: "error",
-        message: "errorFillAllFields",
-      });
-      return;
-    }
+
     const value = price.replace(/[^0-9.]/g, "");
     const amount = (parseFloat(value) || 0) / selectedCurrency.current_price;
 
@@ -112,6 +112,7 @@ const BuyCurrencyScreen = ({ currencies, alert }) => {
         creditCardDetails,
         accountBalance,
       );
+      fetchUserData(currentUser);
       alert({
         title: "Success",
         message: "successBuyCrypto",

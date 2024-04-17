@@ -124,7 +124,16 @@
   "expDate": "Срок действия",
   "cvv": "CVV",
 
+  "errorSelectCurrency": "Пожалуйста, выберите валюту!",
+  "errorEnterAmount": "Пожалуйста, введите сумму!",
+
   "errorInvalidCardNumber": "Неверный номер карты!",
+  "errorInvalidCardName": "Неверное имя держателя карты!",
+  "errorInvalidExpDate": "Неверная дата окончания!",
+  "errorInvalidCCV": "Неверный CCV!",
+
+  "successBuyCrypto": "Вы успешно купили криптовалюту!",
+  "errorSomethingWentWrong": "Что-то пошло не так!",
 
   "max": "Максимум",
   "selectCurrencyFirst": "Пожалуйста, выберите валюту сначала!",

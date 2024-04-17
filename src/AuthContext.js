@@ -19,11 +19,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       if (user) {
-        // fetch user data here
-        fetchUserDataFromFirestore(user).then((userData) => {
-          setCurrentUserData(userData);
-          setLoading(false); // Update loading state to false once user is fetched
-        });
+        fetchUserData(user); // Fetch user data if user exists (user is not null)
       } else {
         setLoading(false); // Update loading state to false once user is fetched
       }
@@ -39,10 +35,18 @@ export function AuthProvider({ children }) {
     }; // Cleanup subscription on unmount
   }, []);
 
+  const fetchUserData = async (user) => {
+    // Fetch user data here
+    const userData = await fetchUserDataFromFirestore(user);
+    setCurrentUserData(userData);
+    setLoading(false); // Update loading state to false once user is fetched
+  };
+
   const value = {
     currentUser,
     currentUserData,
     loading, // Include loading in the context value
+    fetchUserData, // Include fetchUserData function in the context value
   };
 
   return (

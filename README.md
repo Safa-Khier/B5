@@ -82,8 +82,8 @@ b5
 │  │  │  ├─ 📄creditCardForm.css
 │  │  │  └─ 📄creditCardForm.jsx
 │  │  ├─ 📁navigationBar
-│  │  │  ├─ 📄authenticatedNavBar.css
-│  │  │  ├─ 📄authenticatedNavBar.jsx
+│  │  │  ├─ 📄navigationBar.css
+│  │  │  ├─ 📄navigationBar.jsx
 │  │  │  └─ 📄navBar.jsx
 │  │  ├─ 📁phoneUserMenu
 │  │  │  ├─ 📄phoneUserMenu.css
@@ -220,8 +220,8 @@ b5
 │  │  │  ├─ 📄creditCardForm.css
 │  │  │  └─ 📄creditCardForm.jsx
 │  │  ├─ 📁navigationBar
-│  │  │  ├─ 📄authenticatedNavBar.css
-│  │  │  ├─ 📄authenticatedNavBar.jsx
+│  │  │  ├─ 📄navigationBar.css
+│  │  │  ├─ 📄navigationBar.jsx
 │  │  │  └─ 📄navBar.jsx
 │  │  ├─ 📁phoneUserMenu
 │  │  │  ├─ 📄phoneUserMenu.css

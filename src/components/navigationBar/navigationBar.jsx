@@ -11,15 +11,15 @@ import { useRecoilState } from "recoil";
 import { webSettings } from "../../atoms/webSettings";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
-import "./authenticatedNavBar.css";
+import "./navigationBar.css";
 import { useAuth } from "../../AuthContext";
 import UserMenu from "../userMenu/userMenu";
 import SearchBar from "../searchBar/searchBar";
 import { useLocation } from "react-router-dom";
 import { setPathLocation } from "../../App";
-import Halving from "../halving";
+import Halving from "./halving";
 
-export default function AuthenticatedNavBar() {
+export default function NavigationBar() {
   const { t } = useTranslation();
   const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
@@ -50,10 +50,6 @@ export default function AuthenticatedNavBar() {
     { title: "cashIn", icon: "shopping_cart" },
     { title: "withdraw", icon: "account_balance" },
   ];
-
-  const selectedButtonClass = "text-custom-teal dark:text-custom-teal";
-  const unselectedButtonClass =
-    "text-gray-900 dark:text-white hover:text-teal-600 dark:hover:text-teal-200 dark:border-gray-700";
 
   const handleSignOut = async () => {
     try {
@@ -168,32 +164,7 @@ export default function AuthenticatedNavBar() {
           </div>
         </div>
 
-        {/* <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-          <ul className="flex flex-col items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-100 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            {
-              // Map the buttons array to create the buttons
-              buttons.map((button) => (
-                <li key={button.title}>
-                  <a
-                    href={`/home/${button.title}`}
-                    className={
-                      location === button.title
-                        ? selectedButtonClass
-                        : unselectedButtonClass
-                    }
-                  >
-                    {t(button.title)}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div> */}
-
         <div className="text-black dark:text-white hidden justify-start items-center lg:order-2 rtl:space-x-reverse xl:flex">
-          {/* <i className="material-icons text-white dark:text-black bg-black dark:bg-white rounded-full mr-2">
-            currency_bitcoin
-          </i> */}
           <img
             className="mr-2"
             src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
@@ -213,7 +184,7 @@ export default function AuthenticatedNavBar() {
                 setIsThemeMenuOpen(!isThemeMenuOpen);
               }}
               type="button"
-              className="material-icons text-black dark:text-white hover:bg-gray-100 p-2 mx-4 hover:rounded-full dark:hover:bg-gray-700"
+              className="material-icons text-black dark:text-white hover:bg-gray-200 p-2 mx-4 hover:rounded-full dark:hover:bg-gray-700"
             >
               {settings.theme === "dark" ? "dark_mode" : "light_mode"}
             </button>
@@ -253,7 +224,7 @@ export default function AuthenticatedNavBar() {
                 setIsLanguageMenuOpen(!isLanguageMenuOpen);
               }}
               type="button"
-              className="inline-flex items-center font-medium justify-center p-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white mr-2"
+              className="inline-flex items-center font-medium p-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 mr-2"
             >
               <img
                 src={logo}
@@ -267,7 +238,7 @@ export default function AuthenticatedNavBar() {
               <i className="material-icons">arrow_drop_down</i>
             </button>
             {isLanguageMenuOpen && (
-              <div className="z-50 my-4 py-2 font-medium text-base list-none bg-white divide-gray-100 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2 w-max">
+              <div className="z-50 my-4 py-2 font-medium text-base list-none bg-white divide-gray-200 rounded-lg shadow dark:bg-gray-700 absolute origin-top left-0 mt-2 w-max">
                 {languageMenuRow("en", Usa)}
                 {languageMenuRow("ru", Russia)}
                 {languageMenuRow("de", Germany)}
@@ -277,18 +248,37 @@ export default function AuthenticatedNavBar() {
             )}
           </div>
 
-          <button
-            type="button"
-            onClick={() => {
-              setIsThemeMenuOpen(false);
-              setIsLanguageMenuOpen(false);
-              setIsUserMenuOpen(!isUserMenuOpen);
-            }}
-            className="inline-flex items-center font-medium justify-center p-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            <i className="material-icons mr-2">account_circle</i>
-            <span> {currentUser.displayName} </span>
-          </button>
+          {currentUser && currentUserData && (
+            <button
+              type="button"
+              onClick={() => {
+                setIsThemeMenuOpen(false);
+                setIsLanguageMenuOpen(false);
+                setIsUserMenuOpen(!isUserMenuOpen);
+              }}
+              className={`flex items-center font-medium p-2 text-sm text-gray-900 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700`}
+            >
+              <i className="material-icons mr-2">account_circle</i>
+              <span> {currentUser.displayName} </span>
+            </button>
+          )}
+
+          {!currentUser || !currentUserData ? (
+            <div className="space-x-4">
+              <button
+                onClick={() => setPathLocation("/welcome/signup")}
+                className="text-gray-800 px-2 py-2 rounded-xl dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                {t("signUp")}
+              </button>
+              <button
+                onClick={() => setPathLocation("/welcome/login")}
+                className="text-gray-800 px-2 py-2 rounded-xl dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+              >
+                {t("logIn")}
+              </button>
+            </div>
+          ) : null}
         </div>
       </nav>
       <SearchBar isSearchOpen={isSearchOpen} searchData={location} />

@@ -38,7 +38,7 @@ const UserMenu = ({ isUserMenuOpen }) => {
     }
   };
 
-  if (!showMenu) return null;
+  if (!showMenu || !currentUser) return null;
 
   return (
     <div className="overflow-hidden">
@@ -61,35 +61,35 @@ const UserMenu = ({ isUserMenuOpen }) => {
           </div>
 
           <div className="flex flex-col justify-start items-start w-full h-full py-10 gap-3">
-            <div
+            <button
               onClick={() => setPathLocation("/home/coins")}
-              className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
+              className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 hover:bg-opacity-30 dark:hover:bg-opacity-50 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
             >
               <i className="material-icons">monetization_on</i>
               <p>{t("coins")}</p>
-            </div>
-            <div
+            </button>
+            <button
               onClick={() => setPathLocation("/home/news")}
-              className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
+              className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 hover:bg-opacity-30 dark:hover:bg-opacity-50 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
             >
               <i className="material-icons">feed</i>
               <p>{t("news")}</p>
-            </div>
-            <div
+            </button>
+            <button
               onClick={() => setPathLocation("/home/transactions-history")}
-              className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
+              className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 hover:bg-opacity-30 dark:hover:bg-opacity-50 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
             >
               <i className="material-icons">history</i>
               <p>{t("transactions-history")}</p>
-            </div>
+            </button>
             <div className="w-full flex">
-              <div
+              <button
                 onClick={() => setPathLocation("/home/dashboard")}
-                className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
+                className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 hover:bg-opacity-30 dark:hover:bg-opacity-50 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
               >
                 <i className="material-icons">dashboard</i>
                 <p>{t("dashboard")}</p>
-              </div>
+              </button>
               <button
                 onClick={() => {
                   setDashboardMenuOpened(!dashboardMenuOpened);
@@ -100,12 +100,12 @@ const UserMenu = ({ isUserMenuOpen }) => {
               </button>
             </div>
             {dashboardMenuOpened && (
-              <div className="w-full pl-5">
+              <div className="w-full flex flex-col pl-5 gap-3">
                 <button
                   onClick={() => {
                     setPathLocation("/home/dashboard/cashin");
                   }}
-                  className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
+                  className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 hover:bg-gray-300 dark:hover:bg-gray-800 hover:bg-opacity-30 dark:hover:bg-opacity-50 rounded-t-md"
                 >
                   <i className="material-icons">shopping_cart</i>
                   <p>{t("cashIn")}</p>
@@ -114,7 +114,7 @@ const UserMenu = ({ isUserMenuOpen }) => {
                   onClick={() => {
                     setPathLocation("/home/dashboard/withdraw");
                   }}
-                  className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-800 rounded-t-md"
+                  className="flex justify-start items-start w-full h-10 gap-3 p-2 border-b border-gray-400 hover:bg-gray-300 dark:hover:bg-gray-800 hover:bg-opacity-30 dark:hover:bg-opacity-50 rounded-t-md"
                 >
                   <i className="material-icons">account_balance</i>
                   <p>{t("withdraw")}</p>

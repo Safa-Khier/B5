@@ -124,7 +124,16 @@
   "expDate": "Data di scadenza",
   "cvv": "CVV",
 
+  "errorSelectCurrency": "Seleziona una valuta!",
+  "errorEnterAmount": "Inserisci l'importo!",
+
   "errorInvalidCardNumber": "Numero di carta non valido!",
+  "errorInvalidCardName": "Nome della carta non valido!",
+  "errorInvalidCardDate": "Data di scadenza non valida!",
+  "errorInvalidCCV": "CCV non valido!",
+
+  "successBuyCrypto": "Hai acquistato con successo la criptovaluta!",
+  "errorSomethingWentWrong": "Qualcosa è andato storto! Riprova più tardi!",
 
   "max": "Massimo",
   "selectCurrencyFirst": "Seleziona prima la valuta!",
