@@ -181,7 +181,7 @@ const BuyCurrencyScreen = ({
       {...innerProps}
       className={`text-sm flex justify-between items-center p-2 ${isFocused && "bg-gray-300 dark:bg-gray-600"} ${isSelected && "font-bold text-custom-teal"}`}
     >
-      <div className="flex justify-start h-[100%] items-center">
+      <div className="flex justify-start h-full items-center">
         <img
           className="w-6 h-6 mr-2"
           loading="lazy"

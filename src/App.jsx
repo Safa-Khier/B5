@@ -24,6 +24,8 @@ import Withdraw from "./components/screens/home/dashboard/withdraw/withdraw.jsx"
 import TransactionsHistory from "./components/screens/home/transactionsHistory.jsx";
 import Settings from "./components/screens/home/settings.jsx";
 import NavigationBar from "./components/navigationBar/navigationBar.jsx";
+import Footer from "./components/footer.jsx";
+import LoadingDataScreen from "./components/table/loading.data.screen.jsx";
 
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
@@ -46,6 +48,8 @@ function App() {
       setSettings({ ...settings, theme: "light" });
     }
   }, []);
+
+  // return <LoadingDataScreen />;
 
   return (
     <div className="App flex flex-col">
@@ -96,6 +100,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </div>
   );
 }

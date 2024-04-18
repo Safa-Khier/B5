@@ -1,6 +1,9 @@
 {
   "welcomeTo": "Добро пожаловать в",
   "welcomeBack": "С возвращением",
+  "GoodMorning": "Доброе утро",
+  "GoodAfternoon": "Добрый день",
+  "GoodEvening": "Добрый вечер",
   "languageName": "Русский",
   "en": "English (US)",
   "de": "Deutsch",
@@ -103,6 +106,9 @@
   "buy": "Купить",
   "history": "История",
   "time": "Время",
+
+  "fetchingdata": "Получение данных",
+  "lastUpdated": "Последнее обновление",
 
   "currency": "Валюта",
   "spend": "Потратить",

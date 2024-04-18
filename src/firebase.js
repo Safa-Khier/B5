@@ -2,17 +2,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { Timestamp } from "firebase/firestore";
-import { doc, onSnapshot } from "firebase/firestore"; // Import onSnapshot for listening to real-time updates
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBU7bpMsc4MZhNgQUr5fctbKZnOrQGvaFI",
-//   authDomain: "webproject-84623.firebaseapp.com",
-//   projectId: "webproject-84623",
-//   storageBucket: "webproject-84623.appspot.com",
-//   messagingSenderId: "597356177781",
-//   appId: "1:597356177781:web:39ad9bd19b927870744b3c",
-//   measurementId: "G-S7GQ7V2FJC",
-// };
 
 const firebaseConfig = {
   apiKey: "AIzaSyCDj5lHl9qwaIhVVxKFyK-m-ENvw8bKvlk",
@@ -38,15 +27,33 @@ export async function fetchCryptoCurrenciesFromFirestore() {
     const currencies = [];
     snapshot.forEach((doc) => {
       if (doc.id !== "updatedTimeStamp") currencies.push(doc.data());
-      else returnData.updatedTimeStamp = doc.data().timeStamp;
+      else returnData.updatedTime = doc.data().timeStamp;
     });
 
     returnData.currencies = currencies;
 
-    console.log(returnData);
     return returnData;
   } catch (error) {
     console.error("Error fetching cryptocurrency data from Firestore:", error);
+  }
+}
+
+export async function fetchCryptoNewsFromFirestore() {
+  const db = firebase.firestore(); // Initialize Firestore database reference
+  try {
+    const snapshot = await db.collection("cryptonews").get();
+    const returnData = {};
+    const news = [];
+    snapshot.forEach((doc) => {
+      if (doc.id !== "updatedTimeStamp") news.push(doc.data());
+      else returnData.updatedTime = doc.data().timeStamp;
+    });
+
+    returnData.news = news;
+
+    return returnData;
+  } catch (error) {
+    console.error("Error fetching crypto news data from Firestore:", error);
   }
 }
 

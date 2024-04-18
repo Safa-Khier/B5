@@ -285,7 +285,7 @@ export default function NavigationBar() {
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
       {isHamburgerMenuOpen && (
         <div
-          className="scrollable-content overflow-y-auto content flex justify-center items-start py-10 absolute md:bg-white bg-opacity-95 md:bg-opacity-5 bg-gray-200 dark:bg-gray-700 md:hidden w-full h-full font-bold text-black dark:text-white"
+          className="scrollable-content content items-center py-10 absolute md:bg-white bg-opacity-95 md:bg-opacity-5 bg-gray-200 dark:bg-gray-700 md:hidden font-bold text-black dark:text-white"
           style={{
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",

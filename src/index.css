@@ -186,6 +186,7 @@
 
 /* Custom scrollbar for Firefox */
 .scrollable-content {
+  overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgb(55 65 81 / var(--tw-bg-opacity)) lightgray;
 }
@@ -215,6 +216,9 @@ body,
 
 .content {
   height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100vw;
 }
 

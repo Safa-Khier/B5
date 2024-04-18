@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import CurrenciesTable from "../../table/currenciesTable/currenciesTable.jsx";
 import { cryptoData } from "../../../atoms/cryptoData.js";
 import { useRecoilState } from "recoil";
-import { mcokCurrencies } from "../../../../public/mockData.jsx";
 import Footer from "../../footer.jsx";
 
 export default function Coin() {
@@ -15,10 +14,6 @@ export default function Coin() {
     // Set the document title when the component mounts
     document.title = t("coins") + " | " + t("cryptoPulse");
 
-    setCryptoCurrenciesData({
-      data: mcokCurrencies,
-      filterdData: mcokCurrencies,
-    });
     // Clean up function to set the document title back when the component unmounts
     return () => {
       document.title = t("cryptoPulse");
@@ -38,7 +33,7 @@ export default function Coin() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto h-[calc(100vh-72px)]">
+    <div className="scrollable-content content">
       <div className="m-5 text-slate-950 dark:text-white">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-5">
           <h1 className="mb-5 text-3xl font-bold md: m-0">

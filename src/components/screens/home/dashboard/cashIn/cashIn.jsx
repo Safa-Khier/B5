@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { mcokCurrencies } from "../../../../../../public/mockData.jsx";
 import Footer from "../../../../footer.jsx";
 import { useAuth } from "../../../../../AuthContext.js";
 import Alert from "../../../../alert/alert.jsx";
 import BuyCurrencyScreen from "./buy.currencey.screen.jsx";
 import TradeCurrencyScreen from "./trade.currencey.screen.jsx";
+import { cryptoData } from "../../../../../atoms/cryptoData.js";
+import { useRecoilValue } from "recoil";
 
 export default function CashIn() {
   const { t } = useTranslation();
@@ -25,6 +26,7 @@ export default function CashIn() {
   // State to track the active tab
   const [activeTab, setActiveTab] = useState("buy");
   const [currencies, setCurrencies] = useState();
+  const cryptoCurrenciesData = useRecoilValue(cryptoData);
 
   const [indicatorStyle, setIndicatorStyle] = useState({
     width: 0,
@@ -45,8 +47,9 @@ export default function CashIn() {
   }, [activeTab, tabRefs, windowWidth]);
 
   useEffect(() => {
+    console.log(cryptoCurrenciesData);
     setCurrencies(
-      mcokCurrencies.map((currency) => ({
+      cryptoCurrenciesData.data.map((currency) => ({
         id: currency.id,
         label: currency.name,
         image: currency.image,
@@ -54,7 +57,9 @@ export default function CashIn() {
         ...currency,
       })),
     );
+  }, [cryptoCurrenciesData.data]);
 
+  useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -134,7 +139,7 @@ export default function CashIn() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between">
+    <div className="scrollable-content content w-full">
       <div className="p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
         {/* Tab buttons */}
         <div className="w-full xl:w-[80%] flex flex-col justify-center items-start border-b md:p-0">

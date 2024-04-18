@@ -1,6 +1,9 @@
 {
   "welcomeTo": "Welcome to",
   "welcomeBack": "Welcome Back",
+  "GoodMorning": "Good Morning",
+  "GoodAfternoon": "Good Afternoon",
+  "GoodEvening": "Good Evening",
   "languageName": "English (US)",
   "en": "English (US)",
   "de": "Deutsch",
@@ -84,7 +87,7 @@
   "confirm": "Confirm",
   "cancel": "Cancel",
   "signOutTitle": "Sign Out Confirmation",
-  "signOutMessage": "You have been signed out of your account.\n Thank you for using Crypto Pulse. We hope to see you back soon!",
+  "signOutMessage": "You have been signed out of your account.\nThank you for using Crypto Pulse. We hope to see you back soon!",
   "forgotPassword": "Forgot Password? Click Here",
   "publishedAt": "Published At",
 
@@ -103,6 +106,9 @@
   "buy": "Buy",
   "history": "History",
   "time": "Time",
+
+  "fetchingdata": "Fetching data",
+  "lastUpdated": "Last Updated",
 
   "currency": "Currency",
   "spend": "Spend",

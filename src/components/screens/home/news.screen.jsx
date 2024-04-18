@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import NewsTable from "../../table/newsTable/newsTable";
 import { useRecoilState } from "recoil";
 import { cryptoNews } from "../../../atoms/cryptoNews";
-import { mockNews } from "../../../../public/mockData";
 import Footer from "../../footer";
 
 export default function News() {
@@ -14,11 +13,6 @@ export default function News() {
   useEffect(() => {
     // Set the document title when the component mounts
     document.title = t("news") + " | " + t("cryptoPulse");
-
-    setCryptoCurrenciesNews({
-      data: mockNews,
-      filterdData: mockNews,
-    });
 
     // Optional: Clean up function to set the document title back when the component unmounts
     return () => {
@@ -44,7 +38,7 @@ export default function News() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full content">
+    <div className="scrollable-content content">
       <div className="m-5 text-slate-950 dark:text-white">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-5">
           <h1 className="text-3xl font-bold">{t("latestNews")}</h1>
@@ -61,6 +55,11 @@ export default function News() {
           </div>
         </div>
         <div className="rounded-lg grid gap-4 border-gray-300 dark:border-gray-600">
+          {cryptoCurrenciesNews.updatedTime ? (
+            <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+              {t("lastUpdated")} {cryptoCurrenciesNews.updatedTime}
+            </div>
+          ) : null}
           <NewsTable news={cryptoCurrenciesNews.filterdData} />
         </div>
       </div>

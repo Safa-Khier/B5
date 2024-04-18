@@ -5,5 +5,6 @@ export const cryptoNews = atom({
   default: {
     data: [],
     filterdData: [],
+    updatedTime: null,
   },
 });

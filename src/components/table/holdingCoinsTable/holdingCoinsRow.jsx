@@ -1,11 +1,8 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { removeTrailingZeros } from "../../../../public/publicFunctions";
 
 export const HoldingCoinsRow = (prop) => {
   const crypto = prop.data;
-  const currency = prop.currency;
-  const { t } = useTranslation();
 
   const amount = () => {
     return (
@@ -36,7 +33,7 @@ export const HoldingCoinsRow = (prop) => {
   return (
     <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900 font-semibold">
       <td className="py-2 text-start">
-        <div className="flex justify-start h-[100%] items-center">
+        <div className="flex justify-start h-full items-center">
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"
@@ -56,7 +53,7 @@ export const HoldingCoinsRow = (prop) => {
         {"$ " + removeTrailingZeros(crypto.current_price)}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
-        {createChangeElement(currency.price_change_percentage_24h_in_currency)}
+        {createChangeElement(crypto.price_change_percentage_24h_in_currency)}
       </td>
     </tr>
   );

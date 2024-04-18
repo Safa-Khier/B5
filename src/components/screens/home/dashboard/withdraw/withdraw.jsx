@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../../../footer";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
-import { mcokCurrencies } from "../../../../../../public/mockData.jsx";
 import { useAuth } from "../../../../../AuthContext.js";
 import { withdrawCrypto } from "../../../../../firebase.js";
 import Alert from "../../../../alert/alert.jsx";
+import { useRecoilValue } from "recoil";
+import { cryptoData } from "../../../../../atoms/cryptoData.js";
 
 export default function Withdraw() {
   const { t } = useTranslation();
   const { currentUser, currentUserData, fetchUserData } = useAuth();
   const [selectedCurrency, setSelectedCurrency] = useState();
   const [currencies, setCurrencies] = useState([]);
+  const cryptoCurrenciesData = useRecoilValue(cryptoData);
   const [amount, setAmount] = useState("");
   const [bankAccountDetails, setBankAccountDetails] = useState({
     accountNumber: "",
@@ -32,8 +34,10 @@ export default function Withdraw() {
   });
 
   useEffect(() => {
+    if (!currentUserData || cryptoCurrenciesData.data.length === 0) return;
+
     const walletCurrencies = currentUserData.wallet.map((walletCurrency) => {
-      const currency = mcokCurrencies.find(
+      const currency = cryptoCurrenciesData.data.find(
         (currency) => currency.id === walletCurrency.id,
       );
       return {
@@ -43,7 +47,7 @@ export default function Withdraw() {
       };
     });
     setCurrencies(walletCurrencies);
-  }, []);
+  }, [cryptoCurrenciesData.data]);
 
   // Custom option component
   const CustomOption = ({ innerProps, isFocused, isSelected, data }) => (
@@ -51,7 +55,7 @@ export default function Withdraw() {
       {...innerProps}
       className={`text-sm flex justify-between items-center p-2 ${isFocused && "bg-gray-300 dark:bg-gray-600"} ${isSelected && "font-bold text-custom-teal"}`}
     >
-      <div className="flex justify-start h-[100%] items-center">
+      <div className="flex justify-start h-full items-center">
         <img
           className="w-6 h-6 mr-2"
           loading="lazy"
@@ -235,7 +239,7 @@ export default function Withdraw() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between items-center text-black dark:text-white">
+    <div className="scrollable-content content items-center text-black dark:text-white">
       <div className="flex flex-col w-full lg:w-[70%] justify-center lg:border rounded-lg lg:m-10 p-5">
         <h1 className="mb-5 text-3xl font-bold w-full">{t("withdraw")}</h1>
         <div className="flex flex-col lg:flex-row justify-center items-center gap-5">

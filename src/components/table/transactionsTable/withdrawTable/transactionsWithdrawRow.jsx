@@ -39,7 +39,7 @@ export const TransactionsWithdrawRow = (prop) => {
   return (
     <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900 font-bold">
       <td className="py-2">
-        <div className="flex justify-start h-[100%] items-center">
+        <div className="flex justify-start h-full items-center">
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"
@@ -54,16 +54,9 @@ export const TransactionsWithdrawRow = (prop) => {
           </div>
         </div>
       </td>
-      {/* <td className="py-2 text-end md:table-cell hidden">
-        {"$" +
-          removeTrailingZeros(transaction.price)}
-      </td> */}
-      <td className="py-2 text-end">
-        {/* {transaction.amount} */}
-        {amountCell()}
-      </td>
+      <td className="py-2 text-end">{amountCell()}</td>
       <td className="py-2 md:table-cell hidden text-end">
-        {transaction.bankAccountDetails.accountNumber}
+        ******{transaction.bankAccountDetails.accountNumber.slice(-3)}
       </td>
       <td className="py-2 text-end">
         {formatDate(convertTimestampToDate(transaction.timestamp))}

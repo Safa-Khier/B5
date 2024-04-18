@@ -138,7 +138,7 @@ exports.deleteOldNews = functions.pubsub
     });
 
     await batch.commit(); // Commit the batch
-    console.log("Old news documents deleted.");
+    console.log("Old news documents deleted, total: ", number_of_deleted_docs);
   });
 
 // Create and deploy your first functions

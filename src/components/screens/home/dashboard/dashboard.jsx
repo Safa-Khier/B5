@@ -3,18 +3,21 @@ import { useTranslation } from "react-i18next";
 import DataSparkline from "../../../table/currenciesTable/dataSparkline.jsx";
 import HoldingCoinTable from "../../../table/holdingCoinsTable/holdingCoinsTable.jsx";
 import { useAuth } from "../../../../AuthContext.js";
-import { mcokCurrencies } from "../../../../../public/mockData.jsx";
 import "./dashboard.css";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions.jsx";
 import Footer from "../../../footer.jsx";
 import { setPathLocation } from "../../../../App.jsx";
 import { convertTimestampToDate } from "../../../../firebase.js";
+import { useRecoilValue } from "recoil";
+import { cryptoData } from "../../../../atoms/cryptoData.js";
 
 export default function Dashboard() {
   const { t } = useTranslation();
+
   const { currentUser, currentUserData } = useAuth();
+  const cryptoCurrenciesData = useRecoilValue(cryptoData);
+
   const [walletData, setWalletData] = useState([]);
-  const [currenciesData, setCurrenciesData] = useState([]);
   const [transactionsData, setTransactionsData] = useState([]);
   const [displayedCoin, setDisplayedCoin] = useState(false);
   const [selectedCoin, setSelectedCoin] = useState("BTC");
@@ -22,9 +25,6 @@ export default function Dashboard() {
   useEffect(() => {
     // Set the document title when the component mounts
     document.title = t("dashboard") + " | " + t("cryptoPulse");
-
-    // setWalletData(currentUserData.wallet.currencies);
-    setCurrenciesData(mcokCurrencies);
 
     // Optional: Clean up function to set the document title back when the component unmounts
     return () => {
@@ -34,23 +34,22 @@ export default function Dashboard() {
 
   useEffect(() => {
     // Update the wallet data when the user data changes
-    if (!currentUserData) {
+    if (!currentUserData || cryptoCurrenciesData.data.length === 0) {
       return;
     }
-    if (currenciesData.length === 0) return;
     const holdingCoins = currentUserData.wallet.map((coin) => {
-      const currencyData = currenciesData.find(
+      const currencyData = cryptoCurrenciesData.data.find(
         (currency) => currency.id === coin.id,
       );
       return { ...coin, ...currencyData };
     });
 
     setWalletData(holdingCoins);
-  }, [currenciesData]);
+  }, [cryptoCurrenciesData.data]);
 
   useEffect(() => {
     // Update the wallet data when the user data changes
-    if (!currentUserData) {
+    if (!currentUserData.email) {
       return;
     }
 
@@ -64,6 +63,7 @@ export default function Dashboard() {
     const accountBalance = sortedTransactionsAsc.map((transaction) => {
       return transaction.accountBalance;
     });
+    console.log(accountBalance);
     setTransactionsData(accountBalance);
   }, [currentUserData]);
 
@@ -94,7 +94,7 @@ export default function Dashboard() {
     if (selectedCoin.toLowerCase() === "usd") {
       return removeTrailingZeros(balance, 10);
     }
-    const selectedCoinData = currenciesData.find(
+    const selectedCoinData = cryptoCurrenciesData.data.find(
       (coin) => coin.symbol.toLowerCase() === selectedCoin.toLowerCase(),
     );
     if (!selectedCoinData) {
@@ -114,7 +114,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex flex-col justify-between scrollable-content overflow-y-auto w-full content">
+    <div className="scrollable-content content">
       <div className="m-2 md:m-5 text-slate-950 dark:text-white flex flex-col items-center gap-5 md:gap-10 ">
         <div className="flex divide-x gap-5 w-full md:w-[70%]">
           <div className="flex justify-center items-center">
@@ -237,7 +237,7 @@ export default function Dashboard() {
         <div className="flex flex-col justify-between items-start w-full md:w-[70%] md:border dark:border-gray-500 md:rounded-lg p-2 md:p-5 ">
           <h2 className="mb-5 text-xl font-bold">{t("holding")}</h2>
 
-          <HoldingCoinTable data={walletData} currenciesData={currenciesData} />
+          <HoldingCoinTable data={walletData} />
         </div>
       </div>
       <Footer />

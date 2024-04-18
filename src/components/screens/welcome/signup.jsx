@@ -139,8 +139,8 @@ export default function Signup() {
   }
 
   return (
-    <div className="scrollable-content overflow-y-auto content flex w-full justify-center items-center">
-      <div className="grid md:grid-cols-2 w-full py-10">
+    <div className="scrollable-content content">
+      <div className="grid md:grid-cols-2 w-full h-full py-10">
         <div className="flex justify-end">
           <img
             src={Logo}

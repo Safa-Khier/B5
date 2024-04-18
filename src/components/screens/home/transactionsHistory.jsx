@@ -4,8 +4,9 @@ import TransactionsBuyTable from "../../table/transactionsTable/buyTable/transac
 import TransactionsTradeTable from "../../table/transactionsTable/tradeTable/transactionsTradeTable.jsx";
 import { useAuth } from "../../../AuthContext.js";
 import Footer from "../../footer.jsx";
-import { mcokCurrencies } from "../../../../public/mockData.jsx";
 import TransactionsWithdrawTable from "../../table/transactionsTable/withdrawTable/transactionsWithdrawTable.jsx";
+import { useRecoilValue } from "recoil";
+import { cryptoData } from "../../../atoms/cryptoData.js";
 
 export default function TransactionsHistory() {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ export default function TransactionsHistory() {
 
   const [activeTab, setActiveTab] = useState("buy");
   const [currencies, setCurrencies] = useState([]);
+  const cryptoCurrenciesData = useRecoilValue(cryptoData);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [indicatorStyle, setIndicatorStyle] = useState({
@@ -34,12 +36,8 @@ export default function TransactionsHistory() {
   }, [activeTab, tabRefs, windowWidth]);
 
   useEffect(() => {
-    console.log(currencies);
-  }, [currencies]);
-
-  useEffect(() => {
     setCurrencies(
-      mcokCurrencies.map((currency) => ({
+      cryptoCurrenciesData.data.map((currency) => ({
         id: currency.id,
         label: currency.name,
         image: currency.image,
@@ -47,7 +45,9 @@ export default function TransactionsHistory() {
         ...currency,
       })),
     );
+  }, [cryptoCurrenciesData.data]);
 
+  useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -121,7 +121,7 @@ export default function TransactionsHistory() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto w-full content flex flex-col justify-between">
+    <div className="scrollable-content content">
       <div className="p-5 text-slate-950 dark:text-white flex flex-col items-center justify-start">
         <h1 className="mb-5 text-3xl font-bold w-full">
           {t("transactions-history")}

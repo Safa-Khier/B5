@@ -7,6 +7,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../../../firebase";
+import Footer from "../../footer.jsx";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -113,8 +114,8 @@ export default function Login() {
   };
 
   return (
-    <div className="scrollable-content overflow-y-auto content flex w-full justify-center items-center">
-      <div className="grid md:grid-cols-2 w-full py-10">
+    <div className="scrollable-content content">
+      <div className="grid md:grid-cols-2 w-full h-full py-10">
         <div className="flex justify-end">
           <img
             src={Logo}
@@ -194,6 +195,7 @@ export default function Login() {
         isVisible={alertVisible}
         onClose={hideAlert}
       />
+      <Footer />
     </div>
   );
 }

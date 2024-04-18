@@ -5,5 +5,6 @@ export const cryptoData = atom({
   default: {
     data: [],
     filterdData: [],
+    updatedTime: null,
   },
 });

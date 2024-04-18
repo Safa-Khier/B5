@@ -1,6 +1,9 @@
 {
   "welcomeTo": "Willkommen zu",
   "welcomeBack": "Willkommen zurück",
+  "GoodMorning": "Guten Morgen",
+  "GoodAfternoon": "Guten Tag",
+  "GoodEvening": "Guten Abend",
   "languageName": "Deutsch",
   "en": "English (US)",
   "de": "Deutsch",
@@ -103,6 +106,9 @@
   "buy": "Kaufen",
   "history": "Geschichte",
   "time": "Zeit",
+
+  "fetchingdata": "Daten abrufen",
+  "lastUpdated": "Zuletzt aktualisiert",
 
   "currency": "Währung",
   "spend": "Ausgeben",

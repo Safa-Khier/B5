@@ -1,14 +1,11 @@
 import React from "react";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
-import { useTranslation } from "react-i18next";
 import { convertTimestampToDate } from "../../../../firebase";
 
 export const TransactionsBuyRow = (prop) => {
   const transaction = prop.data;
-  const { t } = useTranslation();
 
   function formatDate(date) {
-    console.log(date);
     let day = date.getDate();
     let month = date.getMonth() + 1; // getMonth() returns month from 0 to 11
     let year = date.getFullYear();
@@ -42,7 +39,7 @@ export const TransactionsBuyRow = (prop) => {
   return (
     <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900 font-bold">
       <td className="py-2">
-        <div className="flex justify-start h-[100%] items-center">
+        <div className="flex justify-start h-full items-center">
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"
@@ -57,14 +54,7 @@ export const TransactionsBuyRow = (prop) => {
           </div>
         </div>
       </td>
-      {/* <td className="py-2 text-end md:table-cell hidden">
-        {"$" +
-          parseFloat(removeTrailingZeros(transaction.price)).toLocaleString()}
-      </td> */}
-      <td className="py-2 text-end">
-        {/* {transaction.amount} */}
-        {amountCell()}
-      </td>
+      <td className="py-2 text-end">{amountCell()}</td>
       <td className="py-2 md:table-cell hidden text-end">
         {transaction.creditCardDetails.cardNumber}
       </td>

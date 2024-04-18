@@ -92,9 +92,9 @@ const DataSparkline = ({ data, updateTime, width, height }) => {
                     label += ": ";
                   }
                   if (context.parsed.y !== null) {
-                    label += context.parsed.y.toFixed(2);
+                    label += context.parsed.y.toFixed(5);
                   }
-                  return label;
+                  return "≈ $" + label;
                 },
               },
             },

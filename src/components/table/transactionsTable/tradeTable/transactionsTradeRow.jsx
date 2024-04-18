@@ -26,7 +26,7 @@ export const TransactionsTradeRow = (prop) => {
   return (
     <tr className="border-b hover:bg-gray-200 dark:hover:bg-gray-900 font-bold">
       <td className="py-2 md:table-cell hidden">
-        <div className="flex justify-start h-[100%] items-center">
+        <div className="flex justify-start h-full items-center">
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"
@@ -42,7 +42,7 @@ export const TransactionsTradeRow = (prop) => {
         </div>
       </td>
       <td className="py-2 md:hidden">
-        <div className="flex justify-start h-[100%] items-center">
+        <div className="flex justify-start h-full items-center">
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"
@@ -60,7 +60,7 @@ export const TransactionsTradeRow = (prop) => {
         </div>
       </td>
       <td className="py-2 md:table-cell hidden">
-        <div className="flex justify-start h-[100%] items-center">
+        <div className="flex justify-start h-full items-center">
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"
@@ -76,7 +76,7 @@ export const TransactionsTradeRow = (prop) => {
         </div>
       </td>
       <td className="py-2 md:hidden">
-        <div className="flex justify-start h-[100%] items-center">
+        <div className="flex justify-start h-full items-center">
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"

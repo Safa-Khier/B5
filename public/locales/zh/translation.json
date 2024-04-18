@@ -1,6 +1,9 @@
 {
   "welcomeTo": "歡迎來到",
   "welcomeBack": "歡迎回家",
+  "GoodMorning": "早上好",
+  "GoodAfternoon": "下午好",
+  "GoodEvening": "晚上好",
   "languageName": "中文 (繁體)",
   "en": "English (US)",
   "de": "Deutsch",
@@ -103,6 +106,9 @@
   "buy": "購買",
   "history": "歷史",
   "time": "時間",
+
+  "fetchingdata": "正在獲取數據",
+  "lastUpdated": "最後更新",
 
   "currency": "貨幣",
   "spend": "花費",

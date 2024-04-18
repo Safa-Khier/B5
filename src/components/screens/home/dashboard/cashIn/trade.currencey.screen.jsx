@@ -89,7 +89,7 @@ const TradeCurrencyScreen = ({
         ${isSelected && "font-bold text-custom-teal"} 
         ${isDisabled && "text-gray-500 dark:text-gray-400 opacity-50"}`}
       >
-        <div className="flex justify-start h-[100%] items-center">
+        <div className="flex justify-start h-full items-center">
           <img
             className="w-6 h-6 mr-2"
             loading="lazy"
