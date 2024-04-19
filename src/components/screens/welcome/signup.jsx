@@ -10,6 +10,7 @@ import {
 import Alert from "../../alert/alert.jsx";
 import { auth } from "../../../firebase";
 import { createNewUser } from "../../../firebase.js";
+import Footer from "../../footer.jsx";
 
 export default function Signup() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -242,6 +243,7 @@ export default function Signup() {
         isVisible={alertVisible}
         onClose={hideAlert}
       />
+      <Footer />
     </div>
   );
 }
