@@ -5,9 +5,9 @@ export default function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer className="flex w-full justify-between items-center bg-white dark:bg-gray-800 text-black dark:text-white p-5 bottom-0 left-0 right-0 font-semibold">
+    <footer className="flex w-full justify-between items-center bg-white dark:bg-gray-800 text-black dark:text-white p-5 eft-0 right-0 font-semibold">
       <p>&copy; {new Date().getFullYear() + " " + t("rights")}</p>
-      <div className="flex gap-4 text-lg">
+      <div className="hidden md:flex gap-4 text-lg ">
         <a
           href="https://www.instagram.com"
           className="fa fa-instagram cursor-pointer p-1 text-fuchsia-400"

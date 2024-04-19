@@ -34,7 +34,10 @@ export default function Alert({
           </button>
           <button
             className={`w-full max-w-32 mx-1 text-black dark:text-white ${messageType === "confirm-warnning" ? "bg-red-300 dark:bg-red-500 hover:bg-red-400 dark:hover:bg-red-400" : "bg-green-300 dark:bg-green-500 hover:bg-green-400 dark:hover:bg-green-400"} p-1.5 rounded-lg`}
-            onClick={action}
+            onClick={() => {
+              action();
+              onClose();
+            }}
           >
             {t("confirm")}
           </button>

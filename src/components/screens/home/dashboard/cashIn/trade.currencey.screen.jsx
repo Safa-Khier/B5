@@ -22,7 +22,7 @@ const TradeCurrencyScreen = ({
   const [receiveCurrency, setReceiveCurrency] = useState("");
 
   useEffect(() => {
-    console.log(currencies);
+    if (!currentUserData.wallet || currencies.length === 0) return;
     const walletCurrencies = currentUserData.wallet.map((walletCurrencey) => {
       const currency = currencies.find(
         (currency) => currency.id === walletCurrencey.id,
@@ -34,7 +34,7 @@ const TradeCurrencyScreen = ({
     });
     console.log(walletCurrencies);
     setWalletCurrencies(walletCurrencies);
-  }, [currentUserData.wallet]);
+  }, [currentUserData.wallet, currencies]);
 
   const validateTrade = () => {
     if (!spendCurrency || !receiveCurrency) return false;
@@ -213,6 +213,9 @@ const TradeCurrencyScreen = ({
               }}
               options={walletCurrencies}
               isClearable={true}
+              isLoading={
+                (currencies && currencies.length === 0) || currencies === null
+              }
             />
           </div>
           <div className="flex flex-col w-full">
@@ -260,6 +263,9 @@ const TradeCurrencyScreen = ({
               SingleValue: CustomReceiveValue,
             }}
             options={currencies}
+            isLoading={
+              (currencies && currencies.length === 0) || currencies === null
+            }
           />
         </div>
         <button

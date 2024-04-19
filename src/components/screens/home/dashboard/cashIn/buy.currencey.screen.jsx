@@ -326,6 +326,7 @@ const BuyCurrencyScreen = ({
                 SingleValue: CustomSingleValue,
               }}
               options={currencies}
+              isLoading={!currencies}
             />
           </div>
         </div>

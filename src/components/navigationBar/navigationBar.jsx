@@ -18,6 +18,7 @@ import SearchBar from "../searchBar/searchBar";
 import { useLocation } from "react-router-dom";
 import { setPathLocation } from "../../App";
 import Halving from "./halving";
+import Alert from "../alert/alert";
 
 export default function NavigationBar() {
   const { t } = useTranslation();
@@ -28,6 +29,10 @@ export default function NavigationBar() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   const [dashboardMenuOpened, setDashboardMenuOpened] = useState(false);
+
+  const [alertVisible, setAlertVisible] = useState(false);
+  const showAlert = () => setAlertVisible(true);
+  const hideAlert = () => setAlertVisible(false);
 
   const [settings, setSettings] = useRecoilState(webSettings);
   const { currentUser, currentUserData } = useAuth();
@@ -148,20 +153,39 @@ export default function NavigationBar() {
               </button>
             )}
 
-          <div className="dropdown">
-            <button
-              type="button"
-              onClick={() => {
-                setIsSearchOpen(false);
-                setIsHamburgerMenuOpen(!isHamburgerMenuOpen);
-              }}
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            >
-              <i className="material-icons">
-                {isHamburgerMenuOpen ? "close" : "menu"}
-              </i>
-            </button>
-          </div>
+          {currentUser ? (
+            <div className="dropdown">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsSearchOpen(false);
+                  setIsHamburgerMenuOpen(!isHamburgerMenuOpen);
+                }}
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              >
+                <i className="material-icons">
+                  {isHamburgerMenuOpen ? "close" : "menu"}
+                </i>
+              </button>
+            </div>
+          ) : (
+            <div className="flex md:hidden flex-row items-center">
+              <button
+                onClick={() => setPathLocation("/welcome/signup")}
+                type="button"
+                className="material-icons text-black dark:text-white hover:bg-gray-100 p-2 mx-2 hover:rounded-full dark:hover:bg-gray-700"
+              >
+                edit
+              </button>
+              <button
+                onClick={() => setPathLocation("/welcome/login")}
+                type="button"
+                className="material-icons text-black dark:text-white hover:bg-gray-100 p-2 mx-2 hover:rounded-full dark:hover:bg-gray-700"
+              >
+                login
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="text-black dark:text-white hidden justify-start items-center lg:order-2 rtl:space-x-reverse xl:flex">
@@ -283,9 +307,9 @@ export default function NavigationBar() {
       </nav>
       <SearchBar isSearchOpen={isSearchOpen} searchData={location} />
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
-      {isHamburgerMenuOpen && (
+      {isHamburgerMenuOpen && currentUser && (
         <div
-          className="scrollable-content content items-center py-10 absolute md:bg-white bg-opacity-95 md:bg-opacity-5 bg-gray-200 dark:bg-gray-700 md:hidden font-bold text-black dark:text-white"
+          className="scrollable-content content items-center py-10 absolute md:hidden bg-opacity-95 bg-gray-200 dark:bg-gray-700 font-bold text-black dark:text-white"
           style={{
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
@@ -296,7 +320,7 @@ export default function NavigationBar() {
               <i className="material-icons" style={{ fontSize: "100px" }}>
                 account_circle
               </i>
-              <p>{currentUser.displayName}</p>
+              <p>{currentUser && currentUser.displayName}</p>
             </div>
             {buttons.map((button) => (
               <a
@@ -402,14 +426,42 @@ export default function NavigationBar() {
             </div>
             <button
               className="w-full p-5 h-12 flex justify-start items-center bg-gray-300 dark:bg-gray-800 rounded-lg gap-2 hover:bg-gray-400 dark:hover:bg-gray-900"
-              onClick={handleSignOut}
+              onClick={showAlert}
             >
               <i className="material-icons">logout</i>
               {t("signOut")}
             </button>
           </div>
+          <div className="flex gap-4 text-lg ">
+            <a
+              href="https://www.instagram.com"
+              className="fa fa-instagram cursor-pointer p-1 text-fuchsia-400"
+              target="_blank"
+              aria-hidden="true"
+            />
+            <a
+              href="https://wa.me/972543921507"
+              className="fa fa-whatsapp cursor-pointer p-1 text-green"
+              target="_blank"
+              aria-hidden="true"
+            />
+            <a
+              href="https://www.facebook.com"
+              className="fa fa-facebook-official cursor-pointer p-1 text-blue-500"
+              target="_blank"
+              aria-hidden="true"
+            />
+          </div>
         </div>
       )}
+      <Alert
+        title={"signOutTitle"}
+        message={"signOutMessage"}
+        messageType={"confirm-warnning"}
+        action={handleSignOut}
+        isVisible={alertVisible}
+        onClose={hideAlert}
+      />
     </div>
   );
 }

@@ -8,9 +8,11 @@ export default function Welcome() {
   return (
     <div className="text-slate-950 dark:text-white content">
       <ParticlesBackground />
-      <div className="h-full w-full flex flex-col justify-center items-center z-10">
-        <h1 className="mb-5 text-6xl font-thin">{t("welcomeTo")}</h1>
-        <h1 className="mb-5 text-8xl font-bold">{t("cryptoPulse")}</h1>
+      <div className="h-full w-full flex flex-col justify-center items-center ">
+        <div className="text-center absolute opacity-80">
+          <h1 className="mb-5 text-6xl font-thin">{t("welcomeTo")}</h1>
+          <h1 className="mb-5 text-8xl font-bold">{t("cryptoPulse")}</h1>
+        </div>
       </div>
       <Footer />
     </div>

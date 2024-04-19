@@ -115,13 +115,13 @@ export default function Login() {
 
   return (
     <div className="scrollable-content content">
-      <div className="grid md:grid-cols-2 w-full h-full py-10">
+      <div className="grid md:grid-cols-2 w-full h-full py-5 overflow-y-auto">
         <div className="flex justify-end">
           <img
             src={Logo}
             loading="lazy"
             alt="CryptoPulse logo"
-            className="flex h-auto w-auto md:max-h-[550px] p-10 m-auto"
+            className="flex max-h-[350px] w-auto md:max-h-[550px] p-5 m-auto"
           />
           <div className="h-full bg-gray-300 dark:bg-gray-600 hidden md:block w-px mx-[10px]" />
         </div>
@@ -195,7 +195,6 @@ export default function Login() {
         isVisible={alertVisible}
         onClose={hideAlert}
       />
-      <Footer />
     </div>
   );
 }
