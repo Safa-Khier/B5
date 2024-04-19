@@ -114,7 +114,7 @@ const BuyCurrencyScreen = ({
       );
       fetchUserData(currentUser);
       alert({
-        title: "Success",
+        title: "success",
         message: "successBuyCrypto",
       });
     } catch (error) {

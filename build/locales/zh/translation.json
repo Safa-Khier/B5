@@ -76,6 +76,12 @@
   "errorEnterYourBranchNumber": "請輸入您的分行號碼",
   "errorEnterYourBankNumber": "請輸入您的銀行號碼",
 
+  "confirmAction": "確認操作",
+  "confirmUpdateProfile": "您確定要更新您的個人資料嗎？",
+  "profileUpdatedSuccessfully": "您的個人資料已成功更新",
+
+  "confirmDeleteAccount": "您確定要刪除您的帳戶嗎？",
+
   "successWithdrawnSuccessfully": "您的資金已成功提取",
   "errorOccurredWhileWithdrawingYourFunds": "提取資金時發生錯誤",
 
@@ -145,6 +151,14 @@
   "selectCurrencyFirst": "請先選擇貨幣！",
   "enterAmount": "請輸入金額",
   "forExample": "例如",
+
+  "profile": "個人資料",
+  "oldPassword": "舊密碼",
+  "newPassword": "新密碼",
+  "changePassword": "如果您不想更改密碼，請將字段保留為空。",
+
+  "updateProfile": "更新個人資料",
+  "deleteAccount": "刪除帳戶",
 
   "tags": "標籤",
   "Categories": "分類"

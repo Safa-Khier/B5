@@ -143,7 +143,11 @@ export default function Withdraw() {
     let value = e.target.value;
 
     // Remove leading zeros and non-numeric chars and non-"/"
-    value = value.replace(/[^0-9/]/g, "");
+    value = value.replace(/[^0-9]/g, "");
+
+    if (value.length >= 7) {
+      value = value.slice(0, 6) + "/" + value.slice(6);
+    }
 
     // Update the state with the cleaned-up value
     setBankAccountDetails({

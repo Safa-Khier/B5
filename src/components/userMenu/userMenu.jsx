@@ -48,9 +48,14 @@ const UserMenu = ({ isUserMenuOpen }) => {
           backdropFilter: "blur(10px)",
         }}
       >
-        <button className="flex justify-end items-end w-full pr-5 gap-3 material-icons">
-          settings
-        </button>
+        <div className="flex justify-end items-end w-full pr-5">
+          <button
+            onClick={() => setPathLocation("/home/settings")}
+            className="material-icons p-1 rounded-full hover:text-gray-500 dark:hover:text-gray-200"
+          >
+            settings
+          </button>
+        </div>
 
         <div className="w-[75%] h-full flex flex-col justify-between items-center gap-4">
           <div className="flex flex-col justify-center items-center gap-3">

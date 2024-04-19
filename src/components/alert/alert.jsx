@@ -47,16 +47,21 @@ export default function Alert({
   };
 
   return (
-    <div className="alert border border-gray-600 dark:border-white flex flex-col justify-center items-center bg-gray-100 w-[calc(100%-50px)] md:w-fit dark:bg-gray-700 min-h-fit">
-      <div className="text-2xl w-full font-bold text-black dark:text-white">
-        {t(title)}
-      </div>
+    <div
+      className="bg-white bg-opacity-5 flex justify-center items-center fixed top-0 left-0 w-full h-full z-50"
+      style={{ backdropFilter: "blur(5px)" }}
+    >
+      <div className="alert border border-gray-600 dark:border-white flex flex-col justify-center items-center bg-gray-100 w-[calc(100%-50px)] md:w-fit dark:bg-gray-700 min-h-fit">
+        <div className="text-2xl w-full font-bold text-black dark:text-white">
+          {t(title)}
+        </div>
 
-      <div className="text-lg my-5 h-full w-full font-semibold text-black dark:text-white whitespace-pre-wrap">
-        {t(message)}
-      </div>
+        <div className="text-lg my-5 h-full w-full font-semibold text-black dark:text-white whitespace-pre-wrap">
+          {t(message)}
+        </div>
 
-      {alertActionsButtons()}
+        {alertActionsButtons()}
+      </div>
     </div>
   );
 }

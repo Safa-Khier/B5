@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Logo from "../../../assets/icons/logo.png";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-  signOut,
-  sendEmailVerification,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import Alert from "../../alert/alert.jsx";
 import { auth } from "../../../firebase";
 import { createNewUser } from "../../../firebase.js";
-import Footer from "../../footer.jsx";
 
 export default function Signup() {
   const [alertVisible, setAlertVisible] = useState(false);

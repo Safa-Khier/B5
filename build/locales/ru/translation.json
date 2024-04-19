@@ -76,6 +76,12 @@
   "errorEnterYourBranchNumber": "Пожалуйста, введите номер вашего отделения",
   "errorEnterYourBankNumber": "Пожалуйста, введите номер вашего банка",
 
+  "confirmAction": "Подтвердить действие",
+  "confirmUpdateProfile": "Вы уверены, что хотите обновить свой профиль?",
+  "profileUpdatedSuccessfully": "Ваш профиль был успешно обновлен",
+
+  "confirmDeleteAccount": "Вы уверены, что хотите удалить свою учетную запись?",
+
   "successWithdrawnSuccessfully": "Ваши средства были успешно выведены",
   "errorOccurredWhileWithdrawingYourFunds": "Произошла ошибка при выводе средств",
 
@@ -145,6 +151,14 @@
   "selectCurrencyFirst": "Пожалуйста, выберите валюту сначала!",
   "enterAmount": "Введите сумму",
   "forExample": "Например",
+
+  "profile": "Профиль",
+  "oldPassword": "Старый пароль",
+  "newPassword": "Новый пароль",
+  "changePassword": "Если вы не хотите менять пароль, оставьте поле пустым.",
+
+  "updateProfile": "Обновить профиль",
+  "deleteAccount": "Удалить аккаунт",
 
   "tags": "Теги",
   "Categories": "Категории"

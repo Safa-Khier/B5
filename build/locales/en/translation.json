@@ -76,6 +76,12 @@
   "errorEnterYourBranchNumber": "Please enter your branch number",
   "errorEnterYourBankNumber": "Please enter your bank number",
 
+  "confirmAction": "Confirm Action",
+  "confirmUpdateProfile": "Are you sure you want to update your profile?",
+  "profileUpdatedSuccessfully": "Profile updated successfully!",
+
+  "confirmDeleteAccount": "Are you sure you want to delete your account?",
+
   "successWithdrawnSuccessfully": "Your funds have been successfully withdrawn",
   "errorOccurredWhileWithdrawingYourFunds": "An error occurred while withdrawing your funds",
 
@@ -145,6 +151,14 @@
   "selectCurrencyFirst": "Please select a currency first!",
   "enterAmount": "Enter amount",
   "forExample": "e.g.,",
+
+  "profile": "Profile",
+  "oldPassword": "Old Password",
+  "newPassword": "New Password",
+  "changePassword": "If you don't want to change the password, keep the passwords fields empty.",
+
+  "updateProfile": "Update Profile",
+  "deleteAccount": "Delete Account",
 
   "tags": "tags",
   "Categories": "Categories"

@@ -309,128 +309,138 @@ export default function NavigationBar() {
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
       {isHamburgerMenuOpen && currentUser && (
         <div
-          className="scrollable-content content items-center py-10 absolute md:hidden bg-opacity-95 bg-gray-200 dark:bg-gray-700 font-bold text-black dark:text-white"
+          className="scrollable-content content items-center p-5 absolute md:hidden bg-opacity-95 bg-gray-200 dark:bg-gray-700 font-bold text-black dark:text-white"
           style={{
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
           }}
         >
-          <div className="w-[75%] flex flex-col justify-center items-center gap-4">
-            <div className="flex flex-col justify-center items-center gap-3">
-              <i className="material-icons" style={{ fontSize: "100px" }}>
-                account_circle
-              </i>
-              <p>{currentUser && currentUser.displayName}</p>
-            </div>
-            {buttons.map((button) => (
-              <a
-                key={button.title}
-                href={`/home/${button.title}`}
-                className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
-                onClick={() => setLocation(button.title)}
-              >
-                <i className="material-icons">{button.icon}</i>
-                {t(button.title)}
-              </a>
-            ))}
-            <div className="w-full flex items-start">
-              <a
-                key={"dashboard"}
-                href={`/home/dashboard`}
-                className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
-                onClick={() => setLocation("dashboard")}
-              >
-                <i className="material-icons">dashboard</i>
-                {t("dashboard")}
-              </a>
+          <div className="flex flex-col justify-center items-center w-full">
+            <div className="flex justify-end items-end w-full">
               <button
-                onClick={() => {
-                  setDashboardMenuOpened(!dashboardMenuOpened);
-                }}
-                className="material-icons"
+                onClick={() => setPathLocation("/home/settings")}
+                className="material-icons p-1 rounded-full hover:text-gray-500 dark:hover:text-gray-200"
               >
-                {dashboardMenuOpened ? "expand_less" : "expand_more"}
+                settings
               </button>
             </div>
-            {dashboardMenuOpened &&
-              dashboardButtons.map((button) => (
+            <div className="w-[80%] flex flex-col justify-center items-center gap-4 pb-10">
+              <div className="flex flex-col justify-center items-center gap-3">
+                <i className="material-icons" style={{ fontSize: "100px" }}>
+                  account_circle
+                </i>
+                <p>{currentUser && currentUser.displayName}</p>
+              </div>
+              {buttons.map((button) => (
                 <a
                   key={button.title}
-                  href={`/home/dashboard/${button.title}`}
-                  className="flex w-full pl-10 h-10  "
+                  href={`/home/${button.title}`}
+                  className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
                   onClick={() => setLocation(button.title)}
                 >
-                  <div className="w-full flex gap-5 border-b border-gray-400">
-                    <i className="material-icons">{button.icon}</i>
-                    {t(button.title)}
-                  </div>
+                  <i className="material-icons">{button.icon}</i>
+                  {t(button.title)}
                 </a>
               ))}
-            <div className="w-full py-2">
-              <button
-                onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
-                className="flex justify-between items-center gap-1"
-              >
-                <i className="material-icons">translate</i>
-                {t("languageName")}
-                <i className="material-icons">expand_more</i>
-              </button>
-              {isLanguageMenuOpen && (
-                <div className="flex flex-col justify-center items-start gap-3 py-2 px-7">
-                  <button
-                    onClick={() => handleLanguageChange("en", Usa)}
-                    className="flex justify-between items-center"
+              <div className="w-full flex items-start">
+                <a
+                  key={"dashboard"}
+                  href={`/home/dashboard`}
+                  className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
+                  onClick={() => setLocation("dashboard")}
+                >
+                  <i className="material-icons">dashboard</i>
+                  {t("dashboard")}
+                </a>
+                <button
+                  onClick={() => {
+                    setDashboardMenuOpened(!dashboardMenuOpened);
+                  }}
+                  className="material-icons"
+                >
+                  {dashboardMenuOpened ? "expand_less" : "expand_more"}
+                </button>
+              </div>
+              {dashboardMenuOpened &&
+                dashboardButtons.map((button) => (
+                  <a
+                    key={button.title}
+                    href={`/home/dashboard/${button.title}`}
+                    className="flex w-full pl-10 h-10  "
+                    onClick={() => setLocation(button.title)}
                   >
-                    English (US)
-                  </button>
-                  <button
-                    onClick={() => handleLanguageChange("ru", Russia)}
-                    className="flex justify-between items-center"
-                  >
-                    Русский
-                  </button>
-                  <button
-                    onClick={() => handleLanguageChange("de", Germany)}
-                    className="flex justify-between items-center"
-                  >
-                    Deutsch
-                  </button>
-                  <button
-                    onClick={() => handleLanguageChange("it", Italy)}
-                    className="flex justify-between items-center"
-                  >
-                    Italiano
-                  </button>
-                  <button
-                    onClick={() => handleLanguageChange("zh", china)}
-                    className="flex justify-between items-center"
-                  >
-                    中文 (繁體)
-                  </button>
-                </div>
-              )}
-            </div>
-            <div className="w-full p-5 h-12 flex justify-between items-center bg-gray-300 dark:bg-gray-800 rounded-lg">
-              {t("darkMode")}
+                    <div className="w-full flex gap-5 border-b border-gray-400">
+                      <i className="material-icons">{button.icon}</i>
+                      {t(button.title)}
+                    </div>
+                  </a>
+                ))}
+              <div className="w-full py-2">
+                <button
+                  onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                  className="flex justify-between items-center gap-1"
+                >
+                  <i className="material-icons">translate</i>
+                  {t("languageName")}
+                  <i className="material-icons">expand_more</i>
+                </button>
+                {isLanguageMenuOpen && (
+                  <div className="flex flex-col justify-center items-start gap-3 py-2 px-7">
+                    <button
+                      onClick={() => handleLanguageChange("en", Usa)}
+                      className="flex justify-between items-center"
+                    >
+                      English (US)
+                    </button>
+                    <button
+                      onClick={() => handleLanguageChange("ru", Russia)}
+                      className="flex justify-between items-center"
+                    >
+                      Русский
+                    </button>
+                    <button
+                      onClick={() => handleLanguageChange("de", Germany)}
+                      className="flex justify-between items-center"
+                    >
+                      Deutsch
+                    </button>
+                    <button
+                      onClick={() => handleLanguageChange("it", Italy)}
+                      className="flex justify-between items-center"
+                    >
+                      Italiano
+                    </button>
+                    <button
+                      onClick={() => handleLanguageChange("zh", china)}
+                      className="flex justify-between items-center"
+                    >
+                      中文 (繁體)
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="w-full p-5 h-12 flex justify-between items-center bg-gray-300 dark:bg-gray-800 rounded-lg">
+                {t("darkMode")}
 
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={settings.theme === "dark" ? true : false}
-                  onChange={(e) =>
-                    handleThemeChange(e.target.checked ? "dark" : "light")
-                  }
-                />
-                <span className="switch" />
-              </label>
+                <label className="toggle-switch">
+                  <input
+                    type="checkbox"
+                    checked={settings.theme === "dark" ? true : false}
+                    onChange={(e) =>
+                      handleThemeChange(e.target.checked ? "dark" : "light")
+                    }
+                  />
+                  <span className="switch" />
+                </label>
+              </div>
+              <button
+                className="w-full p-5 h-12 flex justify-start items-center bg-gray-300 dark:bg-gray-800 rounded-lg gap-2 hover:bg-gray-400 dark:hover:bg-gray-900"
+                onClick={showAlert}
+              >
+                <i className="material-icons">logout</i>
+                {t("signOut")}
+              </button>
             </div>
-            <button
-              className="w-full p-5 h-12 flex justify-start items-center bg-gray-300 dark:bg-gray-800 rounded-lg gap-2 hover:bg-gray-400 dark:hover:bg-gray-900"
-              onClick={showAlert}
-            >
-              <i className="material-icons">logout</i>
-              {t("signOut")}
-            </button>
           </div>
           <div className="flex gap-4 text-lg ">
             <a

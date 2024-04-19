@@ -76,6 +76,12 @@
   "errorEnterYourBranchNumber": "Пожалуйста, введите номер вашего отделения",
   "errorEnterYourBankNumber": "Inserisci il tuo numero di banca",
 
+  "confirmAction": "Conferma azione",
+  "confirmUpdateProfile": "Sei sicuro di voler aggiornare il tuo profilo?",
+  "profileUpdatedSuccessfully": "Profilo aggiornato con successo!",
+
+  "confirmDeleteAccount": "Sei sicuro di voler eliminare il tuo account?",
+
   "successWithdrawnSuccessfully": "I tuoi fondi sono stati prelevati con successo",
   "errorOccurredWhileWithdrawingYourFunds": "Si è verificato un errore durante il prelievo dei tuoi fondi",
 
@@ -145,6 +151,14 @@
   "selectCurrencyFirst": "Seleziona prima la valuta!",
   "enterAmount": "Inserisci l'importo",
   "forExample": "Per esempio",
+
+  "profile": "Profilo",
+  "oldPassword": "Vecchia password",
+  "newPassword": "Nuova password",
+  "changePassword": "Se non vuoi cambiare la password, lascia il campo vuoto.",
+
+  "updateProfile": "Aggiorna profilo",
+  "deleteAccount": "Elimina account",
 
   "tags": "TAG",
   "Categories": "Categorie"

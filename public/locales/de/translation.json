@@ -76,6 +76,12 @@
   "errorEnterYourBranchNumber": "Inserisci il numero della tua filiale",
   "errorEnterYourBankNumber": "Bitte geben Sie Ihre Bankleitzahl ein",
 
+  "confirmAction": "Bestätigen Sie die Aktion",
+  "confirmUpdateProfile": "Möchten Sie Ihr Profil wirklich aktualisieren?",
+  "profileUpdatedSuccessfully": "Profil erfolgreich aktualisiert",
+
+  "confirmDeleteAccount": "Möchten Sie Ihr Konto wirklich löschen?",
+
   "successWithdrawnSuccessfully": "Ihr Geld wurde erfolgreich abgebucht",
   "errorOccurredWhileWithdrawingYourFunds": "Beim Abheben Ihres Geldes ist ein Fehler aufgetreten",
 
@@ -145,6 +151,14 @@
   "selectCurrencyFirst": "Wählen Sie zuerst eine Währung aus!",
   "enterAmount": "Geben Sie den Betrag ein",
   "forExample": "zum Beispiel",
+
+  "profile": "Profil",
+  "oldPassword": "Altes Kennwort",
+  "newPassword": "Neues Kennwort",
+  "changePassword": "Wenn Sie das Passwort nicht ändern möchten, lassen Sie das Feld leer.",
+
+  "updateProfile": "Profil aktualisieren",
+  "deleteAccount": "Konto löschen",
 
   "tags": "SCHLAGWORTE",
   "Categories": "Kategorien"

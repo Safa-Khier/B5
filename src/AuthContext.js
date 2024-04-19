@@ -43,8 +43,10 @@ export function AuthProvider({ children }) {
 
   const fetchUserData = async (user) => {
     // Fetch user data here
-    const userData = await fetchUserDataFromFirestore(user);
-    setCurrentUserData(userData);
+    if (user) {
+      const userData = await fetchUserDataFromFirestore(user);
+      setCurrentUserData(userData);
+    }
     setLoading(false); // Update loading state to false once user is fetched
   };
 

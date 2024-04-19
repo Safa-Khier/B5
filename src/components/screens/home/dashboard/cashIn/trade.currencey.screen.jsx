@@ -56,7 +56,7 @@ const TradeCurrencyScreen = ({
       );
       fetchUserData(currentUser);
       alert({
-        title: "Success",
+        title: "success",
         message: "successTradeCrypto",
       });
     } catch (error) {

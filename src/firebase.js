@@ -1,3 +1,4 @@
+import { updateProfile, updatePassword } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -337,4 +338,73 @@ export async function withdrawCrypto(
 
 export function convertTimestampToDate(timestamp) {
   return new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate();
+}
+
+export async function deleteUserAccount() {
+  const db = firebase.firestore();
+  const user = auth.currentUser;
+
+  const userDocRef = db.collection("users").doc(user.uid);
+
+  await db.runTransaction(async (transaction) => {
+    const userDoc = await transaction.get(userDocRef);
+
+    // Delete the user document
+    if (userDoc.exists) {
+      transaction.delete(userDocRef);
+    }
+
+    // Delete the user's authentication record
+    await user.delete();
+  });
+}
+
+export async function updateUserProfile(
+  firstName,
+  lastName,
+  phone,
+  oldPassword,
+  newPassword,
+) {
+  const db = firebase.firestore();
+  const user = firebase.auth().currentUser;
+
+  // Firestore document reference
+  const userDocRef = db.collection("users").doc(user.uid);
+
+  // If newPassword is provided, re-authenticate and update password
+  if (newPassword) {
+    try {
+      const credential = firebase.auth.EmailAuthProvider.credential(
+        user.email,
+        oldPassword,
+      );
+
+      // Re-authenticate user
+      await user.reauthenticateWithCredential(credential);
+    } catch (error) {
+      // Handle or throw specific error for re-authentication failure
+      throw new Error("Re-authentication failed: " + error.message);
+    }
+
+    // Update password
+    await updatePassword(user, newPassword);
+  }
+
+  // Update Firestore document
+  await db.runTransaction(async (transaction) => {
+    const userDoc = await transaction.get(userDocRef);
+    if (!userDoc.exists) {
+      throw new Error("User document does not exist!");
+    }
+    transaction.update(userDocRef, {
+      displayName: `${firstName} ${lastName}`,
+      phone: phone,
+    });
+  });
+
+  // Update profile
+  await updateProfile(user, { displayName: `${firstName} ${lastName}` });
+
+  console.log("User account successfully updated!");
 }
