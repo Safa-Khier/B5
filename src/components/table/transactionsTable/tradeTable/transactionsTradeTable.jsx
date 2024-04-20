@@ -224,9 +224,17 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
           ))}
         </tbody>
       </table>
-      <div className={`${data.length === 0 ? "" : "hidden"} h-20`}>
-        <LoadingDataScreen />
-      </div>
+      {transactionsData.length === 0 ? (
+        <div>
+          <h1 className="text-2xl text-center mt-5">{t("no-transactions")}</h1>
+        </div>
+      ) : (
+        data.length === 0 && (
+          <div className="h-20">
+            <LoadingDataScreen />
+          </div>
+        )
+      )}
       <Paging
         totalPageNumber={totalPageNumber}
         currentPage={currentPage}

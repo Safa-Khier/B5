@@ -288,9 +288,9 @@ const TradeCurrencyScreen = ({
         >
           {isLoading ? (
             <div className="loading-container">
-              <span className="dot"></span>
-              <span className="dot"></span>
-              <span className="dot"></span>
+              <span className="dot" />
+              <span className="dot" />
+              <span className="dot" />
             </div>
           ) : (
             <div>{t("trade")}</div>

@@ -3,12 +3,13 @@ import { useTranslation } from "react-i18next";
 import HoldingCoinsRow from "./holdingCoinsRow";
 import { Paging } from "../paging";
 import LoadingDataScreen from "../loading.data.screen";
+import { useAuth } from "../../../AuthContext";
 
 // This component is used to display the Holding Coins Table
 export const holdingCoinTable = (prop) => {
   const { t } = useTranslation(); // Translation function
   const currenciesPerPage = 3; // Number of currencies per page
-
+  const { currentUserData } = useAuth(); // Get the current user and user data
   const [sortedData, setSortedData] = useState([...prop.data]); // State to store the sorted data
   const [data, setData] = useState([...prop.data].slice(0, currenciesPerPage)); // State to store the data to display
   const [sort, setSort] = useState({ field: "", asc: null }); // State to store the sort field and order
@@ -127,9 +128,17 @@ export const holdingCoinTable = (prop) => {
           ))}
         </tbody>
       </table>
-      <div className={`${data.length === 0 ? "" : "hidden"} h-20`}>
-        <LoadingDataScreen />
-      </div>
+      {currentUserData.wallet.length === 0 ? (
+        <div>
+          <h1 className="text-2xl text-center mt-5">{t("no-transactions")}</h1>
+        </div>
+      ) : (
+        data.length === 0 && (
+          <div className="h-20">
+            <LoadingDataScreen />
+          </div>
+        )
+      )}
       <Paging
         totalPageNumber={totalPageNumber}
         currentPage={currentPage}

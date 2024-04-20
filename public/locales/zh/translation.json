@@ -30,6 +30,8 @@
   "dashboard": "儀表板",
   "transactions-history": "交易歷史",
 
+  "no-transactions": "沒有交易",
+
   "name": "名稱",
   "price": "價格",
   "1h%": "1小時%",
@@ -81,6 +83,8 @@
   "profileUpdatedSuccessfully": "您的個人資料已成功更新",
 
   "confirmDeleteAccount": "您確定要刪除您的帳戶嗎？",
+
+  "successTradeCrypto": "您已成功交易加密貨幣！",
 
   "successWithdrawnSuccessfully": "您的資金已成功提取",
   "errorOccurredWhileWithdrawingYourFunds": "提取資金時發生錯誤",

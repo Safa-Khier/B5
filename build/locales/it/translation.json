@@ -30,6 +30,8 @@
   "dashboard": "Cruscotto",
   "transactions-history": "Storia delle transazioni",
 
+  "no-transactions": "Nessuna transazione trovata",
+
   "name": "Nome",
   "price": "Prezzo",
   "1h%": "1h%",
@@ -81,6 +83,8 @@
   "profileUpdatedSuccessfully": "Profilo aggiornato con successo!",
 
   "confirmDeleteAccount": "Sei sicuro di voler eliminare il tuo account?",
+
+  "successTradeCrypto": "Hai scambiato con successo la criptovaluta!",
 
   "successWithdrawnSuccessfully": "I tuoi fondi sono stati prelevati con successo",
   "errorOccurredWhileWithdrawingYourFunds": "Si è verificato un errore durante il prelievo dei tuoi fondi",

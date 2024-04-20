@@ -30,6 +30,8 @@
   "dashboard": "Панель управления",
   "transactions-history": "История транзакций",
 
+  "no-transactions": "Нет транзакций",
+
   "name": "Имя",
   "price": "Цена",
   "1h%": "1ч%",
@@ -81,6 +83,8 @@
   "profileUpdatedSuccessfully": "Ваш профиль был успешно обновлен",
 
   "confirmDeleteAccount": "Вы уверены, что хотите удалить свою учетную запись?",
+
+  "successTradeCrypto": "Вы успешно торговали криптовалютой!",
 
   "successWithdrawnSuccessfully": "Ваши средства были успешно выведены",
   "errorOccurredWhileWithdrawingYourFunds": "Произошла ошибка при выводе средств",
