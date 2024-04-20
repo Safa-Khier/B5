@@ -6,17 +6,19 @@ import { cryptoData } from "../../../atoms/cryptoData";
 import { Paging } from "../paging";
 import LoadingDataScreen from "../loading.data.screen";
 
-export const CurrenciesTable = (prop) => {
-  const { t } = useTranslation();
-  const currenciesPerPage = 10;
+// This component is used to display the Currencies Table
+export const CurrenciesTable = () => {
+  const { t } = useTranslation(); // Translation function
+  const currenciesPerPage = 10; // Number of currencies per page
 
-  const cryptoCurrenciesData = useRecoilValue(cryptoData);
+  const cryptoCurrenciesData = useRecoilValue(cryptoData); // Get the crypto currencies data
   const [data, setData] = useState(
     [...cryptoCurrenciesData.filterdData].slice(0, currenciesPerPage),
-  );
-  const [sort, setSort] = useState({ field: "", asc: null });
-  const [currentPage, setCurrentPage] = useState(1);
+  ); // State to store the data to display
+  const [sort, setSort] = useState({ field: "", asc: null }); // State to store the sort field and order
+  const [currentPage, setCurrentPage] = useState(1); // State to store the current page
 
+  // Update the data when the filtered data changes
   useEffect(() => {
     if (
       Math.ceil(cryptoCurrenciesData.filterdData.length / currenciesPerPage) <
@@ -27,6 +29,7 @@ export const CurrenciesTable = (prop) => {
     handlePageChange();
   }, [cryptoCurrenciesData]);
 
+  // Function to calculate the total number of pages
   const totalPageNumber = () => {
     return (
       Math.ceil(cryptoCurrenciesData.filterdData.length / currenciesPerPage) ||
@@ -34,13 +37,17 @@ export const CurrenciesTable = (prop) => {
     );
   };
 
+  // Update the data when the current page changes
   useEffect(() => {
     handlePageChange();
   }, [currentPage]);
 
+  // Function to sort the data based on the field
   function sortData(field) {
     if (sort.field === field) {
+      // If the data is already sorted by the field
       if (sort.asc === false) {
+        // If the data is sorted in descending order
         const sortedData = [...cryptoCurrenciesData.filterdData].sort(
           (a, b) => {
             if (typeof a[field] === "number") {
@@ -64,6 +71,7 @@ export const CurrenciesTable = (prop) => {
       setSort({ field: "", asc: null });
       return;
     }
+
     const sortedData = [...cryptoCurrenciesData.filterdData].sort((a, b) => {
       if (typeof a[field] === "number") {
         return a[field] - b[field];
@@ -81,6 +89,7 @@ export const CurrenciesTable = (prop) => {
     setSort({ field, asc: false });
   }
 
+  // Function to render the header cell
   const headerCell = (field, title) => {
     return (
       <div
@@ -96,10 +105,12 @@ export const CurrenciesTable = (prop) => {
     );
   };
 
+  // Function to check if the data is sorted by the field
   function checkIfSortedBy(field) {
     return sort.field === field;
   }
 
+  // Function to handle the page change
   function handlePageChange() {
     setData(
       [...cryptoCurrenciesData.filterdData].slice(

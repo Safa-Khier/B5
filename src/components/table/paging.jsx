@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
 
+// This component is used to display the paging component
 export const Paging = (props) => {
-  const { totalPageNumber, currentPage, setCurrentPage } = props;
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [length, setLength] = useState(5);
+  const { totalPageNumber, currentPage, setCurrentPage } = props; // Destructure the props
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // State to store the window width
+  const [length, setLength] = useState(5); // State to store the length of the paging component
 
+  // Function to handle the window resize
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      setWindowWidth(window.innerWidth); // Update the window width
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize); // Add event listener for window resize
 
     // Cleanup
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize); // Remove event listener for window resize
     };
   }, []);
 
+  // Function to calculate the total number of pages
   useEffect(() => {
     // Check if the window width is less than 768px, adjust length accordingly
     if (windowWidth < 768) {
@@ -27,6 +30,7 @@ export const Paging = (props) => {
     }
   }, [windowWidth]);
 
+  // Function to go to the next page
   function nextPage() {
     if (currentPage === totalPageNumber()) {
       return;
@@ -34,6 +38,7 @@ export const Paging = (props) => {
     setCurrentPage(currentPage + 1);
   }
 
+  // Function to go to the previous page
   function previousPage() {
     if (currentPage === 1) {
       return;
@@ -41,10 +46,12 @@ export const Paging = (props) => {
     setCurrentPage(currentPage - 1);
   }
 
+  // Function to go to a specific page
   function goToPage(page) {
     setCurrentPage(page);
   }
 
+  // Return null if there is only one page
   if (totalPageNumber() === 1) {
     return null;
   }

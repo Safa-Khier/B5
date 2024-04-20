@@ -5,11 +5,13 @@ import { useRecoilState } from "recoil";
 import { cryptoNews } from "../../../atoms/cryptoNews";
 import Footer from "../../footer";
 
+// This component is used to display the News screen
 export default function News() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
   const [cryptoCurrenciesNews, setCryptoCurrenciesNews] =
-    useRecoilState(cryptoNews);
+    useRecoilState(cryptoNews); // Get the crypto currencies news data
 
+  // Set the document title when the component mounts
   useEffect(() => {
     // Set the document title when the component mounts
     document.title = t("news") + " | " + t("cryptoPulse");
@@ -20,6 +22,7 @@ export default function News() {
     };
   }, []);
 
+  // Function to filter the data based on the search input
   const filterData = (e) => {
     const value = e.target.value.toLowerCase();
     const data = [...cryptoCurrenciesNews.data];

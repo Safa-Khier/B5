@@ -20,42 +20,39 @@ import { setPathLocation } from "../../App";
 import Halving from "./halving";
 import Alert from "../alert/alert";
 
+// This component is used to display the navigation bar
 export default function NavigationBar() {
   const { t } = useTranslation();
-  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
-  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false); // State to toggle the theme menu
+  const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false); // State to toggle the language menu
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // State to toggle the search bar
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); // State to toggle the user menu
+  const [dashboardMenuOpened, setDashboardMenuOpened] = useState(false); // State to toggle the dashboard menu
 
-  const [dashboardMenuOpened, setDashboardMenuOpened] = useState(false);
-
-  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false); // State to toggle the alert
   const showAlert = () => setAlertVisible(true);
   const hideAlert = () => setAlertVisible(false);
 
-  const [settings, setSettings] = useRecoilState(webSettings);
-  const { currentUser, currentUserData } = useAuth();
-  const [logo, setLogo] = useState(Usa);
-  const [location, setLocation] = useState("");
-  const locationPath = useLocation();
+  const [settings, setSettings] = useRecoilState(webSettings); // Recoil state to store the web settings
+  const { currentUser, currentUserData } = useAuth(); // Get the current user and user data
+  const [logo, setLogo] = useState(Usa); // State to store the logo of the language website
+  const [location, setLocation] = useState(""); // State to store the current location path
+  const locationPath = useLocation(); // Get the current location path
 
-  useEffect(() => {
-    console.log(currentUserData);
-  }, [currentUserData]);
-
-  // Array of button identifiers
+  // Array of button identifiers with their respective icons
   const buttons = [
     { title: "coins", icon: "monetization_on" },
     { title: "news", icon: "feed" },
     { title: "transactions-history", icon: "history" },
   ];
 
+  // Array of button identifiers with their respective icons for the dashboard menu
   const dashboardButtons = [
     { title: "cashIn", icon: "shopping_cart" },
     { title: "withdraw", icon: "account_balance" },
   ];
 
+  // Function to handle the sign out of the user
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -64,11 +61,13 @@ export default function NavigationBar() {
     }
   };
 
+  // Set the location state based on the current location path
   useEffect(() => {
     const splitedPath = locationPath.pathname.split("/");
     setLocation(splitedPath[splitedPath.length - 1]);
   }, [locationPath]);
 
+  // Set the logo based on the current language
   useEffect(() => {
     switch (i18n.language) {
       case "en":
@@ -91,6 +90,7 @@ export default function NavigationBar() {
     }
   }, [i18n.language]);
 
+  // Function to handle the theme change
   function handleThemeChange(theme) {
     setIsThemeMenuOpen(false);
 
@@ -105,12 +105,14 @@ export default function NavigationBar() {
     }
   }
 
+  // Function to handle the language change
   function handleLanguageChange(language, logo) {
     setIsLanguageMenuOpen(false);
     i18n.changeLanguage(language);
     setLogo(logo);
   }
 
+  // Function to handle the dashboard menu toggle
   const languageMenuRow = (language, logo) => {
     return (
       <button
@@ -142,16 +144,15 @@ export default function NavigationBar() {
           </span>
         </div>
         <div className="flex md:order-2">
-          {!isHamburgerMenuOpen &&
-            (location === "coins" || location === "news") && (
-              <button
-                type="button"
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className={`inline-flex items-center p-2 mr-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
-              >
-                <i className="material-icons">search</i>
-              </button>
-            )}
+          {!isUserMenuOpen && (location === "coins" || location === "news") && (
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+              className={`inline-flex items-center p-2 mr-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
+            >
+              <i className="material-icons">search</i>
+            </button>
+          )}
 
           {currentUser ? (
             <div className="dropdown">
@@ -159,12 +160,12 @@ export default function NavigationBar() {
                 type="button"
                 onClick={() => {
                   setIsSearchOpen(false);
-                  setIsHamburgerMenuOpen(!isHamburgerMenuOpen);
+                  setIsUserMenuOpen(!isUserMenuOpen);
                 }}
                 className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               >
                 <i className="material-icons">
-                  {isHamburgerMenuOpen ? "close" : "menu"}
+                  {isUserMenuOpen ? "close" : "menu"}
                 </i>
               </button>
             </div>
@@ -307,9 +308,9 @@ export default function NavigationBar() {
       </nav>
       <SearchBar isSearchOpen={isSearchOpen} searchData={location} />
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
-      {isHamburgerMenuOpen && currentUser && (
+      {isUserMenuOpen && currentUser && (
         <div
-          className="scrollable-content content items-center p-5 absolute md:hidden bg-opacity-95 bg-gray-200 dark:bg-gray-700 font-bold text-black dark:text-white"
+          className="scrollable-content content items-center p-5 absolute md:hidden bg-opacity-5 bg-white font-bold text-black dark:text-white"
           style={{
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)",
@@ -419,7 +420,7 @@ export default function NavigationBar() {
                   </div>
                 )}
               </div>
-              <div className="w-full p-5 h-12 flex justify-between items-center bg-gray-300 dark:bg-gray-800 rounded-lg">
+              <div className="w-full p-5 h-12 flex justify-between items-center bg-gray-300  bg-opacity-20 rounded-lg">
                 {t("darkMode")}
 
                 <label className="toggle-switch">
@@ -434,7 +435,7 @@ export default function NavigationBar() {
                 </label>
               </div>
               <button
-                className="w-full p-5 h-12 flex justify-start items-center bg-gray-300 dark:bg-gray-800 rounded-lg gap-2 hover:bg-gray-400 dark:hover:bg-gray-900"
+                className="w-full p-5 h-12 flex justify-start items-center bg-gray-300 bg-opacity-20 rounded-lg gap-2 hover:bg-gray-400 dark:hover:bg-gray-500"
                 onClick={showAlert}
               >
                 <i className="material-icons">logout</i>

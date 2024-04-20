@@ -4,31 +4,38 @@ import HoldingCoinsRow from "./holdingCoinsRow";
 import { Paging } from "../paging";
 import LoadingDataScreen from "../loading.data.screen";
 
+// This component is used to display the Holding Coins Table
 export const holdingCoinTable = (prop) => {
-  const { t } = useTranslation();
-  const currenciesPerPage = 3;
+  const { t } = useTranslation(); // Translation function
+  const currenciesPerPage = 3; // Number of currencies per page
 
-  const [sortedData, setSortedData] = useState([...prop.data]);
-  const [data, setData] = useState([...prop.data].slice(0, currenciesPerPage));
-  const [sort, setSort] = useState({ field: "", asc: null });
-  const [currentPage, setCurrentPage] = useState(1);
+  const [sortedData, setSortedData] = useState([...prop.data]); // State to store the sorted data
+  const [data, setData] = useState([...prop.data].slice(0, currenciesPerPage)); // State to store the data to display
+  const [sort, setSort] = useState({ field: "", asc: null }); // State to store the sort field and order
+  const [currentPage, setCurrentPage] = useState(1); // State to store the current page
 
+  // Update the data when the data changes
   useEffect(() => {
     setSortedData([...prop.data]);
     setData([...prop.data].slice(0, currenciesPerPage));
   }, [prop.data]);
 
+  // Update the data when the sorted data changes
   useEffect(() => {
     handlePageChange();
   }, [sortedData, currentPage]);
 
+  // Function to calculate the total number of pages
   const totalPageNumber = () => {
     return Math.ceil(sortedData.length / currenciesPerPage) || 1;
   };
 
+  // Function to update the data when the current page changes
   function sortData(field) {
     if (sort.field === field) {
+      // If the data is already sorted by the field
       if (sort.asc === false) {
+        // If the data is sorted in descending order
         setSortedData(
           [...prop.data].sort((a, b) => {
             if (typeof a[field] === "number") {
@@ -57,6 +64,7 @@ export const holdingCoinTable = (prop) => {
     setSort({ field, asc: false });
   }
 
+  // Function to handle the page change
   const headerCell = (field, title) => {
     return (
       <div className="flex justify-end items-center">
@@ -70,6 +78,7 @@ export const holdingCoinTable = (prop) => {
     );
   };
 
+  // Function to handle the page change
   function handlePageChange() {
     setData(
       [...sortedData].slice(
@@ -79,6 +88,7 @@ export const holdingCoinTable = (prop) => {
     );
   }
 
+  // Function to check if the data is sorted by the field
   function checkIfSortedBy(field) {
     return sort.field === field;
   }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-// This function dynamically loads an external script.
+// Function to load an external script
 const loadExternalScript = (url) => {
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
@@ -12,6 +12,7 @@ const loadExternalScript = (url) => {
   });
 };
 
+// This component is used to display the particles background
 const ParticlesBackground = () => {
   useEffect(() => {
     // Load the tsParticles script dynamically

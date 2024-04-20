@@ -1,8 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+// This component is used to display the footer
 export default function Footer() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
 
   return (
     <footer className="flex w-full justify-between items-center bg-white dark:bg-gray-800 text-black dark:text-white p-5 eft-0 right-0 font-semibold">

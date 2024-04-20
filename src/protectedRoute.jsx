@@ -8,13 +8,16 @@ import {
   fetchCryptoNewsFromFirestore,
 } from "./firebase.js";
 
+// This component is used to redirect the user to the welcome page if they are not authenticated
 const ProtectedRoute = ({ isAuthenticated }) => {
   const [cryptoCurrenciesData, setCryptoCurrenciesData] =
-    useRecoilState(cryptoData);
+    useRecoilState(cryptoData); // Get the crypto currencies data from Recoil
   const [cryptoCurrenciesNews, setCryptoCurrenciesNews] =
-    useRecoilState(cryptoNews);
+    useRecoilState(cryptoNews); // Get the crypto news data from Recoil
 
+  // Update the crypto currencies data and news data when the user is authenticated
   useEffect(() => {
+    // Check if the user is authenticated
     if (isAuthenticated) {
       if (cryptoCurrenciesData.data.length === 0) {
         updateCurrenciesData();
@@ -23,6 +26,7 @@ const ProtectedRoute = ({ isAuthenticated }) => {
         updateCryptoNewsData();
       }
     } else {
+      // If the user is not authenticated, clear the data
       setCryptoCurrenciesData({
         data: [],
         filterdData: [],
@@ -36,10 +40,12 @@ const ProtectedRoute = ({ isAuthenticated }) => {
     }
   }, [isAuthenticated]);
 
+  // Function to update the crypto currencies data
   async function updateCurrenciesData() {
     try {
+      // Fetch the crypto currencies data from Firestore
       const currenciesData = await fetchCryptoCurrenciesFromFirestore();
-      console.log(currenciesData);
+
       setCryptoCurrenciesData({
         data: currenciesData.currencies,
         filterdData: currenciesData.currencies,
@@ -50,8 +56,10 @@ const ProtectedRoute = ({ isAuthenticated }) => {
     }
   }
 
+  // Function to update the crypto news data
   async function updateCryptoNewsData() {
     try {
+      // Fetch the crypto news data from Firestore
       const newsData = await fetchCryptoNewsFromFirestore();
       console.log(newsData);
       setCryptoCurrenciesNews({

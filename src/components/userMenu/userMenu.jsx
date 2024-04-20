@@ -7,18 +7,20 @@ import { auth } from "../../firebase";
 import { setPathLocation } from "../../App";
 import Alert from "../alert/alert";
 
+// This component is used to display the user menu
 const UserMenu = ({ isUserMenuOpen }) => {
-  const [showMenu, setShowMenu] = useState(isUserMenuOpen);
-  const [animateOut, setAnimateOut] = useState(false);
-  const { currentUser } = useAuth();
-  const { t } = useTranslation();
+  const [showMenu, setShowMenu] = useState(isUserMenuOpen); // State to show or hide the menu
+  const [animateOut, setAnimateOut] = useState(false); // State to animate the menu
+  const { currentUser } = useAuth(); // Get the current user
+  const { t } = useTranslation(); // Translation function
 
-  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false); // State to show or hide the alert
   const showAlert = () => setAlertVisible(true);
   const hideAlert = () => setAlertVisible(false);
 
-  const [dashboardMenuOpened, setDashboardMenuOpened] = useState(false);
+  const [dashboardMenuOpened, setDashboardMenuOpened] = useState(false); // State to show or hide the dashboard menu
 
+  // Update the menu when the user menu is opened or closed
   useEffect(() => {
     if (!isUserMenuOpen && showMenu) {
       // Trigger slide-out animation before removing the component
@@ -30,6 +32,7 @@ const UserMenu = ({ isUserMenuOpen }) => {
     }
   }, [isUserMenuOpen, showMenu]);
 
+  // Function to hide the menu
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -43,7 +46,7 @@ const UserMenu = ({ isUserMenuOpen }) => {
   return (
     <div className="overflow-hidden">
       <div
-        className={`h-[calc(100vh-86px)] flex flex-col justify-start right-0 items-center m-2 py-5 rounded-2xl absolute bg-white bg-opacity-5 border border-gray-200 dark:border-gray-600 min-w-96 font-bold text-black dark:text-white ${animateOut ? "slide-out-right" : "slide-in-right"}`}
+        className={`h-[calc(100vh-86px)] hidden md:flex flex-col justify-start right-0 items-center m-2 py-5 rounded-2xl absolute bg-white bg-opacity-5 border border-gray-200 dark:border-gray-600 min-w-96 font-bold text-black dark:text-white ${animateOut ? "slide-out-right" : "slide-in-right"}`}
         style={{
           backdropFilter: "blur(10px)",
         }}

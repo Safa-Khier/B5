@@ -8,31 +8,46 @@ import Alert from "../../../../alert/alert.jsx";
 import { useRecoilValue } from "recoil";
 import { cryptoData } from "../../../../../atoms/cryptoData.js";
 
+// This component is used to display the Withdraw screen
 export default function Withdraw() {
-  const { t } = useTranslation();
-  const { currentUser, currentUserData, fetchUserData } = useAuth();
-  const [selectedCurrency, setSelectedCurrency] = useState();
-  const [currencies, setCurrencies] = useState([]);
-  const cryptoCurrenciesData = useRecoilValue(cryptoData);
-  const [amount, setAmount] = useState("");
+  const { t } = useTranslation(); // Translation function
+  const { currentUser, currentUserData, fetchUserData } = useAuth(); // Get the current user and user data
+  const [selectedCurrency, setSelectedCurrency] = useState(); // State to store the selected currency
+  const [currencies, setCurrencies] = useState([]); // State to store the currencies data
+  const cryptoCurrenciesData = useRecoilValue(cryptoData); // Get the crypto currencies data
+  const [amount, setAmount] = useState(""); // State to store the amount to withdraw
   const [bankAccountDetails, setBankAccountDetails] = useState({
+    // State to store the bank account details
     accountNumber: "",
     branchNumber: "",
     bankNumber: "",
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // State to track the loading state
 
-  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false); // State to show or hide the alert
   const showAlert = () => setAlertVisible(true);
   const hideAlert = () => setAlertVisible(false);
   const [alertData, setAlertData] = useState({
+    // State to store the alert data
     title: "",
     message: "",
     messageType: "",
     action: () => {},
   });
 
+  // Update the document title when the component mounts
+  useEffect(() => {
+    // Set the document title when the component mounts
+    document.title = t("withdraw") + " | " + t("cryptoPulse");
+
+    // Optional: Clean up function to set the document title back when the component unmounts
+    return () => {
+      document.title = t("cryptoPulse");
+    };
+  }, []);
+
+  // Update the currencies state when the crypto currencies data changes
   useEffect(() => {
     if (!currentUserData || cryptoCurrenciesData.data.length === 0) return;
 
@@ -49,7 +64,7 @@ export default function Withdraw() {
     setCurrencies(walletCurrencies);
   }, [cryptoCurrenciesData.data]);
 
-  // Custom option component
+  // Custom Option component for the Select component
   const CustomOption = ({ innerProps, isFocused, isSelected, data }) => (
     <div
       {...innerProps}
@@ -73,6 +88,7 @@ export default function Withdraw() {
     </div>
   );
 
+  // Custom SingleValue component for the Select component
   const SelectValue = ({ data }) => (
     <div className="flex items-center">
       <img src={data.image} style={{ width: 20, height: 20, marginRight: 8 }} />
@@ -80,6 +96,7 @@ export default function Withdraw() {
     </div>
   );
 
+  // Handle the amount input change
   const handleAmountChange = (e) => {
     // Get the raw input value
     let value = e.target.value;
@@ -118,6 +135,7 @@ export default function Withdraw() {
     setAmount(value);
   };
 
+  // Function to get the maximum amount that can be withdrawn
   const maxWithdrawAmount = () => {
     if (!selectedCurrency) return 0;
     const maxAmount =
@@ -127,17 +145,20 @@ export default function Withdraw() {
     return maxAmount;
   };
 
+  // Function to display the amount message
   const amountMessage = () => {
     if (!selectedCurrency) return "Select a currency to withdraw First...";
     const maxAmount = maxWithdrawAmount();
     return `(${t("max")}: ${maxAmount} ${selectedCurrency.symbol.toUpperCase()})`;
   };
 
+  // Function to display the amount input placeholder
   const amountInputPlaceholder = () => {
     if (!selectedCurrency) return t("selectCurrencyFirst");
     return `${t("enterAmount")} (${t("forExample")} ${maxWithdrawAmount().toFixed(10)} ${selectedCurrency.symbol.toUpperCase()})`;
   };
 
+  // Handle the account number input change
   const handleAccountNumberChange = (e) => {
     // Get the raw input value
     let value = e.target.value;
@@ -145,6 +166,7 @@ export default function Withdraw() {
     // Remove leading zeros and non-numeric chars and non-"/"
     value = value.replace(/[^0-9]/g, "");
 
+    // Add a slash after the 6th character
     if (value.length >= 7) {
       value = value.slice(0, 6) + "/" + value.slice(6);
     }
@@ -156,6 +178,7 @@ export default function Withdraw() {
     });
   };
 
+  // Function to validate the inputs
   const validateInputs = () => {
     if (!selectedCurrency) {
       alert("error", "errorSelectCurrencyToWithdraw");
@@ -199,6 +222,7 @@ export default function Withdraw() {
     showAlert();
   };
 
+  // Function to handle the withdraw action
   const handleWithdraw = async () => {
     if (!validateInputs()) return;
 
@@ -208,6 +232,8 @@ export default function Withdraw() {
       let accountBalance = 0;
 
       if (!selectedCurrency) return;
+
+      // Calculate the account balance after the withdrawal
       currentUserData.wallet.forEach((currency) => {
         const currencyPrice = currencies.find(
           (c) => c.id === currency.id,

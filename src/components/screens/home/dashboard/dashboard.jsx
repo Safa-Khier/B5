@@ -11,17 +11,19 @@ import { convertTimestampToDate } from "../../../../firebase.js";
 import { useRecoilValue } from "recoil";
 import { cryptoData } from "../../../../atoms/cryptoData.js";
 
+// This component is used to display the user's dashboard
 export default function Dashboard() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
 
-  const { currentUser, currentUserData } = useAuth();
-  const cryptoCurrenciesData = useRecoilValue(cryptoData);
+  const { currentUser, currentUserData } = useAuth(); // Get the current user and user data
+  const cryptoCurrenciesData = useRecoilValue(cryptoData); // Get the crypto currencies data
 
-  const [walletData, setWalletData] = useState([]);
-  const [transactionsData, setTransactionsData] = useState([]);
-  const [displayedCoin, setDisplayedCoin] = useState(false);
-  const [selectedCoin, setSelectedCoin] = useState("BTC");
+  const [walletData, setWalletData] = useState([]); // State to store the wallet data
+  const [transactionsData, setTransactionsData] = useState([]); // State to store the transactions data
+  const [displayedCoin, setDisplayedCoin] = useState(false); // State to show or hide the coin selection
+  const [selectedCoin, setSelectedCoin] = useState("BTC"); // State to store the selected coin
 
+  // Update the document title when the component mounts
   useEffect(() => {
     // Set the document title when the component mounts
     document.title = t("dashboard") + " | " + t("cryptoPulse");
@@ -32,11 +34,13 @@ export default function Dashboard() {
     };
   }, []);
 
+  // Update the wallet data when the user data changes
   useEffect(() => {
     // Update the wallet data when the user data changes
     if (!currentUserData || cryptoCurrenciesData.data.length === 0) {
       return;
     }
+    // Map the wallet data to include the currency data
     const holdingCoins = currentUserData.wallet.map((coin) => {
       const currencyData = cryptoCurrenciesData.data.find(
         (currency) => currency.id === coin.id,
@@ -47,12 +51,13 @@ export default function Dashboard() {
     setWalletData(holdingCoins);
   }, [cryptoCurrenciesData.data]);
 
+  // Update the transactions data when the user data changes
   useEffect(() => {
     // Update the wallet data when the user data changes
     if (!currentUserData.email) {
       return;
     }
-
+    // Filter the transactions to exclude trades
     const sortedTransactionsAsc = currentUserData.transactions
       .filter((transaction) => transaction.transactionType !== "trade")
       .sort(
@@ -60,13 +65,14 @@ export default function Dashboard() {
           convertTimestampToDate(a.timestamp) -
           convertTimestampToDate(b.timestamp),
       );
+    // Map the account balance data
     const accountBalance = sortedTransactionsAsc.map((transaction) => {
       return transaction.accountBalance;
     });
-    console.log(accountBalance);
     setTransactionsData(accountBalance);
   }, [currentUserData]);
 
+  // Function to copy the user ID to the clipboard
   function copyUserId() {
     navigator.clipboard
       .writeText(currentUser.uid)
@@ -85,6 +91,7 @@ export default function Dashboard() {
       });
   }
 
+  // Function to calculate the balance based on the wallet data
   function calculateBalance() {
     // Calculate the balance based on the wallet data
     let balance = 0;
@@ -104,6 +111,7 @@ export default function Dashboard() {
     return removeTrailingZeros(balance, 10);
   }
 
+  // Function to calculate the estimated value based on the wallet data
   function calculateEstimatedValue() {
     // Calculate the estimated value based on the wallet data
     let estimatedValue = 0;

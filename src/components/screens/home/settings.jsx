@@ -4,39 +4,41 @@ import { useTranslation } from "react-i18next";
 import Logo from "../../../assets/icons/logo.png";
 import { auth, deleteUserAccount, updateUserProfile } from "../../../firebase";
 import { useAuth } from "../../../AuthContext";
-import { set } from "firebase/database";
 import { sendPasswordResetEmail } from "firebase/auth";
 
+// This component is used to display the Settings screen
 const Settings = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
 
-  const { currentUser, currentUserData, fetchUserData } = useAuth();
+  const { currentUser, currentUserData, fetchUserData } = useAuth(); // Get the current user and user data
 
-  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false); // State to show or hide the alert
   const showAlert = () => setAlertVisible(true);
   const hideAlert = () => setAlertVisible(false);
   const [alertData, setAlertData] = useState({
+    // State to store the alert data
     title: "",
     message: "",
     messageType: "",
     type: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State to show or hide the password
 
-  const [email, setEmail] = useState(currentUser.email || "");
+  const [email, setEmail] = useState(currentUser.email || ""); // State to store the email
   const [firstName, setFirstName] = useState(
     currentUser.displayName.split(" ")[0] || "",
-  );
+  ); // State to store the first name
   const [lastName, setLastName] = useState(
     currentUser.displayName.split(" ")[1] || "",
-  );
-  const [phone, setPhone] = useState(currentUserData.phone || "");
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  ); // State to store the last name
+  const [phone, setPhone] = useState(currentUserData.phone || ""); // State to store the phone number
+  const [oldPassword, setOldPassword] = useState(""); // State to store the old password
+  const [newPassword, setNewPassword] = useState(""); // State to store the new password
 
-  const [updateAccountLoading, setUpdateAccountLoading] = useState(false);
-  const [deleteAccountLoading, setDeleteAccountLoading] = useState(false);
+  const [updateAccountLoading, setUpdateAccountLoading] = useState(false); // State to track the update account loading status
+  const [deleteAccountLoading, setDeleteAccountLoading] = useState(false); // State to track the delete account loading status
 
+  // Set the document title when the component mounts
   useEffect(() => {
     document.title = t("settings") + " | " + t("cryptoPulse");
 
@@ -45,11 +47,12 @@ const Settings = () => {
     };
   }, []);
 
+  // Function to handle phone number change
   const handlePhoneChange = (e) => {
     const value = e.target.value;
-    if (value.length > 10) return;
+    if (value.length > 10) return; // Limit the phone number to 10 digits
 
-    if (value.length === 0) return setPhone("");
+    if (value.length === 0) return setPhone(""); // Clear the phone number if the input is empty
 
     // Block any non-digit characters
     if (!/^\d+$/.test(value)) return;
@@ -57,6 +60,7 @@ const Settings = () => {
     setPhone(value);
   };
 
+  // Function to validate the form fields
   const validateForm = () => {
     if (
       firstName === "" ||
@@ -91,10 +95,12 @@ const Settings = () => {
     showAlert();
   };
 
+  // Function to update the user profile
   const updateProfile = async () => {
     setUpdateAccountLoading(true);
     updateUserProfile(firstName, lastName, phone, oldPassword, newPassword)
       .then(async () => {
+        // Update the user profile
         await fetchUserData();
         setAlertData({
           title: "success",
@@ -104,6 +110,7 @@ const Settings = () => {
         showAlert();
       })
       .catch((error) => {
+        // Handle the error
         if (error.message.includes("Re-authentication failed")) {
           // Handle the re-authentication failure specifically
           console.error("Re-authentication failed. Please log in again.");
@@ -129,6 +136,7 @@ const Settings = () => {
       });
   };
 
+  // Function to delete the user account
   const handleDeleteAccount = async () => {
     setDeleteAccountLoading(true);
 
@@ -146,6 +154,7 @@ const Settings = () => {
     }
   };
 
+  // Function to handle the forgot password action
   const hundleForgotPassword = () => {
     sendPasswordResetEmail(auth, email)
       .then(() => {

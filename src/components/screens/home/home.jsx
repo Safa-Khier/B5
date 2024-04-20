@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import AnimatedBackground from "../../AnimatedBackground.jsx";
 import ParticlesBackground from "../../particlesBackground.jsx";
 import Logo from "../../../assets/icons/logoB.png";
 import { useAuth } from "../../../AuthContext";
 
+// This component is used to display the Home screen
 export default function Home() {
-  const { t } = useTranslation();
-  const { currentUser } = useAuth();
-  const [greeting, setGreeting] = useState("");
+  const { t } = useTranslation(); // Translation function
+  const { currentUser } = useAuth(); // Get the current user
+  const [greeting, setGreeting] = useState(""); // State to store the greeting
 
+  // Set the document title and greeting when the component mounts
   useEffect(() => {
+    // Set the document title when the component mounts
+    document.title = t("home") + " | " + t("cryptoPulse");
     const hour = new Date().getHours();
     let currentGreeting;
 
+    // Set the greeting based on the time of the day
     if (hour < 12) {
       currentGreeting = "GoodMorning";
     } else if (hour < 18) {
@@ -23,17 +27,11 @@ export default function Home() {
     }
 
     setGreeting(currentGreeting);
-  }, []); // Empty dependency array means this runs once on mount
-
-  useEffect(() => {
-    // Set the document title when the component mounts
-    document.title = t("home") + " | " + t("cryptoPulse");
-
     // Optional: Clean up function to set the document title back when the component unmounts
     return () => {
       document.title = t("cryptoPulse");
     };
-  }, []);
+  }, []); // Empty dependency array means this runs once on mount
 
   return (
     <div className="text-slate-950 dark:text-white content overflow-hidden">

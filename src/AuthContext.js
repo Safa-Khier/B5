@@ -3,16 +3,20 @@ import { auth, fetchUserDataFromFirestore } from "./firebase.js"; // Ensure this
 import { onAuthStateChanged } from "firebase/auth";
 import LoadingScreen from "./components/loading.screen.jsx";
 
+// Create a context
 const AuthContext = createContext();
 
+// Create a hook to use the AuthContext
 export function useAuth() {
   return useContext(AuthContext);
 }
 
+// Create a provider to wrap the app in the AuthContext
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(); // Add currentUser state
   const [loading, setLoading] = useState(true); // Add loading state
   const [currentUserData, setCurrentUserData] = useState({
+    // Add currentUserData state
     displayName: "",
     email: "",
     photoURL: "",
@@ -21,6 +25,7 @@ export function AuthProvider({ children }) {
     Transactions: [],
   });
 
+  // Fetch user data from Firestore when the component mounts and the user changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -41,6 +46,7 @@ export function AuthProvider({ children }) {
     }; // Cleanup subscription on unmount
   }, []);
 
+  // Function to fetch user data from Firestore
   const fetchUserData = async (user) => {
     // Fetch user data here
     if (user) {
@@ -50,6 +56,7 @@ export function AuthProvider({ children }) {
     setLoading(false); // Update loading state to false once user is fetched
   };
 
+  // Create a context value
   const value = {
     currentUser,
     currentUserData,

@@ -37,7 +37,7 @@
 }
 
 input:checked + .switch {
-  background-color: rgb(75 85 99);
+  background-color: rgb(53, 61, 71);
 }
 
 input:checked + .switch:before {

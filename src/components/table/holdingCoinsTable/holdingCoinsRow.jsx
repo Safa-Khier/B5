@@ -1,9 +1,11 @@
 import React from "react";
 import { removeTrailingZeros } from "../../../../public/publicFunctions";
 
+// This component is used to display a row in the holding coins table
 export const HoldingCoinsRow = (prop) => {
-  const crypto = prop.data;
+  const crypto = prop.data; // Get the crypto currency data
 
+  // Function to create an amount cell
   const amount = () => {
     return (
       <div className="flex flex-col text-md font-semibold">
@@ -15,6 +17,7 @@ export const HoldingCoinsRow = (prop) => {
     );
   };
 
+  // Function to create a change element
   function createChangeElement(change) {
     const changeNegative = change < 0;
     change = changeNegative ? change * -1 : change;

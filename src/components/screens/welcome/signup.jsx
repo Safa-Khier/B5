@@ -6,18 +6,22 @@ import Alert from "../../alert/alert.jsx";
 import { auth } from "../../../firebase";
 import { createNewUser } from "../../../firebase.js";
 
+// This component is used to display the signup screen
 export default function Signup() {
-  const [alertVisible, setAlertVisible] = useState(false);
+  const { t } = useTranslation(); // Translation function
+  const [alertVisible, setAlertVisible] = useState(false); // State to show or hide the alert
   const showAlert = () => setAlertVisible(true);
   const hideAlert = () => setAlertVisible(false);
   const [alertData, setAlertData] = useState({
+    // State to store the alert data
     title: "",
     message: "",
     type: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
-  const { t } = useTranslation();
+  const [showPassword, setShowPassword] = useState(false); // State to show or hide the password
+
   const [formData, setFormData] = useState({
+    // State to store the form data
     email: "",
     firstName: "",
     lastName: "",
@@ -25,13 +29,14 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // State to track the signup process
 
+  // Function to handle the signup process
   const handleSignUpSubmit = async (e) => {
-    if (!checkFormFields()) return;
+    if (!checkFormFields()) return; // Check if the form fields are valid
 
     setLoading(true);
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission
     try {
       await createUserWithEmailAndPassword(
         auth,
@@ -43,9 +48,6 @@ export default function Signup() {
         await updateProfile(user, {
           displayName: formData.firstName + " " + formData.lastName,
         });
-
-        // Send email verification
-        // sendEmailVerification(user);
 
         // create a new user document in Firestore
         await createNewUser(user, formData);
@@ -66,6 +68,7 @@ export default function Signup() {
     }
   };
 
+  // Function to check if the form fields are valid
   function checkFormFields() {
     const email = formData.email;
     const firstName = formData.firstName;
@@ -128,6 +131,7 @@ export default function Signup() {
     return true;
   }
 
+  // Function to check if the email is valid
   function checkMial(email) {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -220,9 +224,9 @@ export default function Signup() {
           >
             {loading ? (
               <div className="loading-container">
-                <span className="dot"></span>
-                <span className="dot"></span>
-                <span className="dot"></span>
+                <span className="dot" />
+                <span className="dot" />
+                <span className="dot" />
               </div>
             ) : (
               t("signUp")

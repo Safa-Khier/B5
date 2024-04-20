@@ -2,17 +2,19 @@ import React from "react";
 import "./alert.css"; // Assuming you have a CSS file for styling
 import { useTranslation } from "react-i18next";
 
+// This component is used to display alerts to the user
 export default function Alert({
-  title,
-  message,
-  isVisible,
-  onClose,
-  messageType,
-  action,
+  title, // Title of the alert
+  message, // Message to be displayed
+  isVisible, // Boolean to show or hide the alert
+  onClose, // Function to close the alert
+  messageType, // Type of message to be displayed
+  action, // Function to be executed when the user confirms the alert
 }) {
   const { t } = useTranslation();
   if (!isVisible) return null;
 
+  // Function to display the buttons based on the message type
   const alertActionsButtons = () => {
     if (messageType === undefined) {
       return (
@@ -49,7 +51,7 @@ export default function Alert({
   return (
     <div
       className="bg-white bg-opacity-5 flex justify-center items-center fixed top-0 left-0 w-full h-full z-50"
-      style={{ backdropFilter: "blur(5px)" }}
+      style={{ backdropFilter: "blur(5px)", WebkitBackdropFilter: "blur(5px)" }}
     >
       <div className="alert border border-gray-600 dark:border-white flex flex-col justify-center items-center bg-gray-100 w-[calc(100%-50px)] md:w-fit dark:bg-gray-700 min-h-fit">
         <div className="text-2xl w-full font-bold text-black dark:text-white">

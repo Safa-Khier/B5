@@ -1,8 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+// This component is used to display the loading data screen
 export default function LoadingDataScreen() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
 
   return (
     <div className="flex items-center justify-center h-full w-full">

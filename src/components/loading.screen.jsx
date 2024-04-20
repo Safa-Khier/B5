@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import Logo from "../assets/icons/logo.png";
 import { useTranslation } from "react-i18next";
 
+// This component is used to display the loading screen
 const LoadingScreen = () => {
-  const { t } = useTranslation();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { t } = useTranslation(); // Translation function
+  const [isDarkMode, setIsDarkMode] = useState(false); // State to store the dark mode
 
+  // Check if the dark mode is enabled
   useEffect(() => {
     if (localStorage.getItem("theme") === "dark") {
       setIsDarkMode(true);

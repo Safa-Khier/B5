@@ -7,27 +7,30 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from "../../../firebase";
-import Footer from "../../footer.jsx";
 
+// This component is used to display the login screen
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [alertVisible, setAlertVisible] = useState(false);
+  const { t } = useTranslation(); // Translation function
+  const [showPassword, setShowPassword] = useState(false); // State to show or hide the password
+  const [alertVisible, setAlertVisible] = useState(false); // State to show or hide the alert
   const showAlert = () => setAlertVisible(true);
   const hideAlert = () => setAlertVisible(false);
-  const { t } = useTranslation();
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  const [isLoggingIn, setIsLoggingIn] = useState(false); // State to track the login process
   const [alertData, setAlertData] = useState({
+    // State to store the alert data
     title: "",
     message: "",
     type: "",
   });
 
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [loginData, setLoginData] = useState({ email: "", password: "" }); // State to store the login data
 
+  // Function to handle the login process
   const handleSubmit = async (e) => {
-    if (!checkFormFields()) return;
+    if (!checkFormFields()) return; // Check if the form fields are valid
     setIsLoggingIn(true);
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission
     try {
       await signInWithEmailAndPassword(
         auth,
@@ -56,6 +59,7 @@ export default function Login() {
     }
   };
 
+  // Function to check if the form fields are valid
   function checkFormFields() {
     const { email, password } = loginData;
     if (email === "" || password === "") {
@@ -81,11 +85,13 @@ export default function Login() {
     return true;
   }
 
+  // Function to check if the email is valid
   function checkMial(email) {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
 
+  // Function to handle the forgot password process
   const hundleForgotPassword = () => {
     const { email } = loginData;
     if (!checkMial(email)) {
@@ -176,9 +182,6 @@ export default function Login() {
             ) : (
               t("logIn")
             )}
-            {/* {isLoggingIn && (
-              <div className="buttonLoader flex justify-center items-center my-auto ml-2" />
-            )} */}
           </button>
 
           <a

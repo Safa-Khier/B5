@@ -5,17 +5,21 @@ import { useRecoilState } from "recoil";
 import { cryptoData } from "../../atoms/cryptoData";
 import { cryptoNews } from "../../atoms/cryptoNews";
 
+// This component is used to display a search bar
 const SearchBar = ({ isSearchOpen, searchData }) => {
-  const [showMenu, setShowMenu] = useState(isSearchOpen);
-  const [animateOut, setAnimateOut] = useState(false);
+  const { t } = useTranslation(); // Translation function
+  const [showMenu, setShowMenu] = useState(isSearchOpen); // State to show or hide the search bar
+  const [animateOut, setAnimateOut] = useState(false); // State to animate the search bar
   const [cryptoCurrenciesData, setCryptoCurrenciesData] =
-    useRecoilState(cryptoData);
+    useRecoilState(cryptoData); // Get the crypto currencies data
   const [cryptoCurrenciesNews, setCryptoCurrenciesNews] =
-    useRecoilState(cryptoNews);
-  const { t } = useTranslation();
+    useRecoilState(cryptoNews); // Get the crypto currencies news data
 
+  // Function to filter the data based on the search input
   const filterData = (e) => {
     const value = e.target.value.toLowerCase();
+
+    // Check the data type to filter
     if (searchData === "coins") {
       filterCoinsData(value);
     } else if (searchData === "news") {
@@ -23,6 +27,7 @@ const SearchBar = ({ isSearchOpen, searchData }) => {
     }
   };
 
+  // Function to filter the news data based on the search input
   const filterNewsData = (value) => {
     const data = [...cryptoCurrenciesNews.data];
     const filteredData = data.filter((news) => {
@@ -39,6 +44,7 @@ const SearchBar = ({ isSearchOpen, searchData }) => {
     });
   };
 
+  // Function to filter the coins data based on the search input
   const filterCoinsData = (value) => {
     const data = [...cryptoCurrenciesData.data];
     const filteredData = data.filter((crypto) => {
@@ -53,6 +59,7 @@ const SearchBar = ({ isSearchOpen, searchData }) => {
     });
   };
 
+  // Show or hide the search bar based on the search state
   useEffect(() => {
     if (!isSearchOpen && showMenu) {
       // Trigger slide-out animation before removing the component
@@ -64,6 +71,7 @@ const SearchBar = ({ isSearchOpen, searchData }) => {
     }
   }, [isSearchOpen, showMenu]);
 
+  // Return null if the search bar is hidden
   if (!showMenu) return null;
 
   return (

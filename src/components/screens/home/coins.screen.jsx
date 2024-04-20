@@ -5,11 +5,13 @@ import { cryptoData } from "../../../atoms/cryptoData.js";
 import { useRecoilState } from "recoil";
 import Footer from "../../footer.jsx";
 
+// This component is used to display the Coin screen
 export default function Coin() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
   const [cryptoCurrenciesData, setCryptoCurrenciesData] =
-    useRecoilState(cryptoData);
+    useRecoilState(cryptoData); // Get the crypto currencies data
 
+  // Set the document title when the component mounts
   useEffect(() => {
     // Set the document title when the component mounts
     document.title = t("coins") + " | " + t("cryptoPulse");
@@ -20,6 +22,7 @@ export default function Coin() {
     };
   }, []);
 
+  // Function to filter the data based on the search input
   const filterData = (e) => {
     const value = e.target.value.toLowerCase();
     const data = [...cryptoCurrenciesData.data];

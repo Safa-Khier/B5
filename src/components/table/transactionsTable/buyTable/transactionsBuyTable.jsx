@@ -5,19 +5,22 @@ import { convertTimestampToDate } from "../../../../firebase";
 import { Paging } from "../../paging";
 import LoadingDataScreen from "../../loading.data.screen";
 
+// This component is used to display the Transactions Buy Table
 export default function TransactionsBuyTable({ transactions, currencies }) {
-  const { t } = useTranslation();
-  const transactionsPerPage = 7;
+  const { t } = useTranslation(); // Translation function
+  const transactionsPerPage = 7; // Number of transactions per page
 
-  const [transactionsData, setTransactionsData] = useState([]);
-  const [data, setData] = useState([]);
-  const [sort, setSort] = useState({ field: "", asc: null });
-  const [currentPage, setCurrentPage] = useState(1);
+  const [transactionsData, setTransactionsData] = useState([]); // State to store the transactions data
+  const [data, setData] = useState([]); // State to store the data to display
+  const [sort, setSort] = useState({ field: "", asc: null }); // State to store the sort field and order
+  const [currentPage, setCurrentPage] = useState(1); // State to store the current page
 
+  // Update the data when the transactions or currencies change
   useEffect(() => {
     updateTransactionsData();
   }, [transactions, currencies]);
 
+  // Function to update the transactions data
   function updateTransactionsData() {
     if (!transactions || !currencies) {
       return;
@@ -51,6 +54,7 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
     handlePageChange();
   }
 
+  // Function to calculate the total number of pages
   useEffect(() => {
     if (Math.ceil(data.length / transactionsPerPage) < currentPage) {
       setCurrentPage(1);
@@ -58,17 +62,22 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
     handlePageChange();
   }, [transactionsData]);
 
+  // Function to calculate the total number of pages
   const totalPageNumber = () => {
     return Math.ceil(transactionsData.length / transactionsPerPage) || 1;
   };
 
+  // Function to update the data when the current page changes
   useEffect(() => {
     handlePageChange();
   }, [currentPage]);
 
+  // Function to sort the data based on the field
   function sortData(field) {
     if (sort.field === field) {
+      // If the data is already sorted by the field
       if (sort.asc === false) {
+        // If the data is sorted in descending order
         setData(
           data.sort((a, b) => {
             if (typeof a[field] === "number") {
@@ -97,6 +106,7 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
     setSort({ field, asc: false });
   }
 
+  // Function to display the header cell
   const headerCell = (field, title) => {
     return (
       <div
@@ -112,10 +122,12 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
     );
   };
 
+  // Function to check if the data is sorted by the field
   function checkIfSortedBy(field) {
     return sort.field === field;
   }
 
+  // Function to handle the page change
   function handlePageChange() {
     setData(
       transactionsData.slice(

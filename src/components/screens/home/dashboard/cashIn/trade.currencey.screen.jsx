@@ -4,23 +4,24 @@ import { removeTrailingZeros } from "../../../../../../public/publicFunctions";
 import Select from "react-select";
 import { tradeCrypto } from "../../../../../firebase";
 
+// This component is used to display the Trade Currency screen
 const TradeCurrencyScreen = ({
-  currencies,
-  currentUserData,
-  fetchUserData,
-  currentUser,
-  alert,
+  currencies, // List of available currencies
+  currentUserData, // Current user data
+  fetchUserData, // Function to fetch the current user data
+  currentUser, // Current user
+  alert, // Function to display an alert
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
 
-  const [walletCurrencies, setWalletCurrencies] = useState([]);
-  const [amountToSpend, setAmountToSpend] = useState("");
-  const [spendCurrency, setSpendCurrency] = useState();
+  const [walletCurrencies, setWalletCurrencies] = useState([]); // State to store the wallet currencies
+  const [amountToSpend, setAmountToSpend] = useState(""); // State to store the amount to spend
+  const [spendCurrency, setSpendCurrency] = useState(); // State to store the currency to spend
+  const [receiveCurrency, setReceiveCurrency] = useState(); // State to store the currency to receive
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // State to track the loading state
 
-  const [receiveCurrency, setReceiveCurrency] = useState("");
-
+  // Update the walletCurrencies state when the currentUserData.wallet or currencies change
   useEffect(() => {
     if (!currentUserData.wallet || currencies.length === 0) return;
     const walletCurrencies = currentUserData.wallet.map((walletCurrencey) => {
@@ -36,14 +37,20 @@ const TradeCurrencyScreen = ({
     setWalletCurrencies(walletCurrencies);
   }, [currentUserData.wallet, currencies]);
 
+  // Function to validate the trade
   const validateTrade = () => {
-    if (!spendCurrency || !receiveCurrency) return false;
-    if (!amountToSpend) return false;
+    if (!spendCurrency || !receiveCurrency || !amountToSpend) {
+      alert({
+        title: "error",
+        message: "errorFillAllFields",
+      });
+      return false;
+    }
     return true;
   };
 
+  // Function to handle the trade
   async function handleTrade() {
-    // MARK: - Add Check for empty fields, and Validate the amount
     if (!validateTrade()) return;
     try {
       setIsLoading(true);
@@ -54,6 +61,7 @@ const TradeCurrencyScreen = ({
         parseFloat(amountToSpend.replace(/[^0-9.]/g, "")),
         parseFloat(currencyAmount()),
       );
+      // Fetch the updated user data
       fetchUserData(currentUser);
       alert({
         title: "success",
@@ -112,6 +120,7 @@ const TradeCurrencyScreen = ({
     );
   };
 
+  // Custom receive value component
   const CustomReceiveValue = ({ data }) => (
     <div className="flex items-center">
       <img src={data.image} style={{ width: 20, height: 20, marginRight: 8 }} />
@@ -119,6 +128,7 @@ const TradeCurrencyScreen = ({
     </div>
   );
 
+  // Custom spend value component
   const CustomSpendValue = ({ data }) => (
     <div className="flex items-center">
       <img src={data.image} style={{ width: 20, height: 20, marginRight: 8 }} />
@@ -129,6 +139,7 @@ const TradeCurrencyScreen = ({
     </div>
   );
 
+  // Function to calculate the amount to receive
   const currencyAmount = () => {
     if (!receiveCurrency || !spendCurrency) return 0;
     const price =
@@ -138,6 +149,7 @@ const TradeCurrencyScreen = ({
     return removeTrailingZeros(amount);
   };
 
+  // Function to handle the amount change
   const handleAmountChange = (e) => {
     // Get the raw input value
     let value = e.target.value;
@@ -179,6 +191,7 @@ const TradeCurrencyScreen = ({
     setAmountToSpend(value);
   };
 
+  // Function to calculate the max sell amount
   const maxSellAmount = () => {
     if (!spendCurrency) return "";
     const maxAmount = currentUserData.wallet.find(

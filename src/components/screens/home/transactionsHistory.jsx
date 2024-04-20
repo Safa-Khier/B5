@@ -7,24 +7,27 @@ import Footer from "../../footer.jsx";
 import TransactionsWithdrawTable from "../../table/transactionsTable/withdrawTable/transactionsWithdrawTable.jsx";
 import { useRecoilValue } from "recoil";
 import { cryptoData } from "../../../atoms/cryptoData.js";
+import { doc } from "firebase/firestore";
 
+// This component is used to display the Transactions History screen
 export default function TransactionsHistory() {
-  const { t } = useTranslation();
-  // State to track the active tab
+  const { t } = useTranslation(); // Translation function
 
-  const { currentUserData } = useAuth();
+  const { currentUserData } = useAuth(); // Get the current user data
 
-  const [activeTab, setActiveTab] = useState("buy");
-  const [currencies, setCurrencies] = useState([]);
-  const cryptoCurrenciesData = useRecoilValue(cryptoData);
+  const [activeTab, setActiveTab] = useState("buy"); // State to track the active tab
+  const [currencies, setCurrencies] = useState([]); // State to store the currencies data
+  const cryptoCurrenciesData = useRecoilValue(cryptoData); // Get the crypto currencies data
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // State to store the window width
   const [indicatorStyle, setIndicatorStyle] = useState({
+    // State to store the indicator style of the tab buttons
     width: 0,
     transform: `translateX(0px)`, // Use the corrected offset
   });
-  const tabRefs = useRef([]);
+  const tabRefs = useRef([]); // Ref to store the tab buttons
 
+  // Update the indicator style when the active tab changes
   useEffect(() => {
     if (tabRefs.current[activeTab]) {
       const { offsetLeft, clientWidth } = tabRefs.current[activeTab];
@@ -35,6 +38,7 @@ export default function TransactionsHistory() {
     }
   }, [activeTab, tabRefs, windowWidth]);
 
+  // Update the currencies state when the crypto currencies data changes
   useEffect(() => {
     setCurrencies(
       cryptoCurrenciesData.data.map((currency) => ({
@@ -47,7 +51,9 @@ export default function TransactionsHistory() {
     );
   }, [cryptoCurrenciesData.data]);
 
+  // Set the document title when the component mounts
   useEffect(() => {
+    document.title = t("transactions-history") + " | " + t("cryptoPulse");
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -55,29 +61,31 @@ export default function TransactionsHistory() {
 
     // Cleanup
     return () => {
+      document.title = t("cryptoPulse");
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   // Function to render the tab content based on the active tab
   const renderTabContent = () => {
-    switch (activeTab) {
-      case "buy":
+    switch (
+      activeTab // Switch statement to render the tab content based on the active tab
+    ) {
+      case "buy": // Render the Buy tab content
         return (
           <TransactionsBuyTable
             transactions={currentUserData.transactions}
             currencies={currencies}
           />
-          //   <div></div>
         );
-      case "trade":
+      case "trade": // Render the Trade tab content
         return (
           <TransactionsTradeTable
             transactions={currentUserData.transactions}
             currencies={currencies}
           />
         );
-      case "withdraw":
+      case "withdraw": // Render the Withdraw tab content
         return (
           <TransactionsWithdrawTable
             transactions={currentUserData.transactions}
@@ -89,6 +97,7 @@ export default function TransactionsHistory() {
     }
   };
 
+  // Function to render the tab button icon based on the tab
   const renderTabButtonIcon = (tab) => {
     switch (tab) {
       case "buy":
@@ -102,7 +111,7 @@ export default function TransactionsHistory() {
     }
   };
 
-  // Function to render the tab content based on the active tab
+  // Function to render the tab button based on the tab
   const renderTabButton = (tab) => {
     return (
       <div

@@ -3,8 +3,9 @@ import { useTranslation } from "react-i18next";
 import ParticlesBackground from "../../particlesBackground.jsx";
 import Footer from "../../footer.jsx";
 
+// This component is used to display the Welcome screen
 export default function Welcome() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
   return (
     <div className="text-slate-950 dark:text-white content">
       <ParticlesBackground />

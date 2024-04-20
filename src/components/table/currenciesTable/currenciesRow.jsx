@@ -2,9 +2,11 @@ import React from "react";
 import DataSparkline from "./dataSparkline";
 import { removeTrailingZeros } from "../../../../public/publicFunctions";
 
+// This component is used to display a row in the currencies table
 export const CurrenciesRow = (prop) => {
-  const crypto = prop.data;
+  const crypto = prop.data; // Get the crypto currency data
 
+  // Function to create a volume cell
   function createVolumeCell(volume, price, symbol) {
     return (
       <div>
@@ -16,6 +18,7 @@ export const CurrenciesRow = (prop) => {
     );
   }
 
+  // Function to create a change element
   function createChangeElement(change) {
     const changeNegative = change < 0;
     change = changeNegative ? change * -1 : change;
@@ -31,12 +34,14 @@ export const CurrenciesRow = (prop) => {
     );
   }
 
+  // Function to format a number
   function format_number(number) {
     let formattedNumber = number.toFixed(10);
     let numberAsNumber = parseFloat(formattedNumber);
     return numberAsNumber.toLocaleString();
   }
 
+  // Function to get the last update date
   function getLastUpdateDate() {
     // Create a date object
     const date = new Date(crypto.last_updated);

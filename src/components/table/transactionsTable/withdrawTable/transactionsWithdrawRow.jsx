@@ -2,10 +2,13 @@ import React from "react";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
 import { convertTimestampToDate } from "../../../../firebase";
 
+// This component is used to display a row in the transactions withdraw table
 export const TransactionsWithdrawRow = (prop) => {
-  const transaction = prop.data;
+  const transaction = prop.data; // Get the transaction data
 
+  // Function to format a date
   function formatDate(date) {
+    // Get the day, month, year, hours and minutes
     let day = date.getDate();
     let month = date.getMonth() + 1; // getMonth() returns month from 0 to 11
     let year = date.getFullYear();
@@ -21,6 +24,7 @@ export const TransactionsWithdrawRow = (prop) => {
     return `${day}/${month}/${year}, ${hours}:${minutes}`;
   }
 
+  // Function to remove trailing zeros
   const amountCell = () => {
     return (
       <div className="flex flex-col justify-center items-end">

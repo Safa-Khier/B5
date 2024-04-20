@@ -1,34 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import CreditCardForm from "../../../../creditCard/creditCardForm";
 import { removeTrailingZeros } from "../../../../../../public/publicFunctions";
 import { addCryptoToTheWallet } from "../../../../../firebase";
 
+// This component is used to display the buy currency screen
 const BuyCurrencyScreen = ({
-  currencies,
-  currentUser,
-  currentUserData,
-  fetchUserData,
-  alert,
+  currencies, // List of available currencies
+  currentUser, // Current user data
+  currentUserData, // Current user data
+  fetchUserData, // Function to fetch user data
+  alert, // Function to display an alert
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
-  const [price, setPrice] = useState("");
-  const [selectedCurrency, setSelectedCurrency] = useState();
+  const [price, setPrice] = useState(""); // Price state
+  const [selectedCurrency, setSelectedCurrency] = useState(); // Selected currency state
   const [creditCardDetails, setCreditCardDetails] = useState({
+    // Credit card details state
     cardNumber: "",
     cardName: "",
     expDate: "",
     ccv: "",
   });
 
+  // Function to handle the credit card data
   const handleCreditCardData = (data) => {
     setCreditCardDetails(data);
   };
 
+  // Function to validate the form fields
   function validateFormFields() {
     if (!selectedCurrency) {
       alert({
@@ -64,6 +68,7 @@ const BuyCurrencyScreen = ({
     const year = now.getFullYear().toString().slice(2, 4);
 
     const expDate = creditCardDetails.expDate.split("/");
+    // Check if the expiration date is valid
     if (
       creditCardDetails.expDate.length !== 5 ||
       parseInt(expDate[1]) < year ||
@@ -85,25 +90,25 @@ const BuyCurrencyScreen = ({
     return true;
   }
 
+  // Function to handle the buy process
   async function handleBuy() {
     if (!validateFormFields()) {
       return;
     }
-
+    setIsLoading(true);
     const value = price.replace(/[^0-9.]/g, "");
     const amount = (parseFloat(value) || 0) / selectedCurrency.current_price;
 
+    // Calculate the account balance
     let accountBalance = selectedCurrency.current_price * amount;
-
     currentUserData.wallet.forEach((currency) => {
       const currencyPrice = currencies.find(
         (c) => c.id === currency.id,
       ).current_price;
       accountBalance += currency.amount * currencyPrice;
     });
-    // return;
     try {
-      setIsLoading(true);
+      // Add the crypto to the wallet
       await addCryptoToTheWallet(
         currentUserData,
         selectedCurrency,
@@ -138,9 +143,12 @@ const BuyCurrencyScreen = ({
     }
   }
 
+  // Handle change in input
   const handleCardNumberChange = (e) => {
     const input = e.target.value;
-    let cleaned = input.replace(/[^\d\s]/g, "");
+    let cleaned = input.replace(/[^\d\s]/g, ""); // Remove all non-numeric characters
+
+    // Add a space after every 4 digits
     let value = cleaned
       .replace(/[^0-9]+/g, "")
       .replace(/(.{4})/g, "$1 ")
@@ -148,6 +156,7 @@ const BuyCurrencyScreen = ({
     setCreditCardDetails({ ...creditCardDetails, cardNumber: value });
   };
 
+  // Handle change in input
   const handleExpDateChange = (e) => {
     let value = e.target.value.replace(/[^0-9]+/g, ""); // Keep only digits
 
@@ -159,7 +168,6 @@ const BuyCurrencyScreen = ({
     if (value.length === 2 && parseInt(value) > 12) {
       // Prevent month from being greater than 12
       value = value.substring(0, 1);
-      console.log("value", value);
     }
 
     // Automatically add a slash after the month (first two digits)
@@ -175,7 +183,7 @@ const BuyCurrencyScreen = ({
     setCreditCardDetails({ ...creditCardDetails, expDate: value });
   };
 
-  // Custom option component
+  // Custom option component for the currency select
   const CustomOption = ({ innerProps, isFocused, isSelected, data }) => (
     <div
       {...innerProps}
@@ -199,6 +207,7 @@ const BuyCurrencyScreen = ({
     </div>
   );
 
+  // Custom single value component for the currency select
   const CustomSingleValue = ({ data }) => (
     <div className="flex items-center">
       <img src={data.image} style={{ width: 20, height: 20, marginRight: 8 }} />
@@ -206,6 +215,7 @@ const BuyCurrencyScreen = ({
     </div>
   );
 
+  // Function to calculate the amount of the selected currency
   const currencyAmount = () => {
     if (!selectedCurrency) return 0;
     const value = price.replace(/[^0-9.]/g, "");
@@ -220,23 +230,26 @@ const BuyCurrencyScreen = ({
       return;
     }
     // Remove non-numeric chars (except for decimal point)
-    const value = e.target.value.replace(/[^0-9.]/g, "");
+    const value = e.target.value.replace(/[^0-9.]/g, ""); // Remove all non-numeric characters
 
     if (value === "") {
       setPrice("");
       return;
     }
 
+    // Check if the value is a valid number
     if (parseFloat(value) > 20000) {
       return;
     }
 
+    // Format the number with commas
     const formattedNumber = parseFloat(value).toLocaleString("en-US");
 
     // Update the numeric state (convert string to float)
     setPrice("$" + (formattedNumber || 0));
   };
 
+  // Function to display the credit card form for small screens
   function creditCardFormForSmallScreens() {
     return (
       <div className="">
@@ -306,7 +319,7 @@ const BuyCurrencyScreen = ({
               value={price}
               className="react-input w-full rounded focus:ring-transparent text-lg"
               onChange={handlePriceChange}
-              placeholder="$10 - $20,000"
+              placeholder="$0 - $20,000"
             />
           </div>
           <div className="flex flex-col w-full">

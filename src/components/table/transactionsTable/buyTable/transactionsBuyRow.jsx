@@ -2,15 +2,17 @@ import React from "react";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
 import { convertTimestampToDate } from "../../../../firebase";
 
+// This component is used to display a row in the transactions buy table
 export const TransactionsBuyRow = (prop) => {
-  const transaction = prop.data;
+  const transaction = prop.data; // Get the transaction data
 
+  // Function to format a date
   function formatDate(date) {
-    let day = date.getDate();
+    let day = date.getDate(); // getDay() returns day from 0 to 6
     let month = date.getMonth() + 1; // getMonth() returns month from 0 to 11
-    let year = date.getFullYear();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
+    let year = date.getFullYear(); // getFullYear() returns year
+    let hours = date.getHours(); // getHours() returns hours from 0 to 23
+    let minutes = date.getMinutes(); // getMinutes() returns minutes from 0 to 59
 
     // Pad single digits with leading zeros
     day = day < 10 ? "0" + day : day;
@@ -21,6 +23,7 @@ export const TransactionsBuyRow = (prop) => {
     return `${day}/${month}/${year}, ${hours}:${minutes}`;
   }
 
+  // Function to remove trailing zeros
   const amountCell = () => {
     return (
       <div className="flex flex-col justify-center items-end">

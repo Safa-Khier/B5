@@ -1,12 +1,6 @@
 import React, { useEffect } from "react";
 import "./index.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Outlet,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { webSettings } from "./atoms/webSettings";
 import ProtectedRoute from "./protectedRoute.jsx";
@@ -24,17 +18,17 @@ import Withdraw from "./components/screens/home/dashboard/withdraw/withdraw.jsx"
 import TransactionsHistory from "./components/screens/home/transactionsHistory.jsx";
 import Settings from "./components/screens/home/settings.jsx";
 import NavigationBar from "./components/navigationBar/navigationBar.jsx";
-import Footer from "./components/footer.jsx";
-import LoadingDataScreen from "./components/table/loading.data.screen.jsx";
 
+// This component is used to redirect the user to the home page if they are authenticated
 const RedirectToHomeIfAuth = ({ isAuthenticated, children }) => {
   return isAuthenticated ? <Navigate to="/home" replace /> : children;
 };
-
+// This component is used to display the Main App component
 function App() {
-  const [settings, setSettings] = useRecoilState(webSettings);
-  const { currentUser } = useAuth();
+  const [settings, setSettings] = useRecoilState(webSettings); // Get the settings from Recoil
+  const { currentUser } = useAuth(); // Get the current user
 
+  // Set the theme based on the user's preference
   useEffect(() => {
     if (
       localStorage.theme === "dark" ||
@@ -49,11 +43,11 @@ function App() {
     }
   }, []);
 
-  // return <LoadingDataScreen />;
-
   return (
     <div className="App flex flex-col">
+      {/* Navigation Bar */}
       <NavigationBar />
+      {/* Routes */}
       <Routes>
         <Route
           path="welcome"

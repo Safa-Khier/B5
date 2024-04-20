@@ -3,11 +3,13 @@ import NewsTab from "./newsTab";
 import { Paging } from "../paging";
 import LoadingDataScreen from "../loading.data.screen";
 
+// This component is used to display the News Table
 export default function NewsTable({ news }) {
-  const newsPerPage = 3;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([...news].slice(0, newsPerPage));
+  const newsPerPage = 3; // Number of news per page
+  const [currentPage, setCurrentPage] = useState(1); // State to store the current page
+  const [data, setData] = useState([...news].slice(0, newsPerPage)); // State to store the data to display
 
+  // Function to calculate the total number of pages
   useEffect(() => {
     if (totalPageNumber() < currentPage) {
       setCurrentPage(1);
@@ -15,10 +17,12 @@ export default function NewsTable({ news }) {
     handlePageChange();
   }, [news, currentPage]);
 
+  // Function to calculate the total number of pages
   const totalPageNumber = () => {
     return Math.ceil(news.length / newsPerPage) || 1;
   };
 
+  // Function to update the data when the current page changes
   function handlePageChange() {
     setData(
       [...news].slice(

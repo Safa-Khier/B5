@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./creditCardForm.css";
 import { useTranslation } from "react-i18next";
 
+// This component is used to display a credit card form to the user
 const CreditCardForm = ({
   handleCreditCardData,
   hiddenBackground,
@@ -15,6 +16,7 @@ const CreditCardForm = ({
 
   const { t } = useTranslation();
 
+  // Function to handle the change of the card number input
   const handleCardNumberChange = (e) => {
     const input = e.target.value;
     let cleaned = input.replace(/[^\d\s]/g, "");
@@ -25,6 +27,7 @@ const CreditCardForm = ({
     setCardNumber(value);
   };
 
+  // Set the card details if they are passed as props
   useEffect(() => {
     if (cardDetails) {
       setCardNumber(cardDetails.cardNumber);
@@ -34,10 +37,12 @@ const CreditCardForm = ({
     }
   }, [cardDetails]);
 
+  // Send the credit card data to the parent component
   useEffect(() => {
     sendCreditCardDataToParent();
   }, [cardNumber, cardName, expDate, ccv]);
 
+  // Function to send the credit card data to the parent component
   function sendCreditCardDataToParent() {
     const creditCardDetails = {
       cardNumber: cardNumber,
@@ -48,6 +53,7 @@ const CreditCardForm = ({
     handleCreditCardData(creditCardDetails);
   }
 
+  // Function to handle the change of the expiration date input
   const handleExpDateChange = (e) => {
     let value = e.target.value.replace(/[^0-9]+/g, ""); // Keep only digits
 
@@ -76,7 +82,6 @@ const CreditCardForm = ({
   };
 
   // Handlers for cardName and ccv similar to handleCardNumberChange (omitted for brevity)
-
   return (
     <div className="flex w-full flex-col justify-center items-center relative">
       <h1

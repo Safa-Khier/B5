@@ -8,15 +8,17 @@ import TradeCurrencyScreen from "./trade.currencey.screen.jsx";
 import { cryptoData } from "../../../../../atoms/cryptoData.js";
 import { useRecoilValue } from "recoil";
 
+// This component is used to display the Cash In screen
 export default function CashIn() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
 
-  const { currentUser, currentUserData, fetchUserData } = useAuth();
+  const { currentUser, currentUserData, fetchUserData } = useAuth(); // Get the current user and user data
 
-  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false); // State to show or hide the alert
   const showAlert = () => setAlertVisible(true);
   const hideAlert = () => setAlertVisible(false);
   const [alertData, setAlertData] = useState({
+    // State to store the alert data
     title: "",
     message: "",
     messageType: "",
@@ -25,17 +27,19 @@ export default function CashIn() {
 
   // State to track the active tab
   const [activeTab, setActiveTab] = useState("buy");
-  const [currencies, setCurrencies] = useState();
-  const cryptoCurrenciesData = useRecoilValue(cryptoData);
+  const [currencies, setCurrencies] = useState(); // State to store the currencies data
+  const cryptoCurrenciesData = useRecoilValue(cryptoData); // Get the crypto currencies data
 
+  // State to store the indicator style of the tab buttons
   const [indicatorStyle, setIndicatorStyle] = useState({
     width: 0,
     transform: `translateX(0px)`, // Use the corrected offset
   });
-  const tabRefs = useRef([]);
+  const tabRefs = useRef([]); // Ref to store the tab buttons
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // State to store the window width
 
+  // Update the indicator style when the active tab changes
   useEffect(() => {
     if (tabRefs.current[activeTab]) {
       const { offsetLeft, clientWidth } = tabRefs.current[activeTab];
@@ -46,8 +50,8 @@ export default function CashIn() {
     }
   }, [activeTab, tabRefs, windowWidth]);
 
+  // Update the currencies state when the crypto currencies data changes
   useEffect(() => {
-    console.log(cryptoCurrenciesData);
     setCurrencies(
       cryptoCurrenciesData.data.map((currency) => ({
         id: currency.id,
@@ -59,7 +63,10 @@ export default function CashIn() {
     );
   }, [cryptoCurrenciesData.data]);
 
+  // Update the document title and window width when the component mounts
   useEffect(() => {
+    // Set the document title when the component mounts
+    document.title = t("cashIn") + " | " + t("cryptoPulse");
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -67,10 +74,12 @@ export default function CashIn() {
 
     // Cleanup
     return () => {
+      document.title = t("cryptoPulse");
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
+  // Function to handle the alert to pass to the child components
   const handleAlert = ({ title, message, messageType, action }) => {
     setAlertData({
       title: title,
@@ -109,6 +118,7 @@ export default function CashIn() {
     }
   };
 
+  // Function to render the tab button icon based on the tab
   const renderTabButtonIcon = (tab) => {
     switch (tab) {
       case "buy":

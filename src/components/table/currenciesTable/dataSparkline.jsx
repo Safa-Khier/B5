@@ -1,12 +1,14 @@
 import React, { useRef, useEffect } from "react";
 import Chart from "chart.js/auto";
 
+// This component is used to display a sparkline chart
 const DataSparkline = ({ data, updateTime, width, height }) => {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef(null); // Ref to the canvas element
   const chartInstanceRef = useRef(null); // To keep track of the chart instance
 
+  // Create the chart when the component mounts
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasRef.current; // Get the canvas element
 
     if (canvas && data) {
       // If there's an existing chart instance, destroy it before creating a new one
@@ -14,6 +16,7 @@ const DataSparkline = ({ data, updateTime, width, height }) => {
         chartInstanceRef.current.destroy();
       }
 
+      // Get the canvas context
       const ctx = canvas.getContext("2d");
       const sparklineData = Object.values(data).map((price) =>
         parseFloat(price),
@@ -24,6 +27,7 @@ const DataSparkline = ({ data, updateTime, width, height }) => {
       gradient.addColorStop(0, "rgba(75, 192, 192, 0.5)"); // Start color
       gradient.addColorStop(1, "rgba(75, 192, 192, 0)"); // End color, fully transparent
 
+      // Create the chart
       chartInstanceRef.current = new Chart(ctx, {
         type: "line",
         data: {

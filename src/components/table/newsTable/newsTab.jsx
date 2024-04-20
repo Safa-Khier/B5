@@ -1,9 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+// This component is used to display the news tab
 export default function NewsTab({ news_object }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // Translation function
 
+  // Function to format the timestamp
   function formatTimestamp(timestamp) {
     // Check if the timestamp is likely in seconds (reasonable cutoff is year 2001)
     if (timestamp < 10000000000) {

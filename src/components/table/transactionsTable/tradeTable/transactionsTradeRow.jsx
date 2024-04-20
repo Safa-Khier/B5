@@ -1,13 +1,14 @@
 import React from "react";
 import { removeTrailingZeros } from "../../../../../public/publicFunctions";
-import { useTranslation } from "react-i18next";
 import { convertTimestampToDate } from "../../../../firebase";
 
+// This component is used to display a row in the transactions trade table
 export const TransactionsTradeRow = (prop) => {
-  const transaction = prop.data;
-  const { t } = useTranslation();
+  const transaction = prop.data; // Get the transaction data
 
+  // Function to format a date
   function formatDate(date) {
+    // Get the day, month, year, hours and minutes
     let day = date.getDate();
     let month = date.getMonth() + 1; // getMonth() returns month from 0 to 11
     let year = date.getFullYear();
