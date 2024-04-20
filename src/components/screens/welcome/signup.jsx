@@ -31,6 +31,19 @@ export default function Signup() {
   });
   const [loading, setLoading] = useState(false); // State to track the signup process
 
+  // Function to handle phone number change
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    if (value.length > 10) return; // Limit the phone number to 10 digits
+
+    if (value.length === 0) return setFormData({ ...formData, phone: "" }); // Clear the phone number if the input is empty
+
+    // Block any non-digit characters
+    if (!/^\d+$/.test(value)) return;
+
+    setFormData({ ...formData, phone: value });
+  };
+
   // Function to handle the signup process
   const handleSignUpSubmit = async (e) => {
     if (!checkFormFields()) return; // Check if the form fields are valid
@@ -181,10 +194,10 @@ export default function Signup() {
             />
           </div>
           <input
-            type="text"
-            onChange={(e) =>
-              setFormData({ ...formData, phone: e.target.value })
-            }
+            autoComplete="off"
+            type="tel"
+            value={formData.phone}
+            onChange={handlePhoneChange}
             className="h-10 pl-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder={t("phone")}
           />

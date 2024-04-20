@@ -4,11 +4,14 @@ import { TransactionsTradeRow } from "./transactionsTradeRow";
 import { convertTimestampToDate } from "../../../../firebase";
 import { Paging } from "../../paging";
 import LoadingDataScreen from "../../loading.data.screen";
+import { useAuth } from "../../../../AuthContext";
 
 // This component is used to display the Transactions Trade Table
 export default function TransactionsTradeTable({ transactions, currencies }) {
   const { t } = useTranslation(); // Translation function
   const transactionsPerPage = 7; // Number of transactions per page
+
+  const { currentUserData } = useAuth(); // Get the current user and user data
 
   const [transactionsData, setTransactionsData] = useState([]); // State to store the transactions data
   const [data, setData] = useState([]); // State to store the data to display
@@ -224,7 +227,9 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
           ))}
         </tbody>
       </table>
-      {transactionsData.length === 0 ? (
+      {currentUserData.transactions?.filter(
+        (t) => t.transactionType === "trade",
+      ).length === 0 ? (
         <div>
           <h1 className="text-2xl text-center mt-5">{t("no-transactions")}</h1>
         </div>

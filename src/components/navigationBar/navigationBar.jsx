@@ -189,16 +189,7 @@ export default function NavigationBar() {
           )}
         </div>
 
-        <div className="text-black dark:text-white hidden justify-start items-center lg:order-2 rtl:space-x-reverse xl:flex">
-          <img
-            className="mr-2"
-            src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
-            loading="lazy"
-            width={20}
-            height={20}
-          />
-          <Halving />
-        </div>
+        <Halving />
 
         <div className="hidden items-center md:order-2 space-x-2 md:space-x-0 rtl:space-x-reverse md:flex">
           <div className="dropdown">

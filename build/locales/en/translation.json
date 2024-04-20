@@ -30,6 +30,7 @@
   "dashboard": "Dashboard",
   "transactions-history": "Transactions History",
 
+  "noData": "No data found",
   "no-transactions": "No transactions found",
 
   "name": "Name",

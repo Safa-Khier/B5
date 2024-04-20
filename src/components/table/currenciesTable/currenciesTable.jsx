@@ -198,9 +198,20 @@ export const CurrenciesTable = () => {
           ))}
         </tbody>
       </table>
-      <div className={`${data.length === 0 ? "" : "hidden"} h-20`}>
+      {cryptoCurrenciesData.data.length === 0 ? (
+        <div className="h-20">
+          <LoadingDataScreen />
+        </div> // If there is no data to display
+      ) : (
+        cryptoCurrenciesData.filterdData.length === 0 && (
+          <div>
+            <h1 className="text-2xl text-center mt-5">{t("noData")}</h1>
+          </div>
+        )
+      )}
+      {/* <div className={`${data.length === 0 ? "" : "hidden"} h-20`}>
         <LoadingDataScreen />
-      </div>
+      </div> */}
       <Paging
         totalPageNumber={totalPageNumber}
         currentPage={currentPage}
