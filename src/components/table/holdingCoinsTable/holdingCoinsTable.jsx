@@ -99,13 +99,16 @@ export const holdingCoinTable = (prop) => {
       <table className="w-full">
         <thead className="w-full">
           <tr className="bg-white dark:bg-gray-800 border-b">
-            <th className="text-start">{t("coin")}</th>
-            <th onClick={() => sortData("amount")} className="text-end ">
+            <th className="text-start text-gray-400">{t("coin")}</th>
+            <th
+              onClick={() => sortData("amount")}
+              className="text-end text-gray-400 hover:text-black dark:hover:text-white"
+            >
               {headerCell("amount", "amount")}
             </th>
             <th
               onClick={() => sortData("current_price")}
-              className="md:table-cell hidden text-end"
+              className="md:table-cell hidden text-end text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("current_price", "coinPrice")}
             </th>
@@ -113,7 +116,7 @@ export const holdingCoinTable = (prop) => {
               onClick={() =>
                 sortData("price_change_percentage_24h_in_currency")
               }
-              className="md:table-cell hidden text-end"
+              className="md:table-cell hidden text-end text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell(
                 "price_change_percentage_24h_in_currency",

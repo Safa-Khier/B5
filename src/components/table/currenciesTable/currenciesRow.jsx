@@ -77,16 +77,32 @@ export const CurrenciesRow = (prop) => {
         {"$" + removeTrailingZeros(crypto.current_price)}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
-        {createChangeElement(crypto.price_change_percentage_1h_in_currency)}
+        {!crypto.price_change_percentage_1h_in_currency ? (
+          <div className="w-full text-center">-</div>
+        ) : (
+          createChangeElement(crypto.price_change_percentage_1h_in_currency)
+        )}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
-        {createChangeElement(crypto.price_change_percentage_24h_in_currency)}
+        {!crypto.price_change_percentage_24h_in_currency ? (
+          <div className="w-full text-center">-</div>
+        ) : (
+          createChangeElement(crypto.price_change_percentage_24h_in_currency)
+        )}
       </td>
       <td className="py-2 text-end">
-        {createChangeElement(crypto.price_change_percentage_7d_in_currency)}
+        {!crypto.price_change_percentage_7d_in_currency ? (
+          <div className="w-full text-center">-</div>
+        ) : (
+          createChangeElement(crypto.price_change_percentage_7d_in_currency)
+        )}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
-        {"$" + format_number(crypto.market_cap)}
+        {!crypto.market_cap ? (
+          <div className="w-full text-center">-</div>
+        ) : (
+          "$" + format_number(crypto.market_cap)
+        )}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
         {createVolumeCell(
@@ -96,9 +112,13 @@ export const CurrenciesRow = (prop) => {
         )}
       </td>
       <td className="py-2 md:table-cell hidden text-end">
-        {format_number(crypto.circulating_supply) +
+        {!crypto.circulating_supply ? (
+          <div className="w-full text-center">-</div>
+        ) : (
+          format_number(crypto.circulating_supply) +
           " " +
-          crypto.symbol.toUpperCase()}
+          crypto.symbol.toUpperCase()
+        )}
       </td>
 
       <td className="py-2 md:table-cell hidden">

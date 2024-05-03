@@ -147,25 +147,22 @@ export default function TransactionsBuyTable({ transactions, currencies }) {
           <tr className="border-b">
             <th
               onClick={() => sortData("name")}
-              className="cursor-pointer bg-white dark:bg-gray-800 "
+              className="cursor-pointer bg-white dark:bg-gray-800 text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("name", "coin")}
             </th>
             <th
               onClick={() => sortData("amount")}
-              className="cursor-pointer bg-white dark:bg-gray-800"
+              className="cursor-pointer bg-white dark:bg-gray-800 text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("amount", "amount")}
             </th>
-            <th
-              onClick={() => sortData("creditCardDetails")}
-              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
-            >
+            <th className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden text-gray-400">
               {headerCell("creditCardDetails", "cardNumber")}
             </th>
             <th
               onClick={() => sortData("timestamp")}
-              className="cursor-pointer bg-white dark:bg-gray-800"
+              className="cursor-pointer bg-white dark:bg-gray-800 text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("timestamp", "time")}
             </th>

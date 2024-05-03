@@ -185,32 +185,32 @@ export default function TransactionsTradeTable({ transactions, currencies }) {
           <tr className="border-b">
             <th
               onClick={() => sortData("soldCurrency", "name")}
-              className="cursor-pointer bg-white dark:bg-gray-800 "
+              className="cursor-pointer bg-white dark:bg-gray-800 text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("soldCurrency.name", "fromCurrency")}
             </th>
 
             <th
               onClick={() => sortData("boughtCurrency", "name")}
-              className="cursor-pointer bg-white dark:bg-gray-800 "
+              className="cursor-pointer bg-white dark:bg-gray-800 text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("boughtCurrency.name", "toCurrency")}
             </th>
             <th
               onClick={() => sortData("soldCurrency", "amount")}
-              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("soldCurrency.amount", "quantitySold")}
             </th>
             <th
               onClick={() => sortData("boughtCurrency", "amount")}
-              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("boughtCurrency.amount", "quantityBought")}
             </th>
             <th
               onClick={() => sortData("timestamp")}
-              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden"
+              className="cursor-pointer bg-white dark:bg-gray-800 md:table-cell hidden text-gray-400 hover:text-black dark:hover:text-white"
             >
               {headerCell("timestamp", "time")}
             </th>
