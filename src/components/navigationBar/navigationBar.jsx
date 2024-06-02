@@ -170,20 +170,18 @@ export default function NavigationBar() {
               </button>
             </div>
           ) : (
-            <div className="flex md:hidden flex-row items-center">
+            <div className="dropdown">
               <button
-                onClick={() => setPathLocation("/welcome/signup")}
                 type="button"
-                className="material-icons text-black dark:text-white hover:bg-gray-100 p-2 mx-2 hover:rounded-full dark:hover:bg-gray-700"
+                onClick={() => {
+                  setIsSearchOpen(false);
+                  setIsUserMenuOpen(!isUserMenuOpen);
+                }}
+                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               >
-                edit
-              </button>
-              <button
-                onClick={() => setPathLocation("/welcome/login")}
-                type="button"
-                className="material-icons text-black dark:text-white hover:bg-gray-100 p-2 mx-2 hover:rounded-full dark:hover:bg-gray-700"
-              >
-                login
+                <i className="material-icons">
+                  {isUserMenuOpen ? "close" : "menu"}
+                </i>
               </button>
             </div>
           )}
@@ -299,7 +297,273 @@ export default function NavigationBar() {
       </nav>
       <SearchBar isSearchOpen={isSearchOpen} searchData={location} />
       <UserMenu isUserMenuOpen={isUserMenuOpen} />
-      {isUserMenuOpen && currentUser && (
+      {currentUser
+        ? isUserMenuOpen && (
+            <div
+              className="scrollable-content content items-center p-5 absolute md:hidden bg-opacity-5 bg-white font-bold text-black dark:text-white"
+              style={{
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+              }}
+            >
+              <div className="flex flex-col justify-center items-center w-full">
+                <div className="flex justify-end items-end w-full">
+                  <button
+                    onClick={() => setPathLocation("/home/settings")}
+                    className="material-icons p-1 rounded-full hover:text-gray-500 dark:hover:text-gray-200"
+                  >
+                    settings
+                  </button>
+                </div>
+                <div className="w-[80%] flex flex-col justify-center items-center gap-4 pb-10">
+                  <div className="flex flex-col justify-center items-center gap-3">
+                    <i className="material-icons" style={{ fontSize: "100px" }}>
+                      account_circle
+                    </i>
+                    <p>{currentUser && currentUser.displayName}</p>
+                  </div>
+                  {buttons.map((button) => (
+                    <a
+                      key={button.title}
+                      href={`/home/${button.title}`}
+                      className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
+                      onClick={() => setLocation(button.title)}
+                    >
+                      <i className="material-icons">{button.icon}</i>
+                      {t(button.title)}
+                    </a>
+                  ))}
+                  <div className="w-full flex items-start">
+                    <a
+                      key={"dashboard"}
+                      href={`/home/dashboard`}
+                      className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
+                      onClick={() => setLocation("dashboard")}
+                    >
+                      <i className="material-icons">dashboard</i>
+                      {t("dashboard")}
+                    </a>
+                    <button
+                      onClick={() => {
+                        setDashboardMenuOpened(!dashboardMenuOpened);
+                      }}
+                      className="material-icons"
+                    >
+                      {dashboardMenuOpened ? "expand_less" : "expand_more"}
+                    </button>
+                  </div>
+                  {dashboardMenuOpened &&
+                    dashboardButtons.map((button) => (
+                      <a
+                        key={button.title}
+                        href={`/home/dashboard/${button.title}`}
+                        className="flex w-full pl-10 h-10  "
+                        onClick={() => setLocation(button.title)}
+                      >
+                        <div className="w-full flex gap-5 border-b border-gray-400">
+                          <i className="material-icons">{button.icon}</i>
+                          {t(button.title)}
+                        </div>
+                      </a>
+                    ))}
+                  <div className="w-full py-2">
+                    <button
+                      onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                      className="flex justify-between items-center gap-1"
+                    >
+                      <i className="material-icons">translate</i>
+                      {t("languageName")}
+                      <i className="material-icons">expand_more</i>
+                    </button>
+                    {isLanguageMenuOpen && (
+                      <div className="flex flex-col justify-center items-start gap-3 py-2 px-7">
+                        <button
+                          onClick={() => handleLanguageChange("en", Usa)}
+                          className="flex justify-between items-center"
+                        >
+                          English (US)
+                        </button>
+                        <button
+                          onClick={() => handleLanguageChange("ru", Russia)}
+                          className="flex justify-between items-center"
+                        >
+                          Русский
+                        </button>
+                        <button
+                          onClick={() => handleLanguageChange("de", Germany)}
+                          className="flex justify-between items-center"
+                        >
+                          Deutsch
+                        </button>
+                        <button
+                          onClick={() => handleLanguageChange("it", Italy)}
+                          className="flex justify-between items-center"
+                        >
+                          Italiano
+                        </button>
+                        <button
+                          onClick={() => handleLanguageChange("zh", china)}
+                          className="flex justify-between items-center"
+                        >
+                          中文 (繁體)
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-full p-5 h-12 flex justify-between items-center bg-gray-300  bg-opacity-20 rounded-lg">
+                    {t("darkMode")}
+
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        checked={settings.theme === "dark" ? true : false}
+                        onChange={(e) =>
+                          handleThemeChange(e.target.checked ? "dark" : "light")
+                        }
+                      />
+                      <span className="switch" />
+                    </label>
+                  </div>
+                  <button
+                    className="w-full p-5 h-12 flex justify-start items-center bg-gray-300 bg-opacity-20 rounded-lg gap-2 hover:bg-gray-400 dark:hover:bg-gray-500"
+                    onClick={showAlert}
+                  >
+                    <i className="material-icons">logout</i>
+                    {t("signOut")}
+                  </button>
+                </div>
+              </div>
+              <div className="flex gap-4 text-lg ">
+                <a
+                  href="https://www.instagram.com"
+                  className="fa fa-instagram cursor-pointer p-1 text-fuchsia-400"
+                  target="_blank"
+                  aria-hidden="true"
+                />
+                <a
+                  href="https://wa.me/972543921507"
+                  className="fa fa-whatsapp cursor-pointer p-1 text-green"
+                  target="_blank"
+                  aria-hidden="true"
+                />
+                <a
+                  href="https://www.facebook.com"
+                  className="fa fa-facebook-official cursor-pointer p-1 text-blue-500"
+                  target="_blank"
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+          )
+        : isUserMenuOpen && (
+            <div
+              className="scrollable-content content h-full items-center p-5 absolute md:hidden bg-white dark:bg-gray-700 font-bold text-black dark:text-white"
+              style={{
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                "--tw-bg-opacity": "0.5",
+              }}
+            >
+              <div className="flex flex-col justify-start items-center h-full w-full">
+                <div className="w-[80%] flex flex-col justify-center items-center gap-4 py-10">
+                  <a
+                    href="/welcome/login"
+                    className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
+                  >
+                    <i className="material-icons">login</i>
+                    {t("login")}
+                  </a>
+                  <a
+                    href="/welcome/signup"
+                    className="flex h-10 gap-5 w-full px-5 border-b border-gray-400"
+                  >
+                    <i className="material-icons">edit</i>
+                    {t("signup")}
+                  </a>
+
+                  <div className="w-full py-2">
+                    <button
+                      onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
+                      className="flex justify-between items-center gap-1"
+                    >
+                      <i className="material-icons">translate</i>
+                      {t("languageName")}
+                      <i className="material-icons">expand_more</i>
+                    </button>
+                    {isLanguageMenuOpen && (
+                      <div className="flex flex-col justify-center items-start gap-3 py-2 px-7">
+                        <button
+                          onClick={() => handleLanguageChange("en", Usa)}
+                          className="flex justify-between items-center"
+                        >
+                          English (US)
+                        </button>
+                        <button
+                          onClick={() => handleLanguageChange("ru", Russia)}
+                          className="flex justify-between items-center"
+                        >
+                          Русский
+                        </button>
+                        <button
+                          onClick={() => handleLanguageChange("de", Germany)}
+                          className="flex justify-between items-center"
+                        >
+                          Deutsch
+                        </button>
+                        <button
+                          onClick={() => handleLanguageChange("it", Italy)}
+                          className="flex justify-between items-center"
+                        >
+                          Italiano
+                        </button>
+                        <button
+                          onClick={() => handleLanguageChange("zh", china)}
+                          className="flex justify-between items-center"
+                        >
+                          中文 (繁體)
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-full p-5 h-12 flex justify-between items-center bg-gray-300  bg-opacity-20 rounded-lg">
+                    {t("darkMode")}
+
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        checked={settings.theme === "dark" ? true : false}
+                        onChange={(e) =>
+                          handleThemeChange(e.target.checked ? "dark" : "light")
+                        }
+                      />
+                      <span className="switch" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className="flex gap-4 text-lg ">
+                <a
+                  href="https://www.instagram.com"
+                  className="fa fa-instagram cursor-pointer p-1 text-fuchsia-400"
+                  target="_blank"
+                  aria-hidden="true"
+                />
+                <a
+                  href="https://wa.me/972543921507"
+                  className="fa fa-whatsapp cursor-pointer p-1 text-green"
+                  target="_blank"
+                  aria-hidden="true"
+                />
+                <a
+                  href="https://www.facebook.com"
+                  className="fa fa-facebook-official cursor-pointer p-1 text-blue-500"
+                  target="_blank"
+                  aria-hidden="true"
+                />
+              </div>
+            </div>
+          )}
+      {/* {isUserMenuOpen && currentUser && (
         <div
           className="scrollable-content content items-center p-5 absolute md:hidden bg-opacity-5 bg-white font-bold text-black dark:text-white"
           style={{
@@ -455,7 +719,7 @@ export default function NavigationBar() {
             />
           </div>
         </div>
-      )}
+      )} */}
       <Alert
         title={"signOutTitle"}
         message={"signOutMessage"}
